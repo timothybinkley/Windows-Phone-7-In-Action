@@ -29,6 +29,7 @@ namespace DataStorage
         {
             IsolatedStorageSettings.ApplicationSettings["Name"] = nameTextBox.Text;
             IsolatedStorageSettings.ApplicationSettings["Surname"] = surnameTextBox.Text;
+            IsolatedStorageSettings.ApplicationSettings.Save();
         }
     }
 }
