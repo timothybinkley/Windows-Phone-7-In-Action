@@ -1,0 +1,11 @@
+# Hidden subersion folders
+.svn
+
+# Bild Folders (you can keep bin if you'd like, to store dlls and pdbs)
+bin
+obj
+
+# Other misc files
+*.suo
+*.user
+*.db
