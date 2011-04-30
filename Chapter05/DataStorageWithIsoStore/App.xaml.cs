@@ -1,72 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
+﻿using System.Windows;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using System.IO.IsolatedStorage;
-using System.Xml.Serialization;
-using System.IO;
-using System.Collections.ObjectModel;
 
 namespace DataStorage
 {
     public partial class App : Application
     {
 
-        public ObservableCollection<ContactInfo> Contacts = new ObservableCollection<ContactInfo>();
-
-        public void LoadContacts()
-        {
-            // create the data storage folder
-            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
-            {
-                if (!storage.DirectoryExists("ContactsFolder"))
-                {
-                    storage.CreateDirectory("ContactsFolder");
-                }
-
-                if (storage.FileExists(@"ContactsFolder\ContactsFile.data"))
-                {
-                    // load the data file into the contacts list.
-                    using (IsolatedStorageFileStream stream =
-                        storage.OpenFile(@"ContactsFolder\ContactsFile.data", FileMode.Open))
-                    {
-                        XmlSerializer serializer =
-                            new XmlSerializer(typeof(List<ContactInfo>));
-                        var contactList = (IList<ContactInfo>)serializer.Deserialize(stream);
-                        foreach (var contact in contactList)
-                        {
-                            Contacts.Add(contact);
-                        }
-
-                    }
-                }
-            }
-        }
-
-        public void SaveContacts()
-        {
-            using (IsolatedStorageFile storage =
-                IsolatedStorageFile.GetUserStoreForApplication())
-            {
-                using (IsolatedStorageFileStream stream =
-                    storage.CreateFile(@"ContactsFolder\ContactsFile.data"))
-                {
-                    XmlSerializer serializer =
-                        new XmlSerializer(typeof(ObservableCollection<ContactInfo>));
-                    serializer.Serialize(stream, Contacts);
-                }
-            }
-        }
+        public ContactsModel Model = new ContactsModel();
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -107,7 +49,7 @@ namespace DataStorage
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            LoadContacts();
+            Model.LoadContacts();
         }
 
         // Code to execute when the application is activated (brought to foreground)

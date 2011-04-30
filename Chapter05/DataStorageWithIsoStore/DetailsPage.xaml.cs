@@ -1,7 +1,6 @@
 ﻿using System;
-using System.IO.IsolatedStorage;
-using Microsoft.Phone.Controls;
 using System.Windows;
+using Microsoft.Phone.Controls;
 
 namespace DataStorage
 {
@@ -19,14 +18,13 @@ namespace DataStorage
             {
                 if (selectedIndex == "new")
                 {
-                    var contact = new ContactInfo();
-                    ((App)Application.Current).Contacts.Add(contact);
+                    var contact = ((App)Application.Current).Model.CreateContact();
                     DataContext = contact;
                 }
                 else
                 {
                     int index = int.Parse(selectedIndex);
-                    DataContext = ((App)Application.Current).Contacts[index];
+                    DataContext = ((App)Application.Current).Model.Contacts[index];
                 }
             }
         }
@@ -34,7 +32,7 @@ namespace DataStorage
         private void Delete_Click(object sender, EventArgs e)
         {
             var contact = (ContactInfo)DataContext;
-            ((App)Application.Current).Contacts.Remove(contact);
+            ((App)Application.Current).Model.DeleteContact(contact);
             NavigationService.GoBack();
         }
 

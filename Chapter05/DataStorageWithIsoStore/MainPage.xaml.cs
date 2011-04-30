@@ -1,7 +1,6 @@
 ﻿using System;
-using System.IO.IsolatedStorage;
-using Microsoft.Phone.Controls;
 using System.Windows;
+using Microsoft.Phone.Controls;
 
 namespace DataStorage
 {
@@ -10,12 +9,12 @@ namespace DataStorage
         public MainPage()
         {
             InitializeComponent();
-            DataContext = ((App)Application.Current).Contacts;
+            DataContext = ((App)Application.Current).Model.Contacts;
         }
 
         private void Save_Click(object sender, EventArgs e)
         {
-            ((App)Application.Current).SaveContacts();
+            ((App)Application.Current).Model.SaveContacts();
         }
 
         private void ContactsListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
