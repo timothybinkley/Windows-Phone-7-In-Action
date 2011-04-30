@@ -62,6 +62,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ContactInfo.cs" />
+    <Compile Include="ContactsDataContext.cs" />
     <Compile Include="ContactsModel.cs" />
     <Compile Include="DetailsPage.xaml.cs">
       <DependentUpon>DetailsPage.xaml</DependentUpon>

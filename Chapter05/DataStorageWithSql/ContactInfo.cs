@@ -1,11 +1,31 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Data.Linq.Mapping;
+using Microsoft.Phone.Data.Linq.Mapping;
 
 namespace DataStorage
 {
+    [Table]
+    [Index(Columns="Name")]
     public class ContactInfo : INotifyPropertyChanged
     {
+        private int id;
+        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get { return id; }
+            set
+            {
+                if (value != id)
+                {
+                    id = value;
+                    NotifyPropertyChanged("Id");
+                }
+            }
+        }
+
         private string name;
+        [Column]
         public String Name
         {
             get { return name; }
@@ -20,6 +40,7 @@ namespace DataStorage
         }
 
         public string surname;
+        [Column]
         public String Surname
         {
             get { return surname; }

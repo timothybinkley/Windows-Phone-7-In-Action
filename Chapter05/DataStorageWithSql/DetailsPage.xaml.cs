@@ -35,7 +35,5 @@ namespace DataStorage
             ((App)Application.Current).Model.DeleteContact(contact);
             NavigationService.GoBack();
         }
-
-
     }
 }

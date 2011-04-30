@@ -56,6 +56,7 @@ namespace DataStorage
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            // todo: properly handle reactivation from dormant and tombstone
         }
 
         // Code to execute when the application is deactivated (sent to background)

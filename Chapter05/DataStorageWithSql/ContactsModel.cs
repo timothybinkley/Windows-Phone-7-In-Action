@@ -73,5 +73,13 @@ namespace DataStorage
             contacts.Remove(contact);
         }
 
+        public void InitializeDataContext()
+        {
+            Context = new ContactsDataContext(@"isostore:/contactsstore.sdf");
+            if (!Context.DatabaseExists())
+            {
+                Context.CreateDatabase();
+            }
+        }
     }
 }
