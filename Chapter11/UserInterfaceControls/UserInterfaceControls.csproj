@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2FCA5A73-6B11-41FF-9A16-2A4066CA5219}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UserInterfaceControls</RootNamespace>
+    <AssemblyName>UserInterfaceControls</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>true</SilverlightApplication>
+    <SupportedCultures>
+    </SupportedCultures>
+    <XapOutputs>true</XapOutputs>
+    <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
+    <XapFilename>UserInterfaceControls.xap</XapFilename>
+    <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
+    <SilverlightAppEntry>UserInterfaceControls.App</SilverlightAppEntry>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BuildingTheUI\BorderSample.xaml.cs">
+      <DependentUpon>BorderSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BuildingTheUI\ImageSample.xaml.cs">
+      <DependentUpon>ImageSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BuildingTheUI\ProgressBarSample.xaml.cs">
+      <DependentUpon>ProgressBarSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BuildingTheUI\ShapesSample.xaml.cs">
+      <DependentUpon>ShapesSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BuildingTheUI\TextBlockSample.xaml.cs">
+      <DependentUpon>TextBlockSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Layout\CanvasSample.xaml.cs">
+      <DependentUpon>CanvasSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Layout\GridSample.xaml.cs">
+      <DependentUpon>GridSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Layout\StackPanelSample.xaml.cs">
+      <DependentUpon>StackPanelSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReceivingInput\ButtonSample.xaml.cs">
+      <DependentUpon>ButtonSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReceivingInput\CheckBoxSample.xaml.cs">
+      <DependentUpon>CheckBoxSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReceivingInput\HyperlinkSample.xaml.cs">
+      <DependentUpon>HyperlinkSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReceivingInput\InputScopeSample.xaml.cs">
+      <DependentUpon>InputScopeSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReceivingInput\RadioButtonSample.xaml.cs">
+      <DependentUpon>RadioButtonSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReceivingInput\SliderSample.xaml.cs">
+      <DependentUpon>SliderSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReceivingInput\TextBoxSample.xaml.cs">
+      <DependentUpon>TextBoxSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transforming\CompositeTransformSample.xaml.cs">
+      <DependentUpon>CompositeTransformSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transforming\MatrixTransformSample.xaml.cs">
+      <DependentUpon>MatrixTransformSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transforming\ProjectionSample.xaml.cs">
+      <DependentUpon>ProjectionSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transforming\RotateTransformSample.xaml.cs">
+      <DependentUpon>RotateTransformSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transforming\ScaleTransformSample.xaml.cs">
+      <DependentUpon>ScaleTransformSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transforming\SkewTransformSample.xaml.cs">
+      <DependentUpon>SkewTransformSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transforming\TransformGroupSample.xaml.cs">
+      <DependentUpon>TransformGroupSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transforming\TranslateTransformSample.xaml.cs">
+      <DependentUpon>TranslateTransformSample.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </ApplicationDefinition>
+    <Page Include="BuildingTheUI\BorderSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BuildingTheUI\ImageSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BuildingTheUI\ProgressBarSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BuildingTheUI\ShapesSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BuildingTheUI\TextBlockSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Layout\CanvasSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Layout\GridSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Layout\StackPanelSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReceivingInput\ButtonSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReceivingInput\CheckBoxSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReceivingInput\HyperlinkSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReceivingInput\InputScopeSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReceivingInput\RadioButtonSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReceivingInput\SliderSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReceivingInput\TextBoxSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Transforming\CompositeTransformSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Transforming\MatrixTransformSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Transforming\ProjectionSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Transforming\RotateTransformSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Transforming\ScaleTransformSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Transforming\SkewTransformSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Transforming\TransformGroupSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Transforming\TranslateTransformSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AppManifest.xml" />
+    <None Include="Properties\WMAppManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ApplicationIcon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\cover_resource.png" />
+    <Content Include="Images\cover.png" />
+    <Content Include="SplashScreenImage.jpg" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions />
+</Project>
