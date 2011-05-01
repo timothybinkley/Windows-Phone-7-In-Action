@@ -6,7 +6,7 @@ using System.Windows.Media.Imaging;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 
-namespace Camera
+namespace PhotoEditor
 {
     public partial class MainPage : PhoneApplicationPage
     {
@@ -95,7 +95,7 @@ namespace Camera
         //{
         //    currentImage = e.Result;
         //    photoContainer.Fill = new ImageBrush { ImageSource = e.Result };
-        //    imageDetails.Text = string.Format("Image from Camera.");
+        //    imageDetails.Text = string.Format("Image from PhotoEditor.");
         //    camera.Stop();
         //    camera = null;
         //}

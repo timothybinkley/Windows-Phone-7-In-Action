@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using ExifLib;
 
-namespace Camera
+namespace PhotoEditor
 {
     public static class ImageUtil
     {
