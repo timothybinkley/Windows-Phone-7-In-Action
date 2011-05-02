@@ -38,7 +38,6 @@ namespace PhotoEditor
             BitmapImage bitmap = new BitmapImage();
             bitmap.SetSource(stream);
             return new WriteableBitmap(bitmap);
-
         }
 
         public static WriteableBitmap GetBitmap(Stream stream, int angle)
