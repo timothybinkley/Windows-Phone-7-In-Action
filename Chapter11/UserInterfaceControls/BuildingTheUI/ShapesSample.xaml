@@ -32,7 +32,7 @@
                        Text="WINDOWS PHONE 7 IN ACITON"
                        Style="{StaticResource PhoneTextNormalStyle}" />
             <TextBlock x:Name="shapes"
-                       Text="page name"
+                       Text="shapes"
                        Margin="9,-7,0,0"
                        Style="{StaticResource PhoneTextTitle1Style}" />
         </StackPanel>
