@@ -71,11 +71,17 @@
     <Compile Include="BuildingTheUI\ProgressBarSample.xaml.cs">
       <DependentUpon>ProgressBarSample.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BuildingTheUI\RichTextBoxSample.xaml.cs">
+      <DependentUpon>RichTextBoxSample.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BuildingTheUI\ShapesSample.xaml.cs">
       <DependentUpon>ShapesSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="BuildingTheUI\TextBlockSample.xaml.cs">
       <DependentUpon>TextBlockSample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Toolkit\GestureListenerSample.xaml.cs">
+      <DependentUpon>GestureListenerSample.xaml</DependentUpon>
     </Compile>
     <Compile Include="Layout\CanvasSample.xaml.cs">
       <DependentUpon>CanvasSample.xaml</DependentUpon>
@@ -167,11 +173,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="BuildingTheUI\RichTextBoxSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BuildingTheUI\ShapesSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BuildingTheUI\TextBlockSample.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Toolkit\GestureListenerSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

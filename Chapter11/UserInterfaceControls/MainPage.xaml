@@ -82,6 +82,7 @@
                         <System:String>/Toolkit/ToggleSwitchSample.xaml</System:String>
                         <System:String>/Toolkit/DateTimePickerSample.xaml</System:String>
                         <System:String>/Toolkit/ContextMenuSample.xaml</System:String>
+                        <System:String>/Toolkit/GestureListenerSample.xaml</System:String>
                     </ItemsControl.Items>
                 </ItemsControl>
             </controls:PivotItem>
