@@ -1,0 +1,53 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="PhotoExtrasAppExtSampple.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:itFilter="clr-namespace:ImageTools.Filtering;assembly=ImageTools.Filtering"
+    xmlns:it="clr-namespace:ImageTools.Controls;assembly=ImageTools.Controls"
+    mc:Ignorable="d" 
+    d:DesignWidth="480" 
+    d:DesignHeight="696"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="IMAGE SAMPLE" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="Image Filters" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <Grid x:Name="ContentPanel" Grid.Row="1">
+            <it:AnimatedImage x:Name="ImageContainer" AutoSize="False" Stretch="Uniform" />
+            <StackPanel x:Name="progressbarPanel" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Loading... It will take a few minutes.." Margin="10"/>
+                <ProgressBar x:Name="prograssbar"
+                      IsIndeterminate="True"                
+                      Style="{StaticResource PerformanceProgressBar}"
+                />
+            </StackPanel>
+            
+        </Grid>
+    </Grid>
+
+<phone:PhoneApplicationPage.ApplicationBar>
+    <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+        <shell:ApplicationBar.MenuItems>
+            <shell:ApplicationBarMenuItem Text="Grayscale" x:Name="ApplyGrayscaleItem" Click="ApplyGrayscaleItem_Click" />
+            <shell:ApplicationBarMenuItem Text="Sepia" x:Name="ApplySepiaItem" Click="ApplySepiaItem_Click" />
+            <shell:ApplicationBarMenuItem Text="Invert" x:Name="ApplyInvertItem" Click="ApplyInvertItem_Click" />
+        </shell:ApplicationBar.MenuItems>
+    </shell:ApplicationBar>
+</phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>
