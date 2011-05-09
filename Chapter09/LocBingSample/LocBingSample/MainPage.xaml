@@ -1,0 +1,83 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="LocBingSample.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True" 
+    xmlns:my="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps">
+	<phone:PhoneApplicationPage.Resources>
+		
+		<Storyboard x:Name="FadeInAnimation" 
+                    Completed="FadeInAnimation_Completed">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" >
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="1"/>                
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+        <Storyboard x:Name="FadeOutAnimation"
+                    Completed="FadeOutAnimation_Completed">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" >
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="Windows Phone 7 in Action (Bing Map)" 
+                       Style="{StaticResource PhoneTextNormalStyle}"/>            
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel"  Grid.Row="1" Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <my:Map x:Name="mapControl" 
+                    CredentialsProvider="AoNZ6k--FCVxma7rhNiPey9SKHkGmncsJNDsLywIIT-CxUoz7qmk97i6aPZuEr3s" 
+                    />
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <!--<Image Source="Images\Argentina-flag.png" Width="120" Height="100" />-->
+                <ToggleButton Content="Aerial" 
+                              x:Name="aerialModeButton"
+                              Width="120"
+                              Click="aerialModeButton_Click"
+                              />
+                <Button Content="+" Width="80" x:Name="zoomInButton" 
+                        Click="zoomInButton_Click"/>
+                <Button Content="-" Width="80" x:Name="zoomOutButton" 
+                        Click="zoomOutButton_Click"/>
+                <ToggleButton Content="Start" Width="120" x:Name="startButton" 
+                         Click="startButton_Click"
+                        />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <Button Content="South America"
+                        Width="252"
+                        x:Name="SouthAmericaButton"
+                        Click="SouthAmericaButton_Click"
+                        />                    
+             </StackPanel>
+            <TextBlock x:Name="statusTextblock" />
+        </Grid>
+    </Grid>
+</phone:PhoneApplicationPage>
