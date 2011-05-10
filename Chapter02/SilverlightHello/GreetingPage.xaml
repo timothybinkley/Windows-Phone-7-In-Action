@@ -87,6 +87,9 @@
             <shell:ApplicationBarIconButton Text="copy"
                                             IconUri="/Images/appbar.save.rest.png"
                                             Click="copyButton_Click" />
+            <shell:ApplicationBarIconButton Text="pin"
+                                            IconUri="/Images/appbar.next.rest.png"
+                                            Click="pinButton_Click" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 
