@@ -2,6 +2,7 @@
 using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Windows;
+using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 
 namespace Pivot
@@ -16,7 +17,7 @@ namespace Pivot
             data = SampleData.GenerateSampleData();
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             bool loadAllData = false;
             IsolatedStorageSettings.ApplicationSettings.TryGetValue("loadAllData", out loadAllData);
@@ -24,11 +25,10 @@ namespace Pivot
             asNeededOption.IsChecked = !loadAllData;
         }
 
-        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             IsolatedStorageSettings.ApplicationSettings["loadAllData"] = allDataOption.IsChecked.Value;
             State["selection"] = pivot.SelectedIndex;
-            base.OnNavigatedFrom(e);
         }
 
         private void pivot_Loaded(object sender, RoutedEventArgs e)
@@ -41,7 +41,9 @@ namespace Pivot
             if (allDataOption.IsChecked.Value)
             {
                 allDataList.ItemsSource = data;
-                filteredDataList.ItemsSource = data.Where(item => item.Category == SampleCategory.Even);
+                filteredDataList.ItemsSource = from d in data
+                                               where d.Category == SampleCategory.Even
+                                               select d;
             }
         }
 
@@ -53,7 +55,9 @@ namespace Pivot
             }
             else if (e.Item == filteredDataItem && filteredDataList.ItemsSource == null)
             {
-                filteredDataList.ItemsSource = data.Where(item => item.Category == SampleCategory.Even);
+                filteredDataList.ItemsSource = from d in data
+                                               where d.Category == SampleCategory.Even
+                                               select d;
             }
         }
 

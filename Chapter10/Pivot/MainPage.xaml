@@ -53,16 +53,14 @@
             <controls:PivotItem x:Name="allDataItem"
                                 Header="all">
                 <ListBox x:Name="allDataList"
-                         ItemTemplate="{StaticResource dataTemplate}">
-                </ListBox>
+                         ItemTemplate="{StaticResource dataTemplate}" />
             </controls:PivotItem>
 
             <!--Pivot item two-->
             <controls:PivotItem x:Name="filteredDataItem"
                                 Header="filtered">
                 <ListBox x:Name="filteredDataList"
-                         ItemTemplate="{StaticResource dataTemplate}">
-                </ListBox>
+                         ItemTemplate="{StaticResource dataTemplate}" />
             </controls:PivotItem>
 
             <controls:PivotItem Header="settings">
@@ -76,5 +74,4 @@
             </controls:PivotItem>
         </controls:Pivot>
     </Grid>
-
 </phone:PhoneApplicationPage>
