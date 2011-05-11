@@ -6,7 +6,6 @@
                             xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                            xmlns:sys="clr-namespace:System;assembly=mscorlib"
                             mc:Ignorable="d"
                             d:DesignWidth="480"
                             d:DesignHeight="800"
@@ -16,32 +15,32 @@
                             SupportedOrientations="Portrait"
                             Orientation="Portrait"
                             shell:SystemTray.IsVisible="False">
-
-    <phone:PhoneApplicationPage.Resources>
-        <sys:String x:Key="message">Windows Phone 7 is a major shift in the way Microsoft developers design, develop, and sell mobile apps.</sys:String>
-    </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot">
         <controls:Panorama x:Name="panorama"
                            Foreground="White"
                            SelectionChanged="panorama_SelectionChanged">
             <controls:Panorama.Title>
-                <Grid Margin="0, 55, 0,0">
+                <Grid Margin="0,55,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Image Source="PanoramaLogo.png" Grid.RowSpan="2" Margin="12,36, 12, 0"/>
-                    <TextBlock Grid.Column="1" Text="windows phone 7" 
+                    <Image Source="PanoramaLogo.png"
+                           Grid.RowSpan="2"
+                           Margin="12,36,12,0" />
+                    <TextBlock Grid.Column="1"
+                               Text="windows phone 7"
                                FontSize="{StaticResource PhoneFontSizeExtraExtraLarge}" />
                     <TextBlock Grid.Column="1"
-                               Grid.Row="1" Text="in action"
+                               Grid.Row="1"
+                               Text="in action"
                                FontSize="{StaticResource PhoneFontSizeLarge}" />
-                </Grid>                
+                </Grid>
             </controls:Panorama.Title>
 
             <controls:Panorama.Background>
@@ -51,11 +50,12 @@
             <!--Panorama item one-->
             <controls:PanoramaItem x:Name="panoItem1"
                                    Header="normal">
-
                 <StackPanel Margin="12,0">
-                    <TextBlock Text="{StaticResource message}"
-                               TextWrapping="Wrap"
-                               Margin="0,0,0,40" />
+                    <TextBlock TextWrapping="Wrap"
+                               Margin="0,0,0,40">
+                            Windows Phone 7 is a major shift in the way Microsoft 
+                            developers design, develop, and sell mobile apps.
+                    </TextBlock>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="PanoramaItem.ActualWidth=" />
                         <TextBlock Text="{Binding ActualWidth, ElementName=panoItem1}" />
@@ -71,10 +71,12 @@
             <controls:PanoramaItem x:Name="panoItem2"
                                    Header="auto width"
                                    Orientation="Horizontal">
-                <StackPanel Margin="12, 0">
-                    <TextBlock Text="{StaticResource message}"
-                               TextWrapping="Wrap"
-                               Margin="0,0,0,40" />
+                <StackPanel Margin="12,0">
+                    <TextBlock TextWrapping="Wrap"
+                               Margin="0,0,0,40">
+                            Windows Phone 7 is a major shift in the way Microsoft 
+                            developers design, develop, and sell mobile apps.
+                    </TextBlock>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="PanoramaItem.ActualWidth=" />
                         <TextBlock Text="{Binding ActualWidth, ElementName=panoItem2}" />
@@ -91,10 +93,12 @@
                                    Orientation="Horizontal"
                                    Width="750">
                 <StackPanel>
-                    <StackPanel Margin="12, 0">
-                        <TextBlock Text="{StaticResource message}"
-                                   TextWrapping="Wrap"
-                                   Margin="0,0,0,40" />
+                    <StackPanel Margin="12,0">
+                        <TextBlock TextWrapping="Wrap"
+                                   Margin="0,0,0,40">
+                            Windows Phone 7 is a major shift in the way Microsoft 
+                            developers design, develop, and sell mobile apps.
+                        </TextBlock>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="PanoramaItem.ActualWidth=" />
                             <TextBlock Text="{Binding ActualWidth, ElementName=panoItem3}" />

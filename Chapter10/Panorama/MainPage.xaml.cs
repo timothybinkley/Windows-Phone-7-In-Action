@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using System.IO.IsolatedStorage;
+using System.Windows.Navigation;
 
 namespace Panorama
 {
@@ -21,7 +22,7 @@ namespace Panorama
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             int selectedIndex;
             if (IsolatedStorageSettings.ApplicationSettings.TryGetValue("selection", out selectedIndex))
