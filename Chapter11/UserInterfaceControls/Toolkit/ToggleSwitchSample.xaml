@@ -17,10 +17,6 @@
                             d:DesignHeight="768"
                             d:DesignWidth="480"
                             shell:SystemTray.IsVisible="True">
-    <phone:PhoneApplicationPage.Resources>
-        <local:ZeroOneConverter x:Key="valueConverter" />
-    </phone:PhoneApplicationPage.Resources>
-
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot"
           Background="Transparent">
@@ -63,15 +59,6 @@
                         </DataTemplate>
                     </toolkit:ToggleSwitch.ContentTemplate>
                 </toolkit:ToggleSwitch>
-
-                <toolkit:ToggleSwitch Header="Converted ToggleSwitch">
-                    <toolkit:ToggleSwitch.ContentTemplate>
-                        <DataTemplate>
-                            <ContentControl Content="{Binding Converter={StaticResource valueConverter}}" />
-                        </DataTemplate>
-                    </toolkit:ToggleSwitch.ContentTemplate>
-                </toolkit:ToggleSwitch>
-
             </StackPanel>
         </Grid>
     </Grid>

@@ -154,7 +154,6 @@
     <Compile Include="Transforming\TranslateTransformSample.xaml.cs">
       <DependentUpon>TranslateTransformSample.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ZeroOneConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

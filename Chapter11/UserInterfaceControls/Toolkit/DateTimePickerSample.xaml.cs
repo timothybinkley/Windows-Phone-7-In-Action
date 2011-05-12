@@ -19,21 +19,5 @@ namespace UserInterfaceControls.Toolkit
         {
             InitializeComponent();
         }
-
-        private void DatePicker_ValueChanged(object sender, DateTimeValueChangedEventArgs e)
-        {
-            if (e != null)
-            {
-                System.Diagnostics.Debug.WriteLine("Old date: {0} New Date: {1}", e.OldDateTime, e.NewDateTime);
-            }
-        }
-
-        private void TimePicker_ValueChanged(object sender, DateTimeValueChangedEventArgs e)
-        {
-            if (e != null)
-            {
-                System.Diagnostics.Debug.WriteLine("Old time: {0} New time: {1}", e.OldDateTime, e.NewDateTime);
-            }
-        }
     }
 }

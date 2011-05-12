@@ -30,10 +30,10 @@
                     Grid.Row="0"
                     Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle"
-                       Text="MY APPLICATION"
+                       Text="WINDOWS PHONE 7 IN ACTION"
                        Style="{StaticResource PhoneTextNormalStyle}" />
             <TextBlock x:Name="PageTitle"
-                       Text="page name"
+                       Text="date and time"
                        Margin="9,-7,0,0"
                        Style="{StaticResource PhoneTextTitle1Style}" />
         </StackPanel>
@@ -43,12 +43,8 @@
               Grid.Row="1"
               Margin="12,0,12,0">
             <StackPanel>
-                <TextBlock Margin="12"
-                           Text="Date picker" />
-                <toolkit:DatePicker ValueChanged="DatePicker_ValueChanged"  />
-                <TextBlock Margin="12"
-                           Text="Time picker" />
-                <toolkit:TimePicker ValueChanged="TimePicker_ValueChanged" />
+                <toolkit:DatePicker Header="Date picker" />
+                <toolkit:TimePicker Header="Time picker" />
             </StackPanel>
         </Grid>
     </Grid>

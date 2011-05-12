@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 using Microsoft.Phone.Controls;
 
 namespace UserInterfaceControls.Toolkit
@@ -22,8 +12,8 @@ namespace UserInterfaceControls.Toolkit
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var item = (MenuItem)sender;
-            System.Diagnostics.Debug.WriteLine("MenuItem {0} pressed.", item.Header);
+            var menuItem = (MenuItem)sender;
+            MessageBox.Show(menuItem.Name, "Menu Item Clicked", MessageBoxButton.OK);
         }
 
     }

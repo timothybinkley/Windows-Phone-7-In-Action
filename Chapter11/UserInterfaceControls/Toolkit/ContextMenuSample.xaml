@@ -43,17 +43,28 @@
               Grid.Row="1"
               Margin="12,0,12,0">
 
-            <TextBlock Margin="50,100,50,416"
-                       Text="tap and hold here to invoke a context menu"
-                       TextWrapping="Wrap">
+            <TextBlock Margin="30,100,30,450"
+                       Text="tap and hold here to invoke a context menu">
                 <toolkit:ContextMenuService.ContextMenu>
 	                <toolkit:ContextMenu>
-	                    <toolkit:MenuItem Header="menu item 1"
+	                    <toolkit:MenuItem x:Name="menuItem1"
+                                          Header="menu item 1"
                                           Click="MenuItem_Click" />
-	                    <toolkit:MenuItem Header="menu item 2"
+	                    <toolkit:MenuItem x:Name="menuItem2"
+                                          Header="menu item 2"
                                           Click="MenuItem_Click" />
-	                    <toolkit:MenuItem Header="menu item 3"
-                                          Click="MenuItem_Click" />
+	                    <toolkit:MenuItem x:Name="menuItem3"
+                                          Click="MenuItem_Click">
+                            <toolkit:MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <Path Margin="0,0,6,0"
+                                          Data="M 3 23 L 12 33 L 24 17"
+                                          Stroke="{StaticResource PhoneChromeBrush}"
+                                          StrokeThickness="{StaticResource PhoneStrokeThickness}" />
+                                    <TextBlock Text="menu item 3" />
+                                </StackPanel>
+                            </toolkit:MenuItem.Header>
+                        </toolkit:MenuItem>
 	                </toolkit:ContextMenu>
                 </toolkit:ContextMenuService.ContextMenu>
             </TextBlock>

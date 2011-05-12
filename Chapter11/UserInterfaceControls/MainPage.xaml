@@ -34,7 +34,8 @@
     <Grid x:Name="LayoutRoot"
           Background="Transparent">
 
-        <controls:Pivot Title="WINDOWS PHONE 7 IN ACTION">
+        <controls:Pivot x:Name="pivot" Title="WINDOWS PHONE 7 IN ACTION"
+                        Loaded="pivot_Loaded">
             <!--Pivot item one-->
             <controls:PivotItem Header="building">
                 <ItemsControl ItemTemplate="{StaticResource itemTemplate}">
