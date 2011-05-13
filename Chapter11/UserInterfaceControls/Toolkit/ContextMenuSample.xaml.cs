@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Microsoft.Phone.Controls;
+using System.Windows.Controls;
 
 namespace UserInterfaceControls.Toolkit
 {
@@ -14,6 +15,12 @@ namespace UserInterfaceControls.Toolkit
         {
             var menuItem = (MenuItem)sender;
             MessageBox.Show(menuItem.Name, "Menu Item Clicked", MessageBoxButton.OK);
+        }
+
+        private void menuItem2Enabled_Clicked(object sender, RoutedEventArgs e)
+        {
+            var checkBox = (CheckBox)sender;
+            menuItem2.IsEnabled = checkBox.IsChecked.Value;
         }
 
     }

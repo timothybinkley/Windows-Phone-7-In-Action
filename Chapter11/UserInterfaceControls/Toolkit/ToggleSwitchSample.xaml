@@ -43,21 +43,20 @@
               Grid.Row="1"
               Margin="12,0,12,0">
             <StackPanel Margin="12">
+
+                <TextBlock Text="what color is this"
+                           Foreground="{StaticResource PhoneBorderBrush}" />
                 <toolkit:ToggleSwitch Header="Normal ToggleSwitch" />
 
-                <toolkit:ToggleSwitch Header="Templated ToggleSwitch">
+                <toolkit:ToggleSwitch Header="Re-colored ToggleSwitch"
+                                      SwitchForeground="{StaticResource PhoneChromeBrush}"
+                                      Foreground="{StaticResource PhoneAccentBrush}">
                     <toolkit:ToggleSwitch.HeaderTemplate>
                         <DataTemplate>
                             <ContentControl Content="{Binding}"
                                             Foreground="{StaticResource PhoneAccentBrush}" />
                         </DataTemplate>
                     </toolkit:ToggleSwitch.HeaderTemplate>
-                    <toolkit:ToggleSwitch.ContentTemplate>
-                        <DataTemplate>
-                            <ContentControl Content="{Binding}"
-                                            Foreground="{StaticResource PhoneAccentBrush}" />
-                        </DataTemplate>
-                    </toolkit:ToggleSwitch.ContentTemplate>
                 </toolkit:ToggleSwitch>
             </StackPanel>
         </Grid>

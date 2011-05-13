@@ -43,8 +43,10 @@
               Grid.Row="1"
               Margin="12,0,12,0">
             <StackPanel>
-                <toolkit:DatePicker Header="Date picker" />
-                <toolkit:TimePicker Header="Time picker" />
+                <toolkit:DatePicker Header="Date picker" 
+                                    Value="05/24/2011"/>
+                <toolkit:TimePicker Header="Time picker"
+                                    Value="09:45 AM"/>
             </StackPanel>
         </Grid>
     </Grid>

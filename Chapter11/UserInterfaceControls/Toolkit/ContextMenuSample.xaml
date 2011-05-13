@@ -46,14 +46,14 @@
             <TextBlock Margin="30,100,30,450"
                        Text="tap and hold here to invoke a context menu">
                 <toolkit:ContextMenuService.ContextMenu>
-	                <toolkit:ContextMenu>
+	                <toolkit:ContextMenu >
 	                    <toolkit:MenuItem x:Name="menuItem1"
                                           Header="menu item 1"
                                           Click="MenuItem_Click" />
 	                    <toolkit:MenuItem x:Name="menuItem2"
                                           Header="menu item 2"
                                           Click="MenuItem_Click" />
-	                    <toolkit:MenuItem x:Name="menuItem3"
+                        <toolkit:MenuItem x:Name="menuItem3"
                                           Click="MenuItem_Click">
                             <toolkit:MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
@@ -68,6 +68,9 @@
 	                </toolkit:ContextMenu>
                 </toolkit:ContextMenuService.ContextMenu>
             </TextBlock>
+            <CheckBox Content="menuItem2.IsEnabled"
+                      IsChecked="True"
+                      Click="menuItem2Enabled_Clicked" />
         </Grid>
     </Grid>
 
