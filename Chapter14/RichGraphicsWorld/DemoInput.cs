@@ -38,6 +38,8 @@ namespace RichGraphicsWorld
             states.Add(430, new ScriptedInputState { MoveForward = true });
             states.Add(750, new ScriptedInputState { TurnLeft = true });
             states.Add(840, new ScriptedInputState());
+            frameNumber = 0;
+            currentState = new ScriptedInputState();
         }
 
         public void Update()

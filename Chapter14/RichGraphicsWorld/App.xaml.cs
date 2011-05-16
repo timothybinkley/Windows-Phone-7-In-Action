@@ -55,6 +55,7 @@ namespace RichGraphicsWorld
             InitializePhoneApplication();
 
             Content = new ContentManager(new ServiceProvider());
+            Content.RootDirectory = "Content";
         }
 
         // Code to execute when the application is launching (eg, from Start)

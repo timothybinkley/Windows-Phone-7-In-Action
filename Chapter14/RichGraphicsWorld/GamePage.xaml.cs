@@ -4,19 +4,21 @@ using System;
 using System.Windows;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.Windows.Navigation;
 
 namespace RichGraphicsWorld
 {
     public partial class GamePage : PhoneApplicationPage
     {
         GameTimer timer;
-        GamePlayComponent gamePlay;
-        SpriteBatch spriteBatch;
+        //GamePlayComponent gamePlay;
+        TemporaryGamePlayComponent gamePlay;
+        DemoInput input;
 
         public GamePage()
         {
             InitializeComponent();
-            gamePlay = new GamePlayComponent();
+            gamePlay = new TemporaryGamePlayComponent();
 
             timer = new GameTimer();
             timer.UpdateInterval = TimeSpan.FromTicks(333333);
@@ -24,20 +26,21 @@ namespace RichGraphicsWorld
             timer.Draw += OnDraw;
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             // Set the sharing mode of the graphics device to turn on XNA rendering
             SharedGraphicsDeviceManager.Current.SetSharingMode(true);
             ContentManager content = ((App)(Application.Current)).Content;
-            spriteBatch = new SpriteBatch(SharedGraphicsDeviceManager.Current.GraphicsDevice);
+            //spriteBatch = new SpriteBatch(SharedGraphicsDeviceManager.Current.GraphicsDevice);
 
-            gamePlay.Initialize(content, null);
-
+            input = new DemoInput();
+            gamePlay.Initialize(content, input);
+            
             timer.Start();
             base.OnNavigatedTo(e);
         }
 
-        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             timer.Stop();
 
@@ -49,12 +52,22 @@ namespace RichGraphicsWorld
                 
         private void OnUpdate(object sender, GameTimerEventArgs e)
         {
-            throw new NotImplementedException();
+            input.Update();
+            bool updateOccurred = gamePlay.Update();
+            if (!updateOccurred)
+                GameTimer.SuppressFrame();
+            
+            if (!gamePlay.IsRunning && NavigationService.CanGoBack)
+                NavigationService.GoBack();
         }
 
         private void OnDraw(object sender, GameTimerEventArgs e)
         {
-            throw new NotImplementedException();
+            var device = SharedGraphicsDeviceManager.Current.GraphicsDevice;
+            device.Clear(Color.CornflowerBlue);
+
+            gamePlay.Draw();
+            input.Draw();
         }
     }
 }

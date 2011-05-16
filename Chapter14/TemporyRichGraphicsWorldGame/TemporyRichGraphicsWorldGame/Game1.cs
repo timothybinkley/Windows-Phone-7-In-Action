@@ -34,7 +34,7 @@ namespace TemporyRichGraphicsWorldGame
 
             // Frame rate is 30 fps by default for Windows Phone.
             TargetElapsedTime = TimeSpan.FromTicks(333333);
-            
+
 
             gamePlay = new GamePlayComponent();
         }
@@ -60,7 +60,7 @@ namespace TemporyRichGraphicsWorldGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-           
+
             // TODO: use this.Content to load your game content here
             input = new DemoInput();
             input.Start();
@@ -75,6 +75,8 @@ namespace TemporyRichGraphicsWorldGame
         {
             // TODO: Unload any non ContentManager content here
         }
+
+        double stopTime = Double.NaN;
 
         /// <summary>
         /// Allows the game to run logic such as updating the world,
@@ -109,10 +111,16 @@ namespace TemporyRichGraphicsWorldGame
 
             GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
-                        
+
             gamePlay.Draw();
 
             input.Draw();
+
+            if (!gamePlay.IsPlaying)
+            {
+                // this would be where you draw "game over"
+                GraphicsDevice.Clear(Color.Red);
+            }
 
             base.Draw(gameTime);
         }

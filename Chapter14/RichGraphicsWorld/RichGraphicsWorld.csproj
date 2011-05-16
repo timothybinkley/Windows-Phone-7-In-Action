@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShapeInfo.cs" />
+    <Compile Include="temporary\TemporaryGamePlayComponent.cs" />
     <Compile Include="temporary\GameTimer.cs" />
     <Compile Include="temporary\ServiceProvider.cs" />
     <Compile Include="temporary\SharedGraphicsDeviceManager.cs" />

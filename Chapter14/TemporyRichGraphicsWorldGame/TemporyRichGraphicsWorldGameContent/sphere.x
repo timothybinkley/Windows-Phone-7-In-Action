@@ -1,7 +1,7 @@
 xof 0303txt 0064
 #Exported from Wings 3D 1.2
-		Material red {
-			0.52; 0.0; 0.0; 1.0;;
+		Material yellow {
+			0.8335; 0.8335; 0.0; 1.0;;
 		1.0;
 			1.0; 0.7; 0.7;;
 			0.0; 0.0; 0.0;;
@@ -1363,6 +1363,6 @@ Frame sphere1 {
 			0;
 			0;
 			;
-			{red}
+			{yellow}
 		}
 	}}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Devices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -12,7 +13,10 @@ namespace RichGraphicsWorld
         IGameplayInput input;
 
         Model ground;
+        Model player;
         Matrix groundWorld;
+        BoundingBox groundBounds = new BoundingBox(new Vector3(-100, -100, 0), new Vector3(100, 100, 5));
+
         Model[] models = new Model[5];
         ShapeInfo[] shapes = new ShapeInfo[66];
 
@@ -30,13 +34,16 @@ namespace RichGraphicsWorld
         readonly Vector3 lookAhead = new Vector3(0, 0, 20);
 
         Matrix[] transforms = new Matrix[2];
-        private int collisionCount;
+
+        public int Score;
+        public bool IsPlaying;
 
         public void Initialize(ContentManager content, IGameplayInput inputService)
         {
             input = inputService;
 
             ground = content.Load<Model>("ground");
+            player = content.Load<Model>("ground");
             models[0] = content.Load<Model>("cube");
             models[1] = content.Load<Model>("cone");
             models[2] = content.Load<Model>("sphere");
@@ -52,6 +59,8 @@ namespace RichGraphicsWorld
         {
             groundWorld = Matrix.CreateWorld(Vector3.Zero, Vector3.UnitX,
                Vector3.Up) * Matrix.CreateScale(50.0f, 1.0f, 50.0f);
+            
+            playerPosition.Radius = player.Meshes[0].BoundingSphere.Radius;
 
             int currentModel = 0;
             int objectIndex = 0;
@@ -102,6 +111,9 @@ namespace RichGraphicsWorld
         /// <returns>true if an update occurred, false otherwise</returns>
         public bool Update()
         {
+            if (!IsPlaying)
+                return false;
+
             bool playerMoved = false;
 
             Vector3 direction = Vector3.Transform(Vector3.UnitZ,
@@ -138,28 +150,34 @@ namespace RichGraphicsWorld
             if (playerMoved)
             {
                 CalculateView();
-            }
 
-            bool collision = false;
-
-            for (int index = 0; index < shapes.Length; index++)
-            {
-                if (!shapes[index].Collected && playerPosition.Intersects(shapes[index].Sphere))
+                for (int index = 0; index < shapes.Length; index++)
                 {
-                    collision = true;
-                    collisionCount++;
-                    shapes[index].Collected = true;
-                    VibrateController.Default.Start(TimeSpan.FromMilliseconds(20.0));
+                    if (!shapes[index].Collected && playerPosition.Intersects(shapes[index].Sphere))
+                    {
+                        Score++;
+                        shapes[index].Collected = true;
+                        VibrateController.Default.Start(TimeSpan.FromMilliseconds(20.0));
+                    }
+                }
+
+                var containment = groundBounds.Contains(playerPosition);
+                if (containment == ContainmentType.Disjoint ||
+                    Score == shapes.Length)
+                {
+                    IsPlaying = false;
                 }
             }
 
-            return playerMoved || collision;
+            return playerMoved;
         }
-
 
         public void Draw()
         {
-            DrawModel(ref ground, ref cameraView, ref cameraProjection, ref groundWorld);
+            if (!IsPlaying)
+                return;
+
+            DrawModel(ref ground, ref groundWorld);
 
             for (int index = 0; index < shapes.Length; index++)
             {
@@ -167,12 +185,12 @@ namespace RichGraphicsWorld
                 if (!shape.Collected)
                 {
                     Model model = models[shape.ModelIndex];
-                    DrawModel(ref model, ref cameraView, ref cameraProjection, ref shape.World);
+                    DrawModel(ref model, ref shape.World);
                 }
             }
         }
 
-        private void DrawModel(ref Model model, ref Matrix view, ref Matrix projection, ref Matrix world)
+        private void DrawModel(ref Model model, ref Matrix world)
         {
             model.CopyAbsoluteBoneTransformsTo(transforms);
 
@@ -184,14 +202,14 @@ namespace RichGraphicsWorld
                     BasicEffect effect = (BasicEffect)mesh.Effects[eIndex];
                     effect.EnableDefaultLighting();
                     effect.World = transforms[mesh.ParentBone.Index] * world;
-                    effect.View = view;
-                    effect.Projection = projection;
+                    effect.View = cameraView;
+                    effect.Projection = cameraProjection;
                 }
                 mesh.Draw();
             }
         }
 
-
+        
 
     }
 }

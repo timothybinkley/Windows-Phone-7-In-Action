@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Threading;
 
 namespace Microsoft.Xna.Framework
 {
@@ -11,7 +12,17 @@ namespace Microsoft.Xna.Framework
 
     public sealed class GameTimer : IDisposable
     {
-        public GameTimer(){}
+        public GameTimer()
+        {
+            timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(33) };
+            timer.Tick += timer_Tick;
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            Update(this, null);
+            Draw(this, null);
+        }
 
         public event EventHandler<GameTimerEventArgs> Draw;
         public event EventHandler<EventArgs> FrameAction;
@@ -22,12 +33,21 @@ namespace Microsoft.Xna.Framework
         public int UpdateOrder { get; set; }
         public int DrawOrder { get; set; }
 
-        public static void ResetElapsedTime(){}
-        public static void SuppressFrame(){}
+        public static void ResetElapsedTime() { }
+        public static void SuppressFrame() { }
 
-        public void Start(){}
-        public void Stop(){}
-        public void Dispose(){}
+        DispatcherTimer timer;
+
+        public void Start()
+        {
+            timer.Start();
+        }
+
+        public void Stop()
+        {
+            timer.Stop();
+        }
+        public void Dispose() { }
     }
 
 }
