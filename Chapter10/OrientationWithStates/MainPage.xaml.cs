@@ -25,45 +25,13 @@ namespace OrientationSupport
         {
             PageOrientation orientation = e.Orientation;
 
-            if (orientation == PageOrientation.Landscape ||
-                orientation == PageOrientation.LandscapeLeft ||
-                orientation == PageOrientation.LandscapeRight)
+            if ((orientation & PageOrientation.Landscape) == PageOrientation.Landscape)
             {
                 VisualStateManager.GoToState(this, "Landscape", false);
-                //ApplicationTitle.Visibility = Visibility.Collapsed;
-                //PageTitle.Visibility = Visibility.Collapsed;
-
-                //ContentPanel.RowDefinitions[2].Height = GridLength.Auto; 
-                //ContentPanel.RowDefinitions[3].Height = GridLength.Auto;
-                
-                //MyPhoto.SetValue(Grid.RowProperty, 0);			
-                //MyPhoto.SetValue(Grid.RowSpanProperty, 3);		
-                //MyPhoto.SetValue(Grid.ColumnProperty, 0);		
-                //MyPhoto.SetValue(Grid.ColumnSpanProperty, 3);	
-                
-                //MyPhotoLabel.SetValue(Grid.RowProperty, 3);		
-                //MyPhotoLabel.SetValue(Grid.ColumnProperty, 1);	
-
             }
-            else if (orientation == PageOrientation.Portrait ||
-                orientation == PageOrientation.PortraitDown ||
-                orientation == PageOrientation.PortraitUp)
+            else if ((orientation & PageOrientation.Portrait) == PageOrientation.Portrait)
             {
                 VisualStateManager.GoToState(this, "Portrait", false);
-            //    ApplicationTitle.Visibility = Visibility.Visible;
-            //    PageTitle.Visibility = Visibility.Visible;
-                
-            //    ContentPanel.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);								
-            //    ContentPanel.RowDefinitions[2].Height = GridLength.Auto;	
-            //    ContentPanel.RowDefinitions[3].Height = new GridLength(1, GridUnitType.Star);								
-                
-            //    MyPhoto.SetValue(Grid.RowProperty, 1);			
-            //    MyPhoto.SetValue(Grid.RowSpanProperty, 1);		
-            //    MyPhotoLabel.SetValue(Grid.ColumnProperty, 1);	
-            //    MyPhotoLabel.SetValue(Grid.ColumnSpanProperty, 1);
-                
-            //    MyPhotoLabel.SetValue(Grid.RowProperty, 3);		
-            //    MyPhotoLabel.SetValue(Grid.ColumnProperty, 1);		
             }
         }
     }

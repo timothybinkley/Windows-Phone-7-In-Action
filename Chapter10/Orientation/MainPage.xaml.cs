@@ -25,17 +25,13 @@ namespace OrientationSupport
         {
             PageOrientation orientation = e.Orientation;
 
-            if (orientation == PageOrientation.Landscape ||
-                orientation == PageOrientation.LandscapeLeft ||
-                orientation == PageOrientation.LandscapeRight)
+            if ((orientation & PageOrientation.Landscape) == PageOrientation.Landscape)
             {
                 ApplicationTitle.Visibility = Visibility.Collapsed;
                 PageTitle.Visibility = Visibility.Collapsed;
                 MyPhoto.Height = 400;			
             }
-            else if (orientation == PageOrientation.Portrait ||
-                orientation == PageOrientation.PortraitDown ||
-                orientation == PageOrientation.PortraitUp)
+            else if ((orientation & PageOrientation.Portrait) == PageOrientation.Portrait)
             {
                 ApplicationTitle.Visibility = Visibility.Visible;
                 PageTitle.Visibility = Visibility.Visible;
