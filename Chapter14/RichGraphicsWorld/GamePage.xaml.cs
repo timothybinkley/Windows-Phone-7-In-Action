@@ -11,14 +11,13 @@ namespace RichGraphicsWorld
     public partial class GamePage : PhoneApplicationPage
     {
         GameTimer timer;
-        //GamePlayComponent gamePlay;
-        TemporaryGamePlayComponent gamePlay;
+        //GamePlayComponent gamePlay = new GamePlayComponent();
+        TemporaryGamePlayComponent gamePlay = new TemporaryGamePlayComponent();
         DemoInput input;
 
         public GamePage()
         {
             InitializeComponent();
-            gamePlay = new TemporaryGamePlayComponent();
 
             timer = new GameTimer();
             timer.UpdateInterval = TimeSpan.FromTicks(333333);

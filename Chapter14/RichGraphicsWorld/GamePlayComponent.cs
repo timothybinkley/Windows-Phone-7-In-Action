@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.Devices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace RichGraphicsWorld
 {
@@ -13,9 +11,8 @@ namespace RichGraphicsWorld
         IGameplayInput input;
 
         Model ground;
-        Model player;
         Matrix groundWorld;
-        BoundingBox groundBounds = new BoundingBox(new Vector3(-100, -100, 0), new Vector3(100, 100, 5));
+        BoundingBox groundBounds = new BoundingBox(new Vector3(-125, -2, -125), new Vector3(125, 2, 125));
 
         Model[] models = new Model[5];
         ShapeInfo[] shapes = new ShapeInfo[66];
@@ -23,6 +20,8 @@ namespace RichGraphicsWorld
         Vector3 unitX = Vector3.UnitX;
         Vector3 up = Vector3.Up;
 
+        Model player;
+        Matrix playerWorld;
         BoundingSphere playerPosition = new BoundingSphere(Vector3.Zero, 1.0f);
         float playerRotation = 0.0f;
         Matrix cameraProjection;
@@ -30,36 +29,38 @@ namespace RichGraphicsWorld
 
         const float velocity = 0.5f;
         const float rotationVelocity = MathHelper.Pi / 90.0f;
-        readonly Vector3 cameraOffset = new Vector3(0, 5, 0);
+        readonly Vector3 cameraOffset = new Vector3(0, 5, -15);
         readonly Vector3 lookAhead = new Vector3(0, 0, 20);
 
         Matrix[] transforms = new Matrix[2];
 
         public int Score;
-        public bool IsPlaying;
+        public bool IsPlaying = true;
 
         public void Initialize(ContentManager content, IGameplayInput inputService)
         {
             input = inputService;
 
             ground = content.Load<Model>("ground");
-            player = content.Load<Model>("ground");
+            player = content.Load<Model>("sphere");
             models[0] = content.Load<Model>("cube");
             models[1] = content.Load<Model>("cone");
-            models[2] = content.Load<Model>("sphere");
+            models[2] = content.Load<Model>("dodecahedron");
             models[3] = content.Load<Model>("torus");
             models[4] = content.Load<Model>("octohedron");
 
             CalculateWorlds();
             CalculateView();
-            CalculateProjection();
+
+            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
+               480.0f/800.0f, 1.0f, 100.0f, out cameraProjection);
         }
 
         private void CalculateWorlds()
         {
             groundWorld = Matrix.CreateWorld(Vector3.Zero, Vector3.UnitX,
                Vector3.Up) * Matrix.CreateScale(50.0f, 1.0f, 50.0f);
-            
+
             playerPosition.Radius = player.Meshes[0].BoundingSphere.Radius;
 
             int currentModel = 0;
@@ -90,7 +91,9 @@ namespace RichGraphicsWorld
 
         private void CalculateView()
         {
-            Vector3 cameraPosition = playerPosition.Center + cameraOffset;
+            Vector3 cameraPosition = playerPosition.Center + Vector3.Transform(cameraOffset,
+                Matrix.CreateFromAxisAngle(Vector3.UnitY, playerRotation));
+
             Vector3 cameraTarget = cameraPosition + Vector3.Transform(lookAhead,
                 Matrix.CreateFromAxisAngle(Vector3.UnitY, playerRotation));
 
@@ -98,11 +101,6 @@ namespace RichGraphicsWorld
                 ref up, out cameraView);
         }
 
-        private void CalculateProjection()
-        {
-            Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
-                .6f, 1.0f, 100.0f, out cameraProjection);
-        }
 
         /// <summary>
         /// 
@@ -151,6 +149,10 @@ namespace RichGraphicsWorld
             {
                 CalculateView();
 
+                Vector3 forward = Vector3.Transform(Vector3.UnitX,
+                   Matrix.CreateFromAxisAngle(Vector3.UnitY, playerRotation));
+                Matrix.CreateWorld(ref playerPosition.Center, ref forward, ref up, out playerWorld);
+
                 for (int index = 0; index < shapes.Length; index++)
                 {
                     if (!shapes[index].Collected && playerPosition.Intersects(shapes[index].Sphere))
@@ -178,16 +180,17 @@ namespace RichGraphicsWorld
                 return;
 
             DrawModel(ref ground, ref groundWorld);
-
+            
             for (int index = 0; index < shapes.Length; index++)
             {
                 var shape = shapes[index];
                 if (!shape.Collected)
                 {
-                    Model model = models[shape.ModelIndex];
-                    DrawModel(ref model, ref shape.World);
+                    DrawModel(ref models[shape.ModelIndex], ref shape.World);
                 }
             }
+
+            DrawModel(ref player, ref playerWorld);
         }
 
         private void DrawModel(ref Model model, ref Matrix world)
@@ -209,7 +212,7 @@ namespace RichGraphicsWorld
             }
         }
 
-        
+
 
     }
 }
