@@ -14,6 +14,7 @@ namespace RichGraphicsWorld
         //GamePlayComponent gamePlay = new GamePlayComponent();
         TemporaryGamePlayComponent gamePlay = new TemporaryGamePlayComponent();
         DemoInput input;
+        bool drawCalledAfterMotionStopped = false;
 
         public GamePage()
         {
@@ -52,11 +53,21 @@ namespace RichGraphicsWorld
         private void OnUpdate(object sender, GameTimerEventArgs e)
         {
             input.Update();
-            bool updateOccurred = gamePlay.Update();
-            if (!updateOccurred)
-                GameTimer.SuppressFrame();
+            gamePlay.Update();
+            if (!input.MoveForward && !input.MoveBackward
+                && !input.TurnLeft && !input.TurnRight)
+            {
+                if (drawCalledAfterMotionStopped)
+                {
+                    GameTimer.SuppressFrame();
+                }
+            }
+            else
+            {
+                drawCalledAfterMotionStopped = false;
+            }
             
-            if (!gamePlay.IsRunning && NavigationService.CanGoBack)
+            if (!gamePlay.IsPlaying && NavigationService.CanGoBack)
                 NavigationService.GoBack();
         }
 
@@ -64,7 +75,8 @@ namespace RichGraphicsWorld
         {
             var device = SharedGraphicsDeviceManager.Current.GraphicsDevice;
             device.Clear(Color.CornflowerBlue);
-
+            
+            drawCalledAfterMotionStopped = true;
             gamePlay.Draw();
             input.Draw();
         }

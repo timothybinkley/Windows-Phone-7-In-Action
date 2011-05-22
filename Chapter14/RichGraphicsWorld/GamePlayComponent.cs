@@ -34,8 +34,8 @@ namespace RichGraphicsWorld
 
         Matrix[] transforms = new Matrix[2];
 
-        public int Score;
-        public bool IsPlaying = true;
+        public int Score { get; private set; }
+        public bool IsPlaying { get; private set; }
 
         public void Initialize(ContentManager content, IGameplayInput inputService)
         {
@@ -53,7 +53,9 @@ namespace RichGraphicsWorld
             CalculateView();
 
             Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4,
-               480.0f/800.0f, 1.0f, 100.0f, out cameraProjection);
+               480.0f / 800.0f, 1.0f, 100.0f, out cameraProjection);
+
+            IsPlaying = true;
         }
 
         private void CalculateWorlds()
@@ -180,7 +182,7 @@ namespace RichGraphicsWorld
                 return;
 
             DrawModel(ref ground, ref groundWorld);
-            
+
             for (int index = 0; index < shapes.Length; index++)
             {
                 var shape = shapes[index];
