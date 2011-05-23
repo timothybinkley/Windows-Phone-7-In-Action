@@ -14,7 +14,7 @@ namespace RichGraphicsWorld
         //GamePlayComponent gamePlay = new GamePlayComponent();
         TemporaryGamePlayComponent gamePlay = new TemporaryGamePlayComponent();
         DemoInput input;
-        bool drawCalledAfterMotionStopped = false;
+        int frameCountAfterMotionStopped;
 
         public GamePage()
         {
@@ -57,14 +57,14 @@ namespace RichGraphicsWorld
             if (!input.MoveForward && !input.MoveBackward
                 && !input.TurnLeft && !input.TurnRight)
             {
-                if (drawCalledAfterMotionStopped)
+                if (frameCountAfterMotionStopped > 2)
                 {
                     GameTimer.SuppressFrame();
                 }
             }
             else
             {
-                drawCalledAfterMotionStopped = false;
+                frameCountAfterMotionStopped = 0;
             }
             
             if (!gamePlay.IsPlaying && NavigationService.CanGoBack)
@@ -75,8 +75,9 @@ namespace RichGraphicsWorld
         {
             var device = SharedGraphicsDeviceManager.Current.GraphicsDevice;
             device.Clear(Color.CornflowerBlue);
-            
-            drawCalledAfterMotionStopped = true;
+            device.DepthStencilState = DepthStencilState.Default;
+            device.RasterizerState = RasterizerState.CullCounterClockwise;
+
             gamePlay.Draw();
             input.Draw();
         }
