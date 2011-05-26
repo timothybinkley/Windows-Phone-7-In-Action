@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using System;
+using Microsoft.Phone.Shell;
 
 namespace SilverlightHello
 {
@@ -35,20 +36,18 @@ namespace SilverlightHello
         private void copyButton_Click(object sender, EventArgs e)
         {
             string message = string.Format("Hello {0}!", helloMessage.Text);
-            //Clipboard.SetText(message);  
+            Clipboard.SetText(message);  
         }
 
         private void pinButton_Click(object sender, EventArgs e)
         {
-            /*
-            StandardFileData tileData = new StandardFileData
+            StandardTileData tileData = new StandardTileData
             {
                 BackgroundImage = new Uri("Background.png", UriKind.Relative),
                 Title = string.Format("Hello {0}!", helloMessage.Text),
             };
             ShellTile.Create(new Uri("/GreetingPage.xaml?name="
                 + helloMessage.Text, UriKind.Relative), tileData);
-             */
         }
     }
 }

@@ -7,7 +7,7 @@
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             mc:Ignorable="d"
                             d:DesignWidth="480"
-                            d:DesignHeight="768"
+                            d:DesignHeight="696"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
@@ -52,8 +52,8 @@
                     VerticalAlignment="Center"
                     Width="200"
                     Height="200"
-                    ManipulationStarted="Canvas_Tap"
-                    ManipulationDelta="Canvas_DoubleTap">
+                    Tap="Canvas_Tap"
+                    DoubleTap="Canvas_DoubleTap">
                 <!--
                     MouseLeftButtonDown="Canvas_DoubleTap" 
                     ManipulationDelta="Canvas_Tap">

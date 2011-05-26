@@ -2,6 +2,7 @@
 using System.Windows.Media;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Marketplace;
+using System.Windows.Input;
 
 namespace SilverlightHello
 {
@@ -35,7 +36,7 @@ namespace SilverlightHello
         int colorIndex = 0;
         SolidColorBrush globeBrush;
 
-        private void Canvas_Tap(object sender, EventArgs e)
+        private void Canvas_Tap(object sender, GestureEventArgs e)
         {
             colorIndex++;
             if (colorIndex >= colors.Length)
@@ -43,9 +44,11 @@ namespace SilverlightHello
             globeBrush.Color = colors[colorIndex];
         }
 
-        private void Canvas_DoubleTap(object sender, EventArgs e)
+        private void Canvas_DoubleTap(object sender, GestureEventArgs e)
         {
             globeBrush.Color = (Color)App.Current.Resources["PhoneAccentColor"];
         }
+
+       
     }
 }

@@ -55,8 +55,7 @@
                        Margin="{StaticResource PhoneMargin}"
                        Text="name goes here"
                        Style="{StaticResource PhoneTextExtraLargeStyle}" />
-
-            <!--
+            
             <RichTextBox Name="richTextBox1" Margin="12,350,12,12" VerticalAlignment="Bottom">
                 <Paragraph FontSize="{StaticResource PhoneFontSizeNormal}">Welcome to</Paragraph>
                 <Paragraph FontSize="{StaticResource PhoneFontSizeMedium}" Foreground="{StaticResource PhoneAccentBrush}" >
@@ -64,7 +63,6 @@
                 </Paragraph>
                 <Paragraph FontSize="{StaticResource PhoneFontSizeNormal}">Written by Massimo Perga, Timothy Binkley-Jones and Michael Sync.</Paragraph>
             </RichTextBox>
-            -->
 
             <StackPanel Grid.Row="2"
                         Margin="{StaticResource PhoneMargin}">

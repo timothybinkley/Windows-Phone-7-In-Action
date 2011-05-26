@@ -76,6 +76,9 @@ namespace GraphicsWorld
             groundWorld = Matrix.CreateWorld(Vector3.Zero, Vector3.UnitX,
                Vector3.Up) * Matrix.CreateScale(50.0f, 1.0f, 50.0f);
 
+            playerPosition.Radius = player.Meshes[0].BoundingSphere.Radius;
+            Matrix.CreateWorld(ref playerPosition.Center, ref unitX, ref up, out playerWorld);
+
             int currentModel = 0;
             int objectIndex = 0;
             Vector3 position = new Vector3();
