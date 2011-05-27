@@ -24,6 +24,9 @@ namespace GraphicsWorld
         IGamePlayInput input;
         int frameCountAfterMotionStopped;
 
+        UIElementRenderer scoreboardRenderer;
+        Vector2 scoreboardPosition = new Vector2(12, 12);
+
         public GamePage()
         {
             InitializeComponent();
@@ -36,6 +39,8 @@ namespace GraphicsWorld
             timer.UpdateInterval = TimeSpan.FromTicks(333333);
             timer.Update += OnUpdate;
             timer.Draw += OnDraw;
+
+            scoreboardRenderer = new UIElementRenderer(scoreboard, 456, 60);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -74,6 +79,7 @@ namespace GraphicsWorld
         {
             input.Update();
             gamePlay.Update();
+            score.Text = gamePlay.Score.ToString();
 
             if (!input.MoveForward && !input.MoveBackward
                 && !input.TurnLeft && !input.TurnRight)
@@ -102,6 +108,13 @@ namespace GraphicsWorld
             device.DepthStencilState = DepthStencilState.Default;
             device.RasterizerState = RasterizerState.CullCounterClockwise;
             gamePlay.Draw();
+            
+            spriteBatch.Begin();
+
+            scoreboardRenderer.Render();
+            spriteBatch.Draw(scoreboardRenderer.Texture, scoreboardPosition, Color.White);
+            
+            spriteBatch.End();
         }
 
     }
