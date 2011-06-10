@@ -3,7 +3,6 @@ using Microsoft.Phone.Shell;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input.Touch;
 
 namespace GraphicsWorld
 {
@@ -13,15 +12,18 @@ namespace GraphicsWorld
 
         Motion motionSensor = new Motion();
 
+        readonly float minimumAngle = MathHelper.ToRadians(30.0f);
+        readonly float maximumAngle = MathHelper.ToRadians(330.0f);
+
         static readonly Rectangle forwardSrc = new Rectangle(0, 0, 50, 50);
         static readonly Rectangle backwardSrc = new Rectangle(50, 50, 50, 50);
         static readonly Rectangle leftSrc = new Rectangle(0, 50, 50, 50);
         static readonly Rectangle rightSrc = new Rectangle(50, 0, 50, 50);
-
-        Vector2 forwardPos;
-        Vector2 backwardPos;
-        Vector2 leftPos;
-        Vector2 rightPos;
+        
+        Vector2 forwardPos = new Vector2(215.0f, 10.0f);
+        Vector2 backwardPos = new Vector2(215.0f, 745.0f);
+        Vector2 leftPos = new Vector2(10.0f, 375.0f);
+        Vector2 rightPos = new Vector2(425.0f, 375.0f);
 
         SpriteBatch spriteBatch;
 
@@ -34,24 +36,10 @@ namespace GraphicsWorld
         public bool MoveBackward { get; private set; }
         public bool TurnLeft { get; private set; }
         public bool TurnRight { get; private set; }
-
-        readonly float minimumAngle = MathHelper.ToRadians(30.0f);
-        readonly float maximumAngle = MathHelper.ToRadians(330.0f);
         
         public void Initialize(ContentManager content)
         {
             spriteSheet = content.Load<Texture2D>("directionals");
-            forwardPos.X = TouchPanel.DisplayWidth / 2 - 25;
-            forwardPos.Y = 10;
-
-            backwardPos.X = TouchPanel.DisplayWidth / 2 - 25;
-            backwardPos.Y = TouchPanel.DisplayHeight - 55;
-
-            leftPos.X = 10;
-            leftPos.Y = TouchPanel.DisplayHeight / 2 - 25;
-
-            rightPos.X = TouchPanel.DisplayWidth - 55;
-            rightPos.Y = TouchPanel.DisplayHeight / 2 - 25;
         }
 
         public void Start()
@@ -70,6 +58,7 @@ namespace GraphicsWorld
         {
             var roll = motionSensor.CurrentValue.Attitude.Roll;
             var pitch = motionSensor.CurrentValue.Attitude.Pitch;
+            
             MoveBackward = pitch > minimumAngle && pitch <= MathHelper.Pi;
             MoveForward = pitch > MathHelper.Pi && pitch < maximumAngle;
             TurnRight = roll > minimumAngle && roll <= MathHelper.Pi;

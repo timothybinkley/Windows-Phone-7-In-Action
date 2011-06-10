@@ -70,13 +70,13 @@ namespace GraphicsWorld
                     input = new DemoInput();
                     break;
             }
-            input.Initialize(content);
+            input.Initialize(content);             
             gamePlay.Initialize(content, input);
 
             // Start the timer
             timer.Start();
 
-            input.Start();
+            input.Start();  
 
             base.OnNavigatedTo(e);
         }
@@ -137,11 +137,11 @@ namespace GraphicsWorld
     
             spriteBatch.Begin();
             scoreboardRenderer.Render();
-            spriteBatch.Draw(scoreboardRenderer.Texture, Vector2.Zero, Color.White);
+            spriteBatch.Draw(scoreboardRenderer.Texture, scoreboardPosition, Color.White);
             if (isPaused)
             {
-                spriteBatch.Draw(buttonRenderer.Texture, buttonPosition, Color.White);
                 buttonRenderer.Render();
+                spriteBatch.Draw(buttonRenderer.Texture, buttonPosition, Color.White);
             }
             spriteBatch.End();
         }
