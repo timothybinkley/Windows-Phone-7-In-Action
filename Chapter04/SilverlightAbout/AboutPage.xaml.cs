@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Marketplace;
 using Microsoft.Phone.Tasks;
@@ -18,6 +19,12 @@ namespace SilverlightAbout
             savePhoneNumberTask.Completed += savePhoneTask_Completed;
             saveEmailAddressTask.Completed += saveEmailTask_Completed;
 
+            ((App)Application.Current).RootFrame.Obscured += RootFrame_Obscured;
+            ((App)Application.Current).RootFrame.Unobscured += RootFrame_Unobscured;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
             LicenseInformation licenseInfo = new LicenseInformation();
             bool isTrial = licenseInfo.IsTrial();
             if (isTrial)
@@ -25,20 +32,19 @@ namespace SilverlightAbout
             else
                 HomePageButton.Content = "Marketplace home";
 
-            ((App)Application.Current).RootFrame.Obscured += RootFrame_Obscured;
-            ((App)Application.Current).RootFrame.Unobscured += RootFrame_Unobscured;
+            base.OnNavigatedTo(e);
         }
 
         void RootFrame_Unobscured(object sender, System.EventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Unobscured");
+            System.Diagnostics.Debug.WriteLine("Unobscured...");
         }
 
         void RootFrame_Obscured(object sender, ObscuredEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Obscured");
+            System.Diagnostics.Debug.WriteLine("Obscured...");
         }
-
+        
         private void SupportPhoneLink_Click(object sender, RoutedEventArgs e)
         {
             PhoneCallTask task = new PhoneCallTask()
@@ -85,8 +91,17 @@ namespace SilverlightAbout
         {
             MarketplaceSearchTask task = new MarketplaceSearchTask()
             {
-                SearchTerms = "WP7 in Action",
+                SearchTerms = "Windows Phone 7 in Action",
                 ContentType = MarketplaceContentType.Applications
+            };
+            task.Show();
+        }
+
+        private void BingSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            SearchTask task = new SearchTask()
+            {
+                SearchQuery = "Windows Phone 7 in Action domain:manning.com"
             };
             task.Show();
         }
@@ -118,5 +133,6 @@ namespace SilverlightAbout
                 SaveEmailButton.Visibility = Visibility.Collapsed;
             }
         }
+
     }
 }

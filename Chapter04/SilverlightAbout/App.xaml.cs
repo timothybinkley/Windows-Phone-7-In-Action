@@ -7,8 +7,6 @@ namespace SilverlightAbout
 {
     public partial class App : Application
     {
-        private bool isNewApp = true;
-
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -51,18 +49,16 @@ namespace SilverlightAbout
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("Launching a new instance...");
-            isNewApp = false;
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            if(isNewApp)
-                System.Diagnostics.Debug.WriteLine("Recovered from tombstoning, Activated...");
-            else
+            if(e.IsApplicationInstancePreserved)
                 System.Diagnostics.Debug.WriteLine("Activated...");
-            isNewApp = false;
+            else
+                System.Diagnostics.Debug.WriteLine("Recovered from tombstoning, Activated...");
         }
 
         // Code to execute when the application is deactivated (sent to background)

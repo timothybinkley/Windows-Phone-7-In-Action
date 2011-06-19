@@ -58,16 +58,14 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="1" >
-                <TextBlock TextWrapping="Wrap"
-                           Text="Share:"
+                <TextBlock Text="Share:"
                            Style="{StaticResource PhoneTextGroupHeaderStyle}" />
                 <Button Content="Share via Text Message"
                         Name="shareButton"
                         Click="ShareButton_Click" />
             </StackPanel>
             <StackPanel Grid.Row="2">
-                <TextBlock TextWrapping="Wrap"
-                           Text="Windows Phone Marketplace:"
+                <TextBlock Text="Windows Phone Marketplace:"
                            Style="{StaticResource PhoneTextGroupHeaderStyle}" />
                 <Button Content="Write a Review"
                         x:Name="ReviewButton"
@@ -75,9 +73,14 @@
                 <Button Content="Buy this application"
                         x:Name="HomePageButton"
                         Click="HomePageButton_Click" />
-                <Button Content="My other applications"
+                <StackPanel Orientation="Horizontal">
+                <Button Content="Search Marketplace"
                         x:Name="SearchButton"
                         Click="SearchButton_Click" />
+                <Button Content="Search Bing"
+                        x:Name="BingSearchButton"
+                        Click="BingSearchButton_Click" />
+                </StackPanel>
             </StackPanel>
         </Grid>
     </Grid>
