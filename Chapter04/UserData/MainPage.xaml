@@ -1,0 +1,153 @@
+﻿<phone:PhoneApplicationPage x:Class="UserData.MainPage"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+                            xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            mc:Ignorable="d"
+                            d:DesignWidth="480"
+                            d:DesignHeight="768"
+                            FontFamily="{StaticResource PhoneFontFamilyNormal}"
+                            FontSize="{StaticResource PhoneFontSizeNormal}"
+                            Foreground="{StaticResource PhoneForegroundBrush}"
+                            SupportedOrientations="Portrait"
+                            Orientation="Portrait"
+                            shell:SystemTray.IsVisible="True"
+                            Loaded="PhoneApplicationPage_Loaded">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot"
+          Background="Transparent">
+        <!--Pivot Control-->
+        <controls:Pivot Title="WINDOWS PHONE 7 IN ACTION">
+            <!--Pivot item one-->
+            <controls:PivotItem Header="contacts">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="filterBox"
+                                 Width="350"
+                                 Margin="0,6" />
+                        <Button Click="searchContacts_Click">
+                            <Image Source="/Images/appbar.feature.search.rest.png" />
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton x:Name="nameSearch"
+                                     Content="Name"
+                                     IsChecked="True" />
+                        <RadioButton x:Name="phoneSearch"
+                                     Content="Phone" />
+                        <RadioButton x:Name="emailSearch"
+                                     Content="Email" />
+                    </StackPanel>
+                    <TextBlock Text="Search Result:"
+                               Style="{StaticResource PhoneTextGroupHeaderStyle}" />
+                    <TextBlock x:Name="searchContactsResult"
+                               Margin="12" />
+                    <StackPanel x:Name="contactLayout"
+                                Margin="12">
+                        <TextBlock Text="{Binding DisplayName, StringFormat='Display Name: \{0\} '}" />
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0,6">
+                            <TextBlock Text="{Binding CompleteName.FirstName, StringFormat='Complete Name: \{0\}'}" />
+                            <TextBlock Text="{Binding CompleteName.MiddleName}"
+                                       Margin="6,0" />
+                            <TextBlock Text="{Binding CompleteName.LastName}" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding PhoneNumbers[0].Kind, StringFormat='\{0\} Number: '}" />
+                            <TextBlock Text="{Binding PhoneNumbers[0].PhoneNumber}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding EmailAddresses[0].Kind, StringFormat='\{0\} Email: '}" />
+                            <TextBlock Text="{Binding EmailAddresses[0].EmailAddress}" />
+                        </StackPanel>
+
+                        <TextBlock Text="{Binding Addresses[0].Kind, StringFormat='\{0\} Address: '}"
+                                   Margin="0,6,0,0" />
+                        <TextBlock Text="{Binding Addresses[0].PhysicalAddress.AddressLine1}" />
+                        <TextBlock Text="{Binding Addresses[0].PhysicalAddress.City}" />
+
+                        <TextBlock Text="{Binding Companies[0].CompanyName, StringFormat='Company: \{0\}'}"
+                                   Margin="0,6,0,0" />
+                        <TextBlock Text="{Binding Companies[0].JobTitle, StringFormat='Title: \{0\}'}" />
+                        <TextBlock Text="{Binding Companies[0].OfficeLocation, StringFormat='Office Location: \{0\}'}" />
+                    </StackPanel>
+                </StackPanel>
+            </controls:PivotItem>
+
+            <!--Pivot item two-->
+            <controls:PivotItem Header="appointments">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel  Width="350">
+
+                            <RadioButton x:Name="todaySearch"
+                                         Content="Today"
+                                         IsChecked="True" />
+                            <RadioButton x:Name="weekSearch"
+                                         Content="Next 7 Days" />
+                            <RadioButton x:Name="monthSearch"
+                                         Content="Next 30 Days" />
+                        </StackPanel>
+                        <Button Click="searchAppointments_Click"
+                                VerticalAlignment="Top">
+                            <Image Source="/Images/appbar.feature.search.rest.png" />
+                        </Button>
+                    </StackPanel>
+
+                   
+                    <TextBlock Text="Search Result:"
+                               Style="{StaticResource PhoneTextGroupHeaderStyle}" />
+                    <TextBlock x:Name="apptsResult"
+                               Margin="12" />
+                    <StackPanel x:Name="appointmentLayout"
+                                Margin="12">
+                        <TextBlock Text="{Binding Subject, StringFormat='Subject: \{0\} '}" />
+
+                        <TextBlock Text="{Binding StartTime, StringFormat='Start: \{0\}'}" />
+                        <TextBlock Text="{Binding EndTime, StringFormat='End: \{0\}'}" />
+                        <TextBlock Text="{Binding Status, StringFormat='Status: \{0\}'}" />
+
+                        <TextBlock Text="{Binding Organizer.DisplayName, StringFormat='Organizer: \{0\}'}" />
+
+                        <TextBlock Text="{Binding Attendees[0].DisplayName, StringFormat='Attendee: \{0\}'}" />
+                    </StackPanel>
+                </StackPanel>
+            </controls:PivotItem>
+
+            <!--Pivot item three-->
+            <!--<controls:PivotItem Header="choosers">
+                <StackPanel>
+                    <Button Content="Choose Phone Number"
+                            Click="ChoosePhoneNumber_Click" />
+                    <Button Content="Choose Email Address"
+                            Click="ChooseEmailAddress_Click" />
+                    <Button Content="Choose Street Address"
+                            Click="ChooseStreetAddress_Click" />
+                    <TextBlock Text="Chooser Result:"
+                               Style="{StaticResource PhoneTextGroupHeaderStyle}" />
+                    <TextBlock x:Name="chooserResult"
+                               TextWrapping="Wrap"
+                               Text="" />
+                </StackPanel>
+            </controls:PivotItem>-->
+        </controls:Pivot>
+    </Grid>
+
+    <!--Sample code showing usage of ApplicationBar-->
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton x:Name="appbar_button1" IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+
+</phone:PhoneApplicationPage>
