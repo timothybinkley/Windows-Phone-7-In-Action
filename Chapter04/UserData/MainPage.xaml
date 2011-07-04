@@ -48,6 +48,8 @@
                                Margin="12" />
                     <StackPanel x:Name="contactLayout"
                                 Margin="12">
+                        <TextBlock Text="{Binding Accounts[0].Name, StringFormat='Account Name: \{0\} '}" />
+                        
                         <TextBlock Text="{Binding DisplayName, StringFormat='Display Name: \{0\} '}" />
                         <StackPanel Orientation="Horizontal"
                                     Margin="0,6">
@@ -98,7 +100,6 @@
                             <Image Source="/Images/appbar.feature.search.rest.png" />
                         </Button>
                     </StackPanel>
-
                    
                     <TextBlock Text="Search Result:"
                                Style="{StaticResource PhoneTextGroupHeaderStyle}" />
@@ -106,8 +107,9 @@
                                Margin="12" />
                     <StackPanel x:Name="appointmentLayout"
                                 Margin="12">
-                        <TextBlock Text="{Binding Subject, StringFormat='Subject: \{0\} '}" />
+                        <TextBlock Text="{Binding Account.Name, StringFormat='Account Name: \{0\} '}" />
 
+                        <TextBlock Text="{Binding Subject, StringFormat='Subject: \{0\} '}" />
                         <TextBlock Text="{Binding StartTime, StringFormat='Start: \{0\}'}" />
                         <TextBlock Text="{Binding EndTime, StringFormat='End: \{0\}'}" />
                         <TextBlock Text="{Binding Status, StringFormat='Status: \{0\}'}" />

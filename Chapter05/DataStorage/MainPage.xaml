@@ -55,8 +55,7 @@
                                 <RowDefinition />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
-                            <TextBlock Text="{Binding Name}"
-                                       Style="{StaticResource PhoneTextLargeStyle}" />
+                            <TextBox Text="{Binding Name, Mode=TwoWay}" />
                             <TextBlock Grid.Row="1"
                                        Text="{Binding LevelsCompleted, StringFormat='\{0\} levels completed'}"
                                        Style="{StaticResource PhoneTextNormalStyle}" />
@@ -69,7 +68,6 @@
                                        Text="{Binding Score}"
                                        Style="{StaticResource PhoneTextTitle1Style}" />
                         </Grid>
-
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
@@ -79,13 +77,16 @@
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True"
-                              IsMenuEnabled="True">
+                              IsMenuEnabled="False">
             <shell:ApplicationBarIconButton Click="add_Click"
                                             IconUri="/Images/appbar.add.rest.png"
                                             Text="add" />
             <shell:ApplicationBarIconButton Click="clear_Click"
                                             IconUri="/Images/appbar.delete.rest.png"
                                             Text="clear" />
+            <shell:ApplicationBarIconButton Click="save_Click"
+                                            IconUri="/Images/appbar.save.rest.png"
+                                            Text="save" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

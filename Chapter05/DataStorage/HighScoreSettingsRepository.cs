@@ -5,7 +5,7 @@ namespace DataStorage
 {
     public class HighScoreSettingsRepository : IHighScoreRepository
     {
-        public List<HighScore> Load()
+        public List<HighScore> Load(int level = 0)
         {
             List<HighScore> storedData;
             if (!IsolatedStorageSettings.ApplicationSettings.TryGetValue<List<HighScore>>("HighScores", out storedData))

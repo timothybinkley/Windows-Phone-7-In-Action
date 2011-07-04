@@ -63,12 +63,10 @@ namespace UserData
 
         void appointments_SearchCompleted(object sender, AppointmentsSearchEventArgs e)
         {
-            //var results = e.Results.ToList();
-            var results = FakeAppointment.FakeResults().ToList();
-            apptsResult.Text = string.Format("{0} appointments found", results.Count); // e.Results.Count()
-            if (results.Count > 1) // e.Results.Count() > 1)
+            apptsResult.Text = string.Format("{0} appointments found", e.Results.Count()); 
+            if (e.Results.Count() > 1)
                 apptsResult.Text += string.Format(", displaying the first match");
-            appointmentLayout.DataContext = results.FirstOrDefault();  // e.Results.FirstOrDefault();
+            appointmentLayout.DataContext = e.Results.FirstOrDefault(); 
         }
 
         #endregion

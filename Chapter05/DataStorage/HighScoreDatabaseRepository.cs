@@ -1,12 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO.IsolatedStorage;
 using System.Linq;
+using Microsoft.Phone.Data.Linq;
+using System.Data.Linq;
 
 namespace DataStorage
 {
     public class HighScoreDatabaseRepository : IHighScoreRepository
     {
         HighScoresDataContext db;
+
+        Func<HighScoresDataContext, IOrderedQueryable<HighScore>> allQuery;
+        Func<HighScoresDataContext, int, IQueryable<HighScore>> levelQuery;
 
         public HighScoreDatabaseRepository()
         {
@@ -21,25 +27,48 @@ namespace DataStorage
             if (!db.DatabaseExists())
             {
                 db.CreateDatabase();
+                IsolatedStorageSettings.ApplicationSettings["DatabaseSchemaVersionWhenCreated"] = 2;
+            }
+            else
+            {
+                DatabaseSchemaUpdater updater = db.CreateDatabaseSchemaUpdater();
+                int databaseSchemaVersion = updater.DatabaseSchemaVersion;
+                if (databaseSchemaVersion == 0)
+                {
+                    // get the database version from application settings
+                    databaseSchemaVersion = (int)IsolatedStorageSettings.ApplicationSettings["DatabaseSchemaVersionWhenCreated"];
+                }
+
+                if (databaseSchemaVersion == 1)
+                {
+                    // add the difficulty column introduced in version two
+                    updater.AddColumn<HighScore>("Difficulty");
+                    updater.DatabaseSchemaVersion = 2;
+                    updater.Execute();
+                }
             }
 
-            //var updater = db.CreateDatabaseSchemaUpdater();
-            //if (updater.DatabaseSchemaVersion == 0)
-            //{
-            //    // add the columns introduced in version one
-            //    updater.AddColumn<HighScore>("Difficulty");
-            //    updater.DatabaseSchemaVersion = 1;
-            //    updater.Execute();
-            //}
+            allQuery = CompiledQuery.Compile((HighScoresDataContext context) => from score in db.HighScores
+                                                                                orderby score.Score descending
+                                                                                select score);
 
+            levelQuery = CompiledQuery.Compile((HighScoresDataContext context, int level) => from score in db.HighScores
+                                                                                             orderby score.Score descending
+                                                                                             where score.LevelsCompleted == level
+                                                                                             select score);
         }
 
-        public List<HighScore> Load()
+        public List<HighScore> Load(int level = 0)
         {
-            var highscores = from score in db.HighScores
-                             orderby score.Score descending
-                             where score.LevelsCompleted < 2 
-                             select score;
+            IEnumerable<HighScore> highscores;
+            if (level == 0)
+            {
+                highscores = allQuery(db);
+            }
+            else
+            {
+                highscores = levelQuery(db, level);
+            }
             return highscores.ToList();
         }
 
@@ -53,7 +82,7 @@ namespace DataStorage
         public void Clear()
         {
             var scores = from score in db.HighScores
-                       select score;
+                         select score;
 
             db.HighScores.DeleteAllOnSubmit(scores);
             db.SubmitChanges();

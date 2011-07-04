@@ -7,7 +7,7 @@ namespace DataStorage
 {
     public class HighScoreFileRepository : IHighScoreRepository
     {
-        public List<HighScore> Load()
+        public List<HighScore> Load(int level = 0)
         {
             List<HighScore> storedData;
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
