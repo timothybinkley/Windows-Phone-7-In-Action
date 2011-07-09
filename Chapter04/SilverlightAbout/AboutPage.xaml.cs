@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Marketplace;
@@ -71,6 +72,26 @@ namespace SilverlightAbout
             SmsComposeTask task = new SmsComposeTask()
             {
                 Body = "I like the WP7 in Action About Application, you should try it out!",
+            };
+            task.Show();
+        }
+
+        private void ShareLinkButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShareLinkTask task = new ShareLinkTask()
+            {
+                Title = "WP7 in Action", 
+                Message = "I like the WP7 in Action About Application, you should try it out!",
+                LinkUri = new Uri("http://manning.com/perga")
+            };
+            task.Show();
+        }
+
+        private void ShareStatusButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShareStatusTask task = new ShareStatusTask()
+            {
+                Status = "I like the WP7 in Action About Application, you should try it out!",
             };
             task.Show();
         }
