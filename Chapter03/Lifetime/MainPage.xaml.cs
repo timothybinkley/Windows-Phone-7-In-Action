@@ -8,34 +8,61 @@ namespace Lifetime
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        DateTime navigatedToTime;
+        DateTime navigatedFromTime;
+        DateTime pageConstructedTime;
+        DateTime obscuredTime;
+        DateTime unobscuredTime;
+
         // Constructor
         public MainPage()
         {
             InitializeComponent();
-            pageConstructed.Text = DateTime.Now.ToLongTimeString();
+            pageConstructedTime = DateTime.Now;
 
-            ((App)Application.Current).RootFrame.Obscured += new EventHandler<ObscuredEventArgs>(RootFrame_Obscured);
-            ((App)Application.Current).RootFrame.Unobscured += new EventHandler(RootFrame_Unobscured);
+            ((App)Application.Current).RootFrame.Obscured += RootFrame_Obscured;
+            ((App)Application.Current).RootFrame.Unobscured += RootFrame_Unobscured;
+        }
+
+        public void UpdateUserInterface()
+        {
+            var app = (App)Application.Current;
+            DateTime now = DateTime.Now;
+
+            // page level times
+            pageConstructed.Text = string.Format("{0:N0} seconds ago", (now - pageConstructedTime).TotalSeconds);
+            navigatedTo.Text = string.Format("{0:N0} seconds ago", (now - navigatedToTime).TotalSeconds);
+
+            if (navigatedFromTime != DateTime.MinValue)
+                navigatedFrom.Text = string.Format("{0:N0} seconds ago", (now - navigatedFromTime).TotalSeconds);
+
+            if (obscuredTime != DateTime.MinValue)
+                obscured.Text = string.Format("{0:N0} seconds ago", (now - obscuredTime).TotalSeconds);
+
+            if (unobscuredTime != DateTime.MinValue)
+                unobscured.Text = string.Format("{0:N0} seconds ago", (now - unobscuredTime).TotalSeconds);
+
+            // app level times
+            appConstructed.Text = string.Format("{0:N0} seconds ago", (now - app.AppConstructedTime).TotalSeconds);
+            launched.Text = string.Format("{0:N0} seconds ago", (now - app.LaunchedTime).TotalSeconds);
+
+            if (app.ActivatedTime != DateTime.MinValue)
+                activated.Text = string.Format("{0:N0} seconds ago", (now - app.ActivatedTime).TotalSeconds);
+
+            if (app.DeactivatedTime != DateTime.MinValue)
+                deactivated.Text = string.Format("{0:N0} seconds ago", (now - app.DeactivatedTime).TotalSeconds);
+
+            instancePreserved.Text = app.IsApplicationInstancePreserved.ToString();
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            navigatedTo.Text = DateTime.Now.ToLongTimeString();
+            navigatedToTime = DateTime.Now;
 
             if (State.ContainsKey("NavigatedFromTime"))
-                navigatedFrom.Text = ((DateTime)State["NavigatedFromTime"]).ToLongTimeString();
+                navigatedFromTime = (DateTime)State["NavigatedFromTime"];
 
-            var app = (App)Application.Current;
-            appConstructed.Text = app.AppConstructed.ToLongTimeString();
-            launched.Text = app.Launched.ToLongTimeString();
-
-            if (app.Activated != DateTime.MinValue)
-                activated.Text = app.Activated.ToLongTimeString();
-
-            if (app.Deactivated != DateTime.MinValue)
-                deactivated.Text = app.Deactivated.ToLongTimeString();
-
-            instancePreserved.Text = app.IsAppInstancePreserved.ToString();
+            UpdateUserInterface();
 
             base.OnNavigatedTo(e);
         }
@@ -54,12 +81,14 @@ namespace Lifetime
 
         void RootFrame_Unobscured(object sender, EventArgs e)
         {
-            unobscured.Text = DateTime.Now.ToLongTimeString();
+            unobscuredTime = DateTime.Now;
+            UpdateUserInterface();
         }
 
         void RootFrame_Obscured(object sender, ObscuredEventArgs e)
         {
-            obscured.Text = DateTime.Now.ToLongTimeString();
+            obscuredTime = DateTime.Now;
+            UpdateUserInterface();
         }
 
 

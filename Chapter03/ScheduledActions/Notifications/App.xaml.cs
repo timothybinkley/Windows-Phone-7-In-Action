@@ -1,19 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Navigation;
+using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-namespace Lifetime
+namespace Notifications
 {
     public partial class App : Application
     {
-        public DateTime AppConstructedTime { get; private set; }
-        public DateTime LaunchedTime { get; private set; }
-        public DateTime ActivatedTime { get; private set; }
-        public DateTime DeactivatedTime { get; private set; }
-        public bool IsApplicationInstancePreserved { get; set; }
-        
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -25,10 +28,14 @@ namespace Lifetime
         /// </summary>
         public App()
         {
-            AppConstructedTime = DateTime.Now;
-
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
+
+            // Standard Silverlight initialization
+            InitializeComponent();
+
+            // Phone-specific initialization
+            InitializePhoneApplication();
 
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
@@ -40,43 +47,34 @@ namespace Lifetime
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;
 
                 // Enable non-production analysis visualization mode, 
-                // which shows areas of a page that are being GPU accelerated with a colored overlay.
+                // which shows areas of a page that are handed off to GPU with a colored overlay.
                 //Application.Current.Host.Settings.EnableCacheVisualization = true;
+
+                // Disable the application idle detection by setting the UserIdleDetectionMode property of the
+                // application's PhoneApplicationService object to Disabled.
+                // Caution:- Use this under debug mode only. Application that disables user idle detection will continue to run
+                // and consume battery power when the user is not using the phone.
+                PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            // Standard Silverlight initialization
-            InitializeComponent();
-
-            // Phone-specific initialization
-            InitializePhoneApplication();
         }
 
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            LaunchedTime = DateTime.Now;
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            ActivatedTime = DateTime.Now;
-            if (PhoneApplicationService.Current.State.ContainsKey("DeactivatedTime"))
-                DeactivatedTime = (DateTime)PhoneApplicationService.Current.State["DeactivatedTime"];
-            if (PhoneApplicationService.Current.State.ContainsKey("LaunchingTime"))
-                LaunchedTime = (DateTime)PhoneApplicationService.Current.State["LaunchingTime"];
-
-            IsApplicationInstancePreserved = e.IsApplicationInstancePreserved;
         }
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
-            PhoneApplicationService.Current.State["DeactivatedTime"] = DateTime.Now;
-            PhoneApplicationService.Current.State["LaunchingTime"] = LaunchedTime;
         }
 
         // Code to execute when the application is closing (eg, user hit Back)

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{614c47ec-5812-4faa-bf79-03d6110035dd}" Title="Lifetime" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Lifetime author" Description="Sample description" Publisher="Lifetime">
+  <App xmlns="" ProductID="{129c98a5-6e6e-4c90-9b81-444f2ff545ed}" Title="Notifications" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Notifications author" Description="Sample description" Publisher="Notifications">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />
@@ -14,16 +14,22 @@
       <Capability Name="ID_CAP_PUSH_NOTIFICATION" />
       <Capability Name="ID_CAP_SENSORS" />
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
+      <Capability Name="ID_CAP_ISV_CAMERA" />
+      <Capability Name="ID_CAP_CONTACTS" />
+      <Capability Name="ID_CAP_APPOINTMENTS" />
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
+      <ExtendedTask Name="BackgroundTask">
+        <BackgroundServiceAgent Specifier="ScheduledTaskAgent" Name="NotificationsAgent" Source="NotificationsAgent" Type="NotificationsAgent.ScheduledAgent" />
+      </ExtendedTask>
     </Tasks>
     <Tokens>
-      <PrimaryToken TokenID="LifetimeToken" TaskName="_default">
+      <PrimaryToken TokenID="NotificationsToken" TaskName="_default">
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>Lifetime</Title>
+          <Title>Notifications</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

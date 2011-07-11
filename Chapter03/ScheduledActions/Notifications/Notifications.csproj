@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{70A00E0A-44A4-4997-ACAB-6CE75D96AD38}</ProjectGuid>
+    <ProjectGuid>{70F4F2CC-2324-4EB7-B3AD-458CD49FBFC0}</ProjectGuid>
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lifetime</RootNamespace>
-    <AssemblyName>Lifetime</AssemblyName>
+    <RootNamespace>Notifications</RootNamespace>
+    <AssemblyName>Notifications</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
@@ -20,9 +20,9 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>Lifetime.xap</XapFilename>
+    <XapFilename>Notifications.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>Lifetime.App</SilverlightAppEntry>
+    <SilverlightAppEntry>Notifications.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
   </PropertyGroup>
@@ -55,6 +55,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
+    <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -80,6 +81,18 @@
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.1\Icons\dark\appbar.add.rest.png">
+      <Link>Images\appbar.add.rest.png</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.1\Icons\dark\appbar.delete.rest.png">
+      <Link>Images\appbar.delete.rest.png</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.1\Icons\dark\appbar.edit.rest.png">
+      <Link>Images\appbar.edit.rest.png</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.1\Icons\dark\appbar.refresh.rest.png">
+      <Link>Images\appbar.refresh.rest.png</Link>
+    </Content>
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -87,6 +100,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SplashScreenImage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NotificationsAgent\NotificationsAgent.csproj">
+      <Project>{D1587B93-B284-4543-A966-A622132716FC}</Project>
+      <Name>NotificationsAgent</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
