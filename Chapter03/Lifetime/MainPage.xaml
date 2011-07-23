@@ -3,6 +3,7 @@
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:lifetime="clr-namespace:Lifetime"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             mc:Ignorable="d"
@@ -37,113 +38,47 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel"
-              Grid.Row="1"
-              Margin="12,0,12,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="25" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="25" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="25" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0"
-                       Margin="12,6,0,0"
-                       Text="Application constructed:" />
-            <TextBlock Grid.Row="1"
-                       Margin="12,6,0,0"
-                       Text="Application launched:" />
-            <TextBlock Grid.Row="2"
-                       Margin="12,6,0,0"
-                       Text="Application activated:" />
-            <TextBlock Grid.Row="3"
-                       Margin="12,6,0,0"
-                       Text="Application deactivated:" />
-            <TextBlock Grid.Row="4"
-                       Margin="12,6,0,0"
-                       Text="App Instance Preserved:" />
+        <StackPanel x:Name="ContentPanel"
+                    Grid.Row="1"
+                    Margin="12,0,12,0">
+            <lifetime:SecondsAgo x:Name="appConstructed"
+                                 Label="Application constructed:" />
+            <lifetime:SecondsAgo x:Name="launched"
+                                 Label="Application launched:" />
+            <lifetime:SecondsAgo x:Name="deactivated"
+                                 Label="Application deactivated:" />
+            <lifetime:SecondsAgo x:Name="activated"
+                                 Label="Application activated:" />
+            <StackPanel Orientation="Horizontal"
+                        Margin="12,6,0,0">
+                <TextBlock Text="App Instance Preserved:" />
+                <TextBlock x:Name="instancePreserved"
+                           Margin="12,0,0,0" />
+            </StackPanel>
 
-            <TextBlock Grid.Row="6"
-                       Margin="12,6,0,0"
-                       Text="Page constructed:" />
-            <TextBlock Grid.Row="7"
-                       Margin="12,6,0,0"
-                       Text="Page navigated to:" />
-            <TextBlock Grid.Row="8"
-                       Margin="12,6,0,0"
-                       Text="Page navigated from:" />
+            <lifetime:SecondsAgo x:Name="pageConstructed"
+                                 Margin="0,24,0,0"
+                                 Label="Page constructed:" />
+            <lifetime:SecondsAgo x:Name="navigatedTo"
+                                 Label="Page navigated to:" />
+            <lifetime:SecondsAgo x:Name="navigatedFrom"
+                                 Label="Page navigated from:" />
 
-            <TextBlock Grid.Row="10"
-                       Margin="12,6,0,0"
-                       Text="Page obscured:" />
-            <TextBlock Grid.Row="11"
-                       Margin="12,6,0,0"
-                       Text="Page unobscured:" />
+            <!--
+            <lifetime:SecondsAgo x:Name="obscured"
+                                 Margin="0,24,0,0"
+                                 Label="Page obscured:" />
+            <lifetime:SecondsAgo x:Name="unobscured"
+                                 Label="Page unobscured:" />
 
-            <TextBlock x:Name="appConstructed"
-                       Grid.Column="1"
-                       Grid.Row="0"
-                       Margin="12,6,0,0" />
-            <TextBlock x:Name="launched"
-                       Grid.Column="1"
-                       Grid.Row="1"
-                       Margin="12,6,0,0" />
-            <TextBlock x:Name="activated"
-                       Grid.Column="1"
-                       Grid.Row="2"
-                       Margin="12,6,0,0" />
-            <TextBlock x:Name="deactivated"
-                       Grid.Column="1"
-                       Grid.Row="3"
-                       Margin="12,6,0,0" />
-            <TextBlock x:Name="instancePreserved"
-                       Grid.Column="1"
-                       Grid.Row="4"
-                       Margin="12,6,0,0" />
-
-            <TextBlock x:Name="pageConstructed"
-                       Grid.Column="1"
-                       Grid.Row="6"
-                       Margin="12,6,0,0" />
-            <TextBlock x:Name="navigatedTo"
-                       Grid.Column="1"
-                       Grid.Row="7"
-                       Margin="12,6,0,0" />
-            <TextBlock x:Name="navigatedFrom"
-                       Grid.Column="1"
-                       Grid.Row="8" 
-                       Margin="12,6,0,0"/>
-
-            <TextBlock x:Name="obscured"
-                       Grid.Column="1"
-                       Grid.Row="10"
-                       Margin="12,6,0,0" />
-            <TextBlock x:Name="unobscured"
-                       Grid.Column="1"
-                       Grid.Row="11"
-                       Margin="12,6,0,0" />
-
-            <CheckBox x:Name="runOption" Grid.Row="13"
-                      Grid.ColumnSpan="2"
+            <CheckBox x:Name="runOption"
+                      Margin="0,24,0,0"
                       Content="Run while the screen is locked."
                       Checked="runOption_Checked"
                       IsChecked="False" />
+            -->
 
-        </Grid>
+        </StackPanel>
     </Grid>
 
 </phone:PhoneApplicationPage>

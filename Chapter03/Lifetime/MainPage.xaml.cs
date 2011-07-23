@@ -3,16 +3,17 @@ using System.Windows;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 using Microsoft.Phone.Shell;
+using System.Windows.Navigation;
 
 namespace Lifetime
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        DateTime pageConstructedTime;
         DateTime navigatedToTime;
         DateTime navigatedFromTime;
-        DateTime pageConstructedTime;
-        DateTime obscuredTime;
-        DateTime unobscuredTime;
+        //DateTime obscuredTime;
+        //DateTime unobscuredTime;
 
         // Constructor
         public MainPage()
@@ -20,76 +21,82 @@ namespace Lifetime
             InitializeComponent();
             pageConstructedTime = DateTime.Now;
 
-            ((App)Application.Current).RootFrame.Obscured += RootFrame_Obscured;
-            ((App)Application.Current).RootFrame.Unobscured += RootFrame_Unobscured;
+            //((App)Application.Current).RootFrame.Obscured += RootFrame_Obscured;
+            //((App)Application.Current).RootFrame.Unobscured += RootFrame_Unobscured;
         }
 
         public void UpdateUserInterface()
         {
-            var app = (App)Application.Current;
-            DateTime now = DateTime.Now;
-
+            
             // page level times
-            pageConstructed.Text = string.Format("{0:N0} seconds ago", (now - pageConstructedTime).TotalSeconds);
-            navigatedTo.Text = string.Format("{0:N0} seconds ago", (now - navigatedToTime).TotalSeconds);
+            pageConstructed.Value = pageConstructedTime;
+            navigatedTo.Value = navigatedToTime;
 
             if (navigatedFromTime != DateTime.MinValue)
-                navigatedFrom.Text = string.Format("{0:N0} seconds ago", (now - navigatedFromTime).TotalSeconds);
+                navigatedFrom.Value = navigatedFromTime;
 
-            if (obscuredTime != DateTime.MinValue)
-                obscured.Text = string.Format("{0:N0} seconds ago", (now - obscuredTime).TotalSeconds);
+            //if (obscuredTime != DateTime.MinValue)
+            //    obscured.Value = obscuredTime;
 
-            if (unobscuredTime != DateTime.MinValue)
-                unobscured.Text = string.Format("{0:N0} seconds ago", (now - unobscuredTime).TotalSeconds);
+            //if (unobscuredTime != DateTime.MinValue)
+            //    unobscured.Value = unobscuredTime;
 
             // app level times
-            appConstructed.Text = string.Format("{0:N0} seconds ago", (now - app.AppConstructedTime).TotalSeconds);
-            launched.Text = string.Format("{0:N0} seconds ago", (now - app.LaunchedTime).TotalSeconds);
+            var app = (App)Application.Current;
 
-            if (app.ActivatedTime != DateTime.MinValue)
-                activated.Text = string.Format("{0:N0} seconds ago", (now - app.ActivatedTime).TotalSeconds);
+            appConstructed.Value = app.AppConstructedTime;
+            launched.Value = app.LaunchedTime;
 
             if (app.DeactivatedTime != DateTime.MinValue)
-                deactivated.Text = string.Format("{0:N0} seconds ago", (now - app.DeactivatedTime).TotalSeconds);
+                deactivated.Value = app.DeactivatedTime;
 
+            if (app.ActivatedTime != DateTime.MinValue)
+                activated.Value = app.ActivatedTime;
+            
             instancePreserved.Text = app.IsApplicationInstancePreserved.ToString();
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             navigatedToTime = DateTime.Now;
 
-            if (State.ContainsKey("NavigatedFromTime"))
+            bool appInstancePreserved =  ((App)Application.Current).IsApplicationInstancePreserved ?? true;
+            if (!appInstancePreserved && State.ContainsKey("NavigatedFromTime"))
+            {
                 navigatedFromTime = (DateTime)State["NavigatedFromTime"];
-
+            }
+            
             UpdateUserInterface();
-
             base.OnNavigatedTo(e);
         }
 
-        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            State["NavigatedFromTime"] = DateTime.Now;
+            if (e.Uri.Equals("app://external/"))
+            {
+                navigatedFromTime = DateTime.Now;
+                State["NavigatedFromTime"] = navigatedFromTime;
+            }
             base.OnNavigatedFrom(e);
         }
 
-        private void runOption_Checked(object sender, RoutedEventArgs e)
-        {
-            PhoneApplicationService.Current.ApplicationIdleDetectionMode = IdleDetectionMode.Disabled;
-            runOption.IsEnabled = false;
-        }
+        //private void runOption_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    PhoneApplicationService.Current.ApplicationIdleDetectionMode = IdleDetectionMode.Disabled;
+        //    runOption.IsEnabled = false;
+        //}
 
-        void RootFrame_Unobscured(object sender, EventArgs e)
-        {
-            unobscuredTime = DateTime.Now;
-            UpdateUserInterface();
-        }
+        //void RootFrame_Unobscured(object sender, EventArgs e)
+        //{
+        //    unobscuredTime = DateTime.Now;
+        //    UpdateUserInterface();
+        //}
 
-        void RootFrame_Obscured(object sender, ObscuredEventArgs e)
-        {
-            obscuredTime = DateTime.Now;
-            UpdateUserInterface();
-        }
+        //void RootFrame_Obscured(object sender, ObscuredEventArgs e)
+        //{
+        //    obscuredTime = DateTime.Now;
+        //    UpdateUserInterface();
+        //}
 
 
 

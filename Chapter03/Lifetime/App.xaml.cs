@@ -10,9 +10,10 @@ namespace Lifetime
     {
         public DateTime AppConstructedTime { get; private set; }
         public DateTime LaunchedTime { get; private set; }
-        public DateTime ActivatedTime { get; private set; }
         public DateTime DeactivatedTime { get; private set; }
-        public bool IsApplicationInstancePreserved { get; set; }
+        public DateTime ActivatedTime { get; private set; }
+        
+        public bool? IsApplicationInstancePreserved { get; private set; }
         
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -63,19 +64,30 @@ namespace Lifetime
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
             ActivatedTime = DateTime.Now;
-            if (PhoneApplicationService.Current.State.ContainsKey("DeactivatedTime"))
-                DeactivatedTime = (DateTime)PhoneApplicationService.Current.State["DeactivatedTime"];
-            if (PhoneApplicationService.Current.State.ContainsKey("LaunchingTime"))
-                LaunchedTime = (DateTime)PhoneApplicationService.Current.State["LaunchingTime"];
-
             IsApplicationInstancePreserved = e.IsApplicationInstancePreserved;
+            if (!e.IsApplicationInstancePreserved)
+            {
+                if (PhoneApplicationService.Current.State.
+                    ContainsKey("DeactivatedTime"))
+                {
+                    DeactivatedTime = (DateTime)PhoneApplicationService.Current.
+                        State["DeactivatedTime"];
+                }
+                if (PhoneApplicationService.Current.State.
+                    ContainsKey("LaunchingTime"))
+                {
+                    LaunchedTime = (DateTime)PhoneApplicationService.Current.
+                        State["LaunchingTime"];
+                }
+            }
         }
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
-            PhoneApplicationService.Current.State["DeactivatedTime"] = DateTime.Now;
+            DeactivatedTime = DateTime.Now;
+            PhoneApplicationService.Current.State["DeactivatedTime"] = DeactivatedTime;
             PhoneApplicationService.Current.State["LaunchingTime"] = LaunchedTime;
         }
 
