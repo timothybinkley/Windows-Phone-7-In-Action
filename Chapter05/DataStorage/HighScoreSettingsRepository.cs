@@ -8,7 +8,7 @@ namespace DataStorage
         public List<HighScore> Load(int level = 0)
         {
             List<HighScore> storedData;
-            if (!IsolatedStorageSettings.ApplicationSettings.TryGetValue<List<HighScore>>("HighScores", out storedData))
+            if (!IsolatedStorageSettings.ApplicationSettings.TryGetValue("HighScores", out storedData))
             {
                 storedData = new List<HighScore>();
             }
