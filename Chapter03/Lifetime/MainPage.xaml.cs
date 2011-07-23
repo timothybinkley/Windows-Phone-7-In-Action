@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Tasks;
-using Microsoft.Phone.Shell;
+using System.Windows.Input;
 using System.Windows.Navigation;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
 namespace Lifetime
 {
@@ -12,8 +12,8 @@ namespace Lifetime
         DateTime pageConstructedTime;
         DateTime navigatedToTime;
         DateTime navigatedFromTime;
-        //DateTime obscuredTime;
-        //DateTime unobscuredTime;
+        DateTime obscuredTime;
+        DateTime unobscuredTime;
 
         // Constructor
         public MainPage()
@@ -21,8 +21,8 @@ namespace Lifetime
             InitializeComponent();
             pageConstructedTime = DateTime.Now;
 
-            //((App)Application.Current).RootFrame.Obscured += RootFrame_Obscured;
-            //((App)Application.Current).RootFrame.Unobscured += RootFrame_Unobscured;
+            ((App)Application.Current).RootFrame.Obscured += RootFrame_Obscured;
+            ((App)Application.Current).RootFrame.Unobscured += RootFrame_Unobscured;
         }
 
         public void UpdateUserInterface()
@@ -35,11 +35,11 @@ namespace Lifetime
             if (navigatedFromTime != DateTime.MinValue)
                 navigatedFrom.Value = navigatedFromTime;
 
-            //if (obscuredTime != DateTime.MinValue)
-            //    obscured.Value = obscuredTime;
+            if (obscuredTime != DateTime.MinValue)
+                obscured.Value = obscuredTime;
 
-            //if (unobscuredTime != DateTime.MinValue)
-            //    unobscured.Value = unobscuredTime;
+            if (unobscuredTime != DateTime.MinValue)
+                unobscured.Value = unobscuredTime;
 
             // app level times
             var app = (App)Application.Current;
@@ -80,25 +80,32 @@ namespace Lifetime
             base.OnNavigatedFrom(e);
         }
 
-        //private void runOption_Checked(object sender, RoutedEventArgs e)
-        //{
-        //    PhoneApplicationService.Current.ApplicationIdleDetectionMode = IdleDetectionMode.Disabled;
-        //    runOption.IsEnabled = false;
-        //}
+        private void runOption_Checked(object sender, RoutedEventArgs e)
+        {
+            PhoneApplicationService.Current.ApplicationIdleDetectionMode = IdleDetectionMode.Disabled;
+            runOption.IsEnabled = false;
+        }
 
-        //void RootFrame_Unobscured(object sender, EventArgs e)
-        //{
-        //    unobscuredTime = DateTime.Now;
-        //    UpdateUserInterface();
-        //}
+        void RootFrame_Unobscured(object sender, EventArgs e)
+        {
+            unobscuredTime = DateTime.Now;
+            UpdateUserInterface();
+        }
 
-        //void RootFrame_Obscured(object sender, ObscuredEventArgs e)
-        //{
-        //    obscuredTime = DateTime.Now;
-        //    UpdateUserInterface();
-        //}
+        void RootFrame_Obscured(object sender, ObscuredEventArgs e)
+        {
+            obscuredTime = DateTime.Now;
+            UpdateUserInterface();
+        }
 
-
+        private void PhoneApplicationPage_Tap(object sender, GestureEventArgs e)
+        {
+            // perform an action to generate an obscured event.
+            //var task = new PhoneCallTask();
+            //task.DisplayName = "Manning Publications Co.";
+            //task.PhoneNumber = "888 555 1212";
+            //task.Show();
+        }
 
     }
 }

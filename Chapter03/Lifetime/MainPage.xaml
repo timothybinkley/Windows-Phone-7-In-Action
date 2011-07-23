@@ -14,7 +14,7 @@
                             Foreground="{StaticResource PhoneForegroundBrush}"
                             SupportedOrientations="Portrait"
                             Orientation="Portrait"
-                            shell:SystemTray.IsVisible="True">
+                            shell:SystemTray.IsVisible="True" Tap="PhoneApplicationPage_Tap">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot"
@@ -64,7 +64,6 @@
             <lifetime:SecondsAgo x:Name="navigatedFrom"
                                  Label="Page navigated from:" />
 
-            <!--
             <lifetime:SecondsAgo x:Name="obscured"
                                  Margin="0,24,0,0"
                                  Label="Page obscured:" />
@@ -76,7 +75,6 @@
                       Content="Run while the screen is locked."
                       Checked="runOption_Checked"
                       IsChecked="False" />
-            -->
 
         </StackPanel>
     </Grid>
