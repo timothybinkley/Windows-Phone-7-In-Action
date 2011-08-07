@@ -72,7 +72,7 @@ namespace Lifetime
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            if (e.Uri.Equals("app://external/"))
+            if (e.IsNavigationInitiator)
             {
                 navigatedFromTime = DateTime.Now;
                 State["NavigatedFromTime"] = navigatedFromTime;

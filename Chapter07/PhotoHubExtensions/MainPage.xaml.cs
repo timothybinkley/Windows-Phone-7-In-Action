@@ -8,6 +8,7 @@ using Microsoft.Phone.Tasks;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Media;
 using System.Linq;
+using System.Windows.Navigation;
 
 namespace PhotoEditor
 {
@@ -22,25 +23,22 @@ namespace PhotoEditor
             InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             IDictionary<string, string> queryStrings =
-               this.NavigationContext.QueryString;
+               NavigationContext.QueryString;
 
             string token = null;
             string source = null;
-            string action = null;
             if (queryStrings.ContainsKey("token"))
             {
                 token = queryStrings["token"];
-                source = "extras";
+                source = "Photos_Extra_Viewer";
             }
             else if (queryStrings.ContainsKey("FileId"))
             {
                 token = queryStrings["FileId"];
-                if (queryStrings.ContainsKey("Action"))
-                    action = queryStrings["Action"];
-                source = "share";
+                source = "Photos_Extra_Share";
             }
 
             if (!string.IsNullOrEmpty(token))
@@ -49,9 +47,11 @@ namespace PhotoEditor
                 Picture picture = mediaLib.GetPictureFromToken(token);
                 currentImage = ImageUtil.GetBitmap(picture.GetImage());
                 photoContainer.Fill = new ImageBrush { ImageSource = currentImage };
-                imageDetails.Text = string.Format("Image from PhotoHub {0} {1}.\r\nPicture name:\r\n{2}\r\nMedia library token:\r\n{3}",
-                    source, action, picture.Name, token);
+                imageDetails.Text = string.Format("Image from {0}.\r\nPicture name:\r\n{1}\r\nMedia library token:\r\n{2}",
+                    source, picture.Name, token);
             }
+
+            imageDetails.Text += "\r\nUri: " + e.Uri.ToString();
         }
 
         private void Choose_Click(object sender, EventArgs e)
@@ -97,23 +97,23 @@ namespace PhotoEditor
                 currentImage = null;
                 imageDetails.Text = string.Format("Choose custom camera again to close camera. Use the hardware buttons to take a picture.");
                 camera = new Object(); //    camera = new PhotoCamera();
-            //    TODO: wire up the appropriate hardware buttons to call event handlers
-            //    camera.ButtonFullPress += camera_ButtonFullPress
-            //    camera.CaptureImageCompleted += camera_CaptureImageCompleted
-            //    camera.Start();
-            //
-            //    var brush = new VideoBrush();
-            //    brush.SetSource(camera);
+                //    TODO: wire up the appropriate hardware buttons to call event handlers
+                //    camera.ButtonFullPress += camera_ButtonFullPress
+                //    camera.CaptureImageCompleted += camera_CaptureImageCompleted
+                //    camera.Start();
+                //
+                //    var brush = new VideoBrush();
+                //    brush.SetSource(camera);
                 photoContainer.Fill = new SolidColorBrush(Colors.Gray); //    photoContainer.Fill = brush;
             }
             else
             {
                 photoContainer.Fill = new SolidColorBrush(Colors.Gray);
                 imageDetails.Text = "Choose an image source from the menu.";
-            
-            //    camera.ButtonFullPress -= camera_ButtonFullPress
-            //    camera.CaptureImageCompleted -= camera_CaptureImageCompleted
-            //    camera.Stop();
+
+                //    camera.ButtonFullPress -= camera_ButtonFullPress
+                //    camera.CaptureImageCompleted -= camera_CaptureImageCompleted
+                //    camera.Stop();
                 camera = null;
             }
         }
@@ -161,9 +161,9 @@ namespace PhotoEditor
                 //}
                 var stream = new MemoryStream();
                 currentImage.SaveJpeg(stream, currentImage.PixelWidth, currentImage.PixelHeight, 0, 100);
-                stream.Seek(0, 0); 
+                stream.Seek(0, 0);
                 var library = new MediaLibrary();
-                Picture p = library.SavePicture("customphoto.jpg", stream);
+                Picture p = library.SavePicture("customphoto", stream);
                 imageDetails.Text = string.Format("Image saved to media library.\r\nFilename:\r\ncustomphoto.jpg");
             }
         }
@@ -190,15 +190,17 @@ namespace PhotoEditor
         {
             var library = new MediaLibrary();
             var pictures = library.SavedPictures;
-            
+
             // find customphoto.jpeg
             var picture = pictures.FirstOrDefault(item => item.Name == "customphoto.jpg");
             if (picture != null)
             {
-                var bitmap = new BitmapImage();
-                currentImage = ImageUtil.GetBitmap(picture.GetImage());
+                using (var stream = picture.GetImage())
+                {
+                    currentImage = ImageUtil.GetBitmap(picture.GetImage());
+                }
                 photoContainer.Fill = new ImageBrush { ImageSource = currentImage };
-                imageDetails.Text = string.Format("Image from Media Library.\r\nPicture name:\r\n{0}", picture.Name);
+                imageDetails.Text = string.Format("Image from Album: {0}\r\nPicture name: {1}", picture.Album, picture.Name);
             }
             else
             {
@@ -206,5 +208,44 @@ namespace PhotoEditor
                 imageDetails.Text = "Choose an image source from the menu.";
             }
         }
+
+        #region temporary - remove this code.
+        private void Albums_Click(object sender, EventArgs e)
+        {
+            var library = new MediaLibrary();
+            PictureAlbum current = library.RootPictureAlbum;
+            System.Diagnostics.Debug.WriteLine("Album: {0} ", current.Name);
+            ListPictures(current.Pictures, 1);
+            ListChildren(current.Albums, 1);
+
+            System.Diagnostics.Debug.WriteLine("\r\n***All Pictures **********");
+            var pictures = library.Pictures;
+            foreach (var picture in pictures)
+            {
+                System.Diagnostics.Debug.WriteLine("{0}-{1}", picture.Album, picture.Name);
+            }
+        }
+
+        private void ListChildren(PictureAlbumCollection albums, int p)
+        {
+            foreach (var album in albums)
+            {
+                string spacer = new string(' ', p * 2);
+                System.Diagnostics.Debug.WriteLine("{0}Album: {1}", spacer, album.Name);
+                ListPictures(album.Pictures, p + 1);
+                ListChildren(album.Albums, p + 1);
+            }
+        }
+
+        private void ListPictures(PictureCollection pictures, int p)
+        {
+            foreach (var picture in pictures)
+            {
+                string spacer = new string(' ', p * 2);
+                System.Diagnostics.Debug.WriteLine("{0}Picture: {1}", spacer, picture.Name);
+            }
+        }
+
+        #endregion
     }
 }

@@ -90,15 +90,13 @@
     <Content Include="..\..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.1\Icons\dark\appbar.edit.rest.png">
       <Link>Images\appbar.edit.rest.png</Link>
     </Content>
-    <Content Include="..\..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.1\Icons\dark\appbar.refresh.rest.png">
-      <Link>Images\appbar.refresh.rest.png</Link>
-    </Content>
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="wp7iaAlarm.wma" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

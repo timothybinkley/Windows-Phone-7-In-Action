@@ -59,20 +59,25 @@
             <ListBox x:Name="notificationList"
                      Grid.Row="2">
                 <ListBox.ItemTemplate>
-                    <!--Have different templates for alarms and reminders-->
                     <DataTemplate>
                         <StackPanel Margin="12">
                             <TextBlock Text="{Binding Name}"
                                        FontSize="{StaticResource PhoneFontSizeLarge}" />
+                            <TextBlock Text="{Binding Title}"
+                                       Style="{StaticResource PhoneTextNormalStyle}" />
                             <TextBlock Text="{Binding Content}"
                                        Style="{StaticResource PhoneTextNormalStyle}" />
                             <TextBlock Text="{Binding BeginTime, StringFormat='\{0:f\}'}"
                                        Style="{StaticResource PhoneTextSmallStyle}" />
                             <TextBlock Text="{Binding ExpirationTime, StringFormat='expires at \{0\:g}'}"
                                        Style="{StaticResource PhoneTextSmallStyle}" />
+                            <TextBlock Text="{Binding RecurrenceType, StringFormat='Recurs: \{0\}'}"
+                                       Style="{StaticResource PhoneTextSmallStyle}" />
                             <TextBlock Text="{Binding IsScheduled, StringFormat='Is Scheduled: \{0\}'}"
                                        Style="{StaticResource PhoneTextSubtleStyle}" />
                             <TextBlock Text="{Binding NavigationUri, StringFormat='Uri: \{0\}'}"
+                                       Style="{StaticResource PhoneTextSubtleStyle}" />
+                            <TextBlock Text="{Binding Sound, StringFormat='Sound: \{0\}'}"
                                        Style="{StaticResource PhoneTextSubtleStyle}" />
                         </StackPanel>
                     </DataTemplate>
@@ -88,16 +93,19 @@
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.rest.png"
                                             Text="alarm"
                                             Click="AddAlarm_Click" />
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.edit.rest.png"
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.rest.png"
                                             Text="reminder"
                                             Click="AddReminder_Click" />
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.refresh.rest.png"
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.edit.rest.png"
                                             Text="reschedule"
                                             Click="RescheduleNotification_Click" />
-            <!-- hook this up to delete the selected list item -->
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.delete.rest.png"
-                                            Text="delete"
-                                            Click="DeleteNotifications_Click" />
+                                            Text="remove"
+                                            Click="RemoveNotification_Click" />
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="refresh"
+                                              Click="RefreshNotifications_Click" />
+            </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

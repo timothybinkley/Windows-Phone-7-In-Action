@@ -16,27 +16,21 @@ namespace NotificationsAgent
         /// </remarks>
         protected override void OnInvoke(ScheduledTask task)
         {
-            RemoveUnscheduledAndExpiredNotifications();
-            ScheduledActionService.LaunchForTest(task.Name, TimeSpan.FromSeconds(15));
+            //RemoveUnscheduledAndExpiredNotifications();
             NotifyComplete();
         }
 
         protected void RemoveUnscheduledAndExpiredNotifications()
         {
             var now = DateTime.Now;
-            bool workWasDone = false;
             var notifications = ScheduledActionService.GetActions<ScheduledNotification>();
             foreach (var notification in notifications)
             {
                 if (notification.IsScheduled == false || notification.ExpirationTime < now)
                 {
                     ScheduledActionService.Remove(notification.Name);
-                    workWasDone = true;
                 }
             }
-
-            //if (!workWasDone)
-            //    Abort();
         }
     }
 }
