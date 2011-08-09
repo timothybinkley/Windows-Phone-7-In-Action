@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5920A4E1-50CC-41C5-B03E-56C2EB1AD9B3}</ProjectGuid>
+    <ProjectGuid>{6DD198E7-D9BB-4F37-9E48-537D2B519714}</ProjectGuid>
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -13,7 +13,7 @@
     <AssemblyName>VoiceRecorder</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
-    <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <SilverlightApplication>true</SilverlightApplication>
     <SupportedCultures>
@@ -56,6 +56,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
+    <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -65,7 +66,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XnaDispatcherService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -82,14 +82,14 @@
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.0\Icons\dark\appbar.add.rest.png">
-      <Link>Images\appbar.add.rest.png</Link>
-    </Content>
-    <Content Include="..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.0\Icons\dark\appbar.transport.pause.rest.png">
+    <Content Include="..\..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.1\Icons\dark\appbar.transport.pause.rest.png">
       <Link>Images\appbar.transport.pause.rest.png</Link>
     </Content>
-    <Content Include="..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.0\Icons\dark\appbar.transport.play.rest.png">
+    <Content Include="..\..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.1\Icons\dark\appbar.transport.play.rest.png">
       <Link>Images\appbar.transport.play.rest.png</Link>
+    </Content>
+    <Content Include="..\..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.1\Icons\dark\appbar.add.rest.png">
+      <Link>Images\appbar.add.rest.png</Link>
     </Content>
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -101,7 +101,12 @@
     </Content>
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\VoiceRecorderPlaybackAgent\VoiceRecorderPlaybackAgent.csproj">
+      <Project>{F51257BF-0F33-4A08-B519-952E6F55B97B}</Project>
+      <Name>VoiceRecorderPlaybackAgent</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
