@@ -27,13 +27,17 @@ namespace VoiceRecorder
         public PhoneApplicationFrame RootFrame { get; private set; }
 
         // Enable XNA event processing.
-        Timer xnaTimer = new Timer(timeState => FrameworkDispatcher.Update(), null, 0, 33); 
+        DispatcherTimer xnaTimer;
 
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>
         public App()
         {
+            xnaTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };
+            xnaTimer.Tick += (sender, e) => FrameworkDispatcher.Update();
+            xnaTimer.Start();
+
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 

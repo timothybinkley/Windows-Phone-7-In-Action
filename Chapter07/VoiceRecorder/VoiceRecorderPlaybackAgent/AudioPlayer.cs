@@ -18,7 +18,7 @@ namespace VoiceRecorderPlaybackAgent
         protected override void OnPlayStateChanged(BackgroundAudioPlayer player, AudioTrack track, PlayState playState)
         {
             //TODO: Add code to handle play state changes
-            System.Diagnostics.Debug.WriteLine("OnPlayStateChagned(title={0}, source={1}, playState={2})", track.Title, track.Source, playState);
+            System.Diagnostics.Debug.WriteLine("OnPlayStateChanged - {0}", playState);
             NotifyComplete();
         }
 
@@ -39,10 +39,10 @@ namespace VoiceRecorderPlaybackAgent
         /// </remarks>
         protected override void OnUserAction(BackgroundAudioPlayer player, AudioTrack track, UserAction action, object param)
         {
-            //TODO: Add code to handle user actions through the application and system-provided UI
-            System.Diagnostics.Debug.WriteLine("OnUserAction(title={0}, source={1}, actcion={2})", track.Title, track.Source, action);
-            if(action == UserAction.Play)
+            if (action == UserAction.Play)
                 player.Play();
+            else if (action == UserAction.Pause)
+                player.Pause();
             NotifyComplete();
         }
 
@@ -60,8 +60,7 @@ namespace VoiceRecorderPlaybackAgent
         protected override void OnError(BackgroundAudioPlayer player, AudioTrack track, Exception error, bool isFatal)
         {
             //TODO: Add code to handle error conditions
-            System.Diagnostics.Debug.WriteLine("OnError(title={0}, source={1})", track.Title, track.Source);
-
+            System.Diagnostics.Debug.WriteLine("onError");
             NotifyComplete();
         }
 

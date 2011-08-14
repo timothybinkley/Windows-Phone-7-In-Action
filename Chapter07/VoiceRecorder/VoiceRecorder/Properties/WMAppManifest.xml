@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{dbf1198b-6030-495a-bc4c-0abcc8e2d521}" Title="VoiceRecorder" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="VoiceRecorder author" Description="Sample description" Publisher="VoiceRecorder">
+  <App xmlns="" ProductID="{dbf1198b-6030-495a-bc4c-0abcc8e2d521}" Title="VoiceRecorder" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="VoiceRecorder author" Description="Sample description" Publisher="VoiceRecorder" HubType="1">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />
@@ -19,7 +19,8 @@
       <Capability Name="ID_CAP_APPOINTMENTS" />
     </Capabilities>
     <Tasks>
-      <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
+      <DefaultTask Name="_default" NavigationPage="MainPage.xaml />
+      <!--<DefaultTask Name="_default" NavigationPage="MainPage.xaml?vrec-filename=voice-recording-1.wav" />-->
       <ExtendedTask Name="BackgroundTask">
         <BackgroundServiceAgent Specifier="AudioPlayerAgent" Name="VoiceRecorderPlaybackAgent" Source="VoiceRecorderPlaybackAgent" Type="VoiceRecorderPlaybackAgent.AudioPlayer" />
       </ExtendedTask>

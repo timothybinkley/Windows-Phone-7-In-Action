@@ -43,15 +43,18 @@
             <ListBox x:Name="recordingList">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="12">
                             <Button Click="play_Click"
-                                    Tag="{Binding}">
+                                    Tag="{Binding Title}" Background="Black">
                                 <Image Source="Images/appbar.transport.play.rest.png" />
                             </Button>
-                            <TextBlock Text="{Binding}"
-                                       VerticalAlignment="Center"
-                                       FontSize="{StaticResource PhoneFontSizeMedium}" />
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Title}"
+                                           FontSize="{StaticResource PhoneFontSizeLarge}" />
+                                <TextBlock Text="{Binding Date, StringFormat='Recorded: \{0:g\}'}"
+                                           FontSize="{StaticResource PhoneFontSizeNormal}" />
+                            </StackPanel>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -64,16 +67,20 @@
                        Foreground="{StaticResource PhoneAccentBrush}"
                        FontSize="{StaticResource PhoneFontSizeLarge}" />
 
+            <TextBlock x:Name="navUri"
+                       VerticalAlignment="Bottom"
+                       Text="uri" Visibility="Collapsed" />
+
         </Grid>
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True"
                               IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.add.rest.png"
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.record.png"
                                             Text="record"
                                             Click="record_Click" />
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.transport.pause.rest.png"
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.stop.png"
                                             Text="stop"
                                             Click="stopRecord_Click" />
         </shell:ApplicationBar>
