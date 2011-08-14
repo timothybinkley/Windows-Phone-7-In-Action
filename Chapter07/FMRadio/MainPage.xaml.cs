@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO.IsolatedStorage;
 using System.Windows;
 using Microsoft.Phone.Controls;
 using Microsoft.Devices.Radio;
+using System.Windows.Navigation;
 
 namespace FMRadioSample
 {
@@ -11,8 +13,6 @@ namespace FMRadioSample
         public MainPage()
         {
             InitializeComponent();
-
-            UpdateControls();
         }
 
         private void UpdateControls()
@@ -23,9 +23,22 @@ namespace FMRadioSample
             powerModeTextblock.Text = string.Format("Power mode : {0}", radio.PowerMode);
         }
 
-        protected override void OnNavigatingFrom(System.Windows.Navigation.NavigatingCancelEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (turnOffOnExitCheckbox.IsChecked.HasValue && turnOffOnExitCheckbox.IsChecked.Value)
+            bool turnOffRadio;
+            if(IsolatedStorageSettings.ApplicationSettings.TryGetValue("TurnOffRadio", out turnOffRadio))
+                turnOffOnExitCheckbox.IsChecked = turnOffRadio;
+            else
+                turnOffOnExitCheckbox.IsChecked = true;
+
+            UpdateControls();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            bool turnOffRadio = turnOffOnExitCheckbox.IsChecked.Value;
+            IsolatedStorageSettings.ApplicationSettings["TurnOffRadio"] = turnOffRadio;
+            if (turnOffRadio)
             {
                 FMRadio.Instance.PowerMode = RadioPowerMode.Off;
             }
@@ -41,7 +54,6 @@ namespace FMRadioSample
             {
                 return RadioRegion.Europe;
             }
-
             return RadioRegion.UnitedStates;
         }
 
@@ -75,6 +87,13 @@ namespace FMRadioSample
         private void off_Clicked(object sender, EventArgs e)
         {
             FMRadio.Instance.PowerMode = RadioPowerMode.Off;
+            UpdateControls();
+        }
+
+        private void refresh_Clicked(object sender, EventArgs e)
+        {
+            // Radio settings might be changed by the UVC while the application is running,
+            // or by either the UVC or the Music + Videos Hub while the application is dormant or terminated.
             UpdateControls();
         }
     }

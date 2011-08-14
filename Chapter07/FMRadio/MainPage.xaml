@@ -91,6 +91,9 @@
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.transport.pause.rest.png"
                                             Text="off"
                                             Click="off_Clicked" />
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar.refresh.rest.png"
+                                            Text="refresh"
+                                            Click="refresh_Clicked" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 
