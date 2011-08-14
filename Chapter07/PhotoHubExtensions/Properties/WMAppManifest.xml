@@ -17,6 +17,8 @@
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
+      <!--<DefaultTask Name="_default" NavigationPage="MainPage.xaml?token=%7B60C0B7CD-669A-2DF4-6B1E-CCABD81E168B%7D" />-->
+      <!--<DefaultTask Name="_default" NavigationPage="MainPage.xaml?Action=ShareContent&amp;FileId=%7B60C0B7CD-669A-2DF4-6B1E-CCABD81E168B%7D" />-->
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="CameraToken" TaskName="_default">
