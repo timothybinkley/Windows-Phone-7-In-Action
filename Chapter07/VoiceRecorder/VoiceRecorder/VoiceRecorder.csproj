@@ -96,6 +96,7 @@
     </Content>
     <Content Include="Images\appbar.record.png" />
     <Content Include="Images\appbar.stop.png" />
+    <Content Include="Images\ImageLocationReadMe.txt" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
