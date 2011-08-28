@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D91BD6DE-E03C-4BC9-8182-328905647036}</ProjectGuid>
+    <ProjectGuid>{2424F130-BB77-4CAA-BD8F-0ECB0F9E1CB0}</ProjectGuid>
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PhotoEditor</RootNamespace>
-    <AssemblyName>PhotoEditor</AssemblyName>
+    <RootNamespace>VideoCapture</RootNamespace>
+    <AssemblyName>VideoCapture</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
@@ -20,9 +20,9 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>PhotoEditor.xap</XapFilename>
+    <XapFilename>VideoCapture.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>PhotoEditor.App</SilverlightAppEntry>
+    <SilverlightAppEntry>VideoCapture.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
   </PropertyGroup>
@@ -48,9 +48,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ExifLib">
-      <HintPath>Libs\ExifLib.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="System.Windows" />
@@ -58,6 +55,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
+    <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -80,16 +78,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
-    <None Include="Properties\WMAppManifest.xml">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.0\Icons\dark\appbar.edit.rest.png">
-      <Link>Images\appbar.edit.rest.png</Link>
-    </Content>
-    <Content Include="..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.0\Icons\dark\appbar.save.rest.png">
-      <Link>Images\appbar.save.rest.png</Link>
+    <Content Include="..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.1\Icons\dark\appbar.transport.play.rest.png">
+      <Link>Images\appbar.transport.play.rest.png</Link>
     </Content>
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -97,7 +90,10 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\appbar.record.png" />
+    <Content Include="Images\appbar.stop.png" />
     <Content Include="Images\ImageLocationReadMe.txt" />
+    <Content Include="mytone.wma" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

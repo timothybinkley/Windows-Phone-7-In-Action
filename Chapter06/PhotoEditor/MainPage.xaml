@@ -44,15 +44,30 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Border x:Name="photoBorder"
-                    BorderBrush="Red"
-                    BorderThickness="10" />
+
+            <Border x:Name="photoStamp"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="#7DFFFFFF"
+                    BorderBrush="#7DFF0000"
+                    BorderThickness="10"
+                    Height="125"
+                    Width="300" >
+                <TextBlock Text="Windows Phone 7 in Action"
+                           Foreground="#7DFF0000"
+                           Style="{StaticResource PhoneTextLargeStyle}"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center" />
+            </Border>
+
             <Rectangle x:Name="photoContainer"
                        Fill="Gray" />
+
             <TextBlock x:Name="imageDetails"
                        Grid.Row="1"
                        TextWrapping="Wrap"
-                       Text="Choose an image source from the menu."/>
+                       Text="Choose an image source from the menu." />
+
         </Grid>
     </Grid>
 
@@ -76,7 +91,7 @@
                 <shell:ApplicationBarMenuItem Text="open custom photo"
                                               Click="Open_Click" />
             </shell:ApplicationBar.MenuItems>
-            
+
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

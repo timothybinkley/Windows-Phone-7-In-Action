@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{8ca0794e-ca49-42ba-a7cf-b6e5f2cde4e7}" Title="Photo Editor" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Camera author" Description="Sample description" Publisher="Camera">
+  <App xmlns="" ProductID="{34e150c7-3e2b-48a3-9243-7c6a0fb6be4e}" Title="VideoCapture" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="VideoCapture author" Description="Sample description" Publisher="VideoCapture">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES"/>
@@ -19,14 +20,14 @@
       <Capability Name="ID_CAP_APPOINTMENTS"/>
     </Capabilities>
     <Tasks>
-      <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
+      <DefaultTask  Name ="_default" NavigationPage="MainPage.xaml"/>
     </Tasks>
     <Tokens>
-      <PrimaryToken TokenID="CameraToken" TaskName="_default">
+      <PrimaryToken TokenID="VideoCaptureToken" TaskName="_default">
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>Photo Editor</Title>
+          <Title>VideoCapture</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>
