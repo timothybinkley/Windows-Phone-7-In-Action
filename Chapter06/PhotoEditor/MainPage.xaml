@@ -41,20 +41,21 @@
               Grid.Row="1"
               Margin="12,0,12,0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="360" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Border x:Name="photoStamp"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
-                    Background="#7DFFFFFF"
-                    BorderBrush="#7DFF0000"
+                    Opacity="0.5"
+                    Background="White"
+                    BorderBrush="Red"
                     BorderThickness="10"
                     Height="125"
                     Width="300" >
                 <TextBlock Text="Windows Phone 7 in Action"
-                           Foreground="#7DFF0000"
+                           Foreground="Red"
                            Style="{StaticResource PhoneTextLargeStyle}"
                            TextWrapping="Wrap"
                            TextAlignment="Center" />
