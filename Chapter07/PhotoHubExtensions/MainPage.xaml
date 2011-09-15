@@ -65,11 +65,6 @@
             <shell:ApplicationBarIconButton IconUri="/Images/appbar.save.rest.png"
                                             Text="save"
                                             Click="Save_Click" />
-
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.save.rest.png"
-                                            Text="albums"
-                                            Click="Albums_Click" />
-
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="choose photo"
                                               Click="Choose_Click" />

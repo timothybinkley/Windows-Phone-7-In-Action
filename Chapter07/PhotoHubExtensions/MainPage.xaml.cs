@@ -25,6 +25,8 @@ namespace PhotoEditor
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            imageDetails.Text = "";
+
             IDictionary<string, string> queryStrings =
                NavigationContext.QueryString;
 
@@ -47,11 +49,11 @@ namespace PhotoEditor
                 Picture picture = mediaLib.GetPictureFromToken(token);
                 currentImage = ImageUtil.GetBitmap(picture.GetImage());
                 photoContainer.Fill = new ImageBrush { ImageSource = currentImage };
-                imageDetails.Text = string.Format("Image from {0}.\r\nPicture name:\r\n{1}\r\nMedia library token:\r\n{2}",
+                imageDetails.Text = string.Format("Image from {0}.\nPicture name:\n{1}\nMedia library token:\n{2}",
                     source, picture.Name, token);
             }
 
-            imageDetails.Text += "\r\nUri: " + e.Uri.ToString();
+            imageDetails.Text += "\nUri: " + e.Uri.ToString();
         }
 
         private void Choose_Click(object sender, EventArgs e)
@@ -68,7 +70,7 @@ namespace PhotoEditor
             {
                 currentImage = ImageUtil.GetBitmap(e.ChosenPhoto);
                 photoContainer.Fill = new ImageBrush { ImageSource = currentImage };
-                imageDetails.Text = string.Format("Image from PhotoChooserTask\r\nOriginal filename:\r\n{0}", e.OriginalFileName);
+                imageDetails.Text = string.Format("Image from PhotoChooserTask\nOriginal filename:\n{0}", e.OriginalFileName);
             }
         }
 
@@ -86,7 +88,7 @@ namespace PhotoEditor
                 var angle = ImageUtil.GetAngleFromChosenPhoto(e.ChosenPhoto, e.OriginalFileName);
                 currentImage = ImageUtil.GetBitmap(e.ChosenPhoto, angle);
                 photoContainer.Fill = new ImageBrush { ImageSource = currentImage };
-                imageDetails.Text = string.Format("Image from CameraCaptureTask.\r\nImage was rotated {0} degrees.\r\nOriginal filename:\r\n{0}", angle, e.OriginalFileName);
+                imageDetails.Text = string.Format("Image from CameraCaptureTask.\nImage was rotated {0} degrees.\nOriginal filename:\n{0}", angle, e.OriginalFileName);
             }
         }
 
@@ -164,7 +166,7 @@ namespace PhotoEditor
                 stream.Seek(0, 0);
                 var library = new MediaLibrary();
                 Picture p = library.SavePicture("customphoto", stream);
-                imageDetails.Text = string.Format("Image saved to media library.\r\nFilename:\r\ncustomphoto.jpg");
+                imageDetails.Text = string.Format("Image saved to media library.\nFilename:\ncustomphoto.jpg");
             }
         }
 
@@ -182,7 +184,7 @@ namespace PhotoEditor
                         photoContainer.Fill = new ImageBrush { ImageSource = currentImage };
                     }
                 }
-                imageDetails.Text = string.Format("Image loaded.\r\nFilename:\r\ncustomphoto.jpg");
+                imageDetails.Text = string.Format("Image loaded.\nFilename:\ncustomphoto.jpg");
             }
         }
 
@@ -200,7 +202,7 @@ namespace PhotoEditor
                     currentImage = ImageUtil.GetBitmap(picture.GetImage());
                 }
                 photoContainer.Fill = new ImageBrush { ImageSource = currentImage };
-                imageDetails.Text = string.Format("Image from Album: {0}\r\nPicture name: {1}", picture.Album, picture.Name);
+                imageDetails.Text = string.Format("Image from Album: {0}\nPicture name: {1}", picture.Album, picture.Name);
             }
             else
             {
@@ -208,44 +210,5 @@ namespace PhotoEditor
                 imageDetails.Text = "Choose an image source from the menu.";
             }
         }
-
-        #region temporary - remove this code.
-        private void Albums_Click(object sender, EventArgs e)
-        {
-            var library = new MediaLibrary();
-            PictureAlbum current = library.RootPictureAlbum;
-            System.Diagnostics.Debug.WriteLine("Album: {0} ", current.Name);
-            ListPictures(current.Pictures, 1);
-            ListChildren(current.Albums, 1);
-
-            System.Diagnostics.Debug.WriteLine("\r\n***All Pictures **********");
-            var pictures = library.Pictures;
-            foreach (var picture in pictures)
-            {
-                System.Diagnostics.Debug.WriteLine("{0}-{1}", picture.Album, picture.Name);
-            }
-        }
-
-        private void ListChildren(PictureAlbumCollection albums, int p)
-        {
-            foreach (var album in albums)
-            {
-                string spacer = new string(' ', p * 2);
-                System.Diagnostics.Debug.WriteLine("{0}Album: {1}", spacer, album.Name);
-                ListPictures(album.Pictures, p + 1);
-                ListChildren(album.Albums, p + 1);
-            }
-        }
-
-        private void ListPictures(PictureCollection pictures, int p)
-        {
-            foreach (var picture in pictures)
-            {
-                string spacer = new string(' ', p * 2);
-                System.Diagnostics.Debug.WriteLine("{0}Picture: {1}", spacer, picture.Name);
-            }
-        }
-
-        #endregion
     }
 }
