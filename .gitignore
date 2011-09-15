@@ -4,8 +4,10 @@
 # Bild Folders (you can keep bin if you'd like, to store dlls and pdbs)
 bin
 obj
+SubmissionInfo
 
 # Other misc files
 *.suo
 *.user
 *.db
+*.pdn
