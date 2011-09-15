@@ -81,8 +81,6 @@
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="chimes.wma" />
-    <Content Include="twilight.mp3" />
     <Content Include="ApplicationIcon.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
