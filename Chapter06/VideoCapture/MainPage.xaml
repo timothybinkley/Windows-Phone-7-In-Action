@@ -42,8 +42,9 @@
               Margin="12,0,12,0">
 
             <Rectangle x:Name="videoContainer"
-                       Fill="Gray"
-                       Margin="0, -12, 12, 12" />
+                       Width="400"
+                       Height="300"
+                       Fill="Gray" />
         </Grid>
     </Grid>
 
@@ -51,9 +52,14 @@
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True"
                               IsMenuEnabled="False">
-            <shell:ApplicationBarIconButton Text="record"
-                                            Click="record_Click"
-                                            IconUri="/Images/appbar.record.png" />
+            <shell:ApplicationBarIconButton Text="rec primary"
+                                            Click="recordPrimary_Click"
+                                            IsEnabled="False"
+                                            IconUri="/Images/appbar.feature.video.rest.png" />
+            <shell:ApplicationBarIconButton Text="rec front"
+                                            Click="recordFront_Click"
+                                            IsEnabled="False"
+                                            IconUri="/Images/appbar.front.png" />
             <shell:ApplicationBarIconButton Text="stop"
                                             Click="stop_Click"
                                             IconUri="/Images/appbar.stop.png" />

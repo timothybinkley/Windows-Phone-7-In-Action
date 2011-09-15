@@ -2,44 +2,75 @@
 using System.Windows.Media;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
+using Microsoft.Phone.Shell;
 
 namespace VideoCapture
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        CaptureSource videoRecorder;
+        FileSink fileWriter;
+
         // Constructor
         public MainPage()
         {
             InitializeComponent();
 
-            // this is not really part of the application, but a demonstration of the available devices
+            var videoDevices = CaptureDeviceConfiguration.GetAvailableVideoCaptureDevices();
+            if (videoDevices.Count > 1)
+            {
+                var recordFrontButton = (ApplicationBarIconButton)ApplicationBar.Buttons[1];
+                recordFrontButton.IsEnabled = true;
+            }
 
+            // this is not really part of the application, but a demonstration of the available devices
             var devices = CaptureDeviceConfiguration.GetAvailableVideoCaptureDevices();
-            bool request = CaptureDeviceConfiguration.RequestDeviceAccess();
             foreach (var device in devices)
             {
-                System.Diagnostics.Debug.WriteLine("device: {0} ", device.FriendlyName);
+                var desired = device.DesiredFormat;
+                System.Diagnostics.Debug.WriteLine("device: {0} {1} {2}", device.FriendlyName, device.IsDefaultDevice, device.DesiredFormat);
+                foreach (var format in device.SupportedFormats)
+                {
+                    System.Diagnostics.Debug.WriteLine("     format: {0}x{1} {2}, {3}, {4}", format.PixelWidth, format.PixelHeight,
+                        format.FramesPerSecond, format.FramesPerSecond, format.Stride);
+                }
             }
 
             var audioDevices = CaptureDeviceConfiguration.GetAvailableAudioCaptureDevices();
-            request = CaptureDeviceConfiguration.RequestDeviceAccess();
             foreach (var device in audioDevices)
             {
-                System.Diagnostics.Debug.WriteLine("device: {0} ", device.FriendlyName);
+                System.Diagnostics.Debug.WriteLine("device: {0} {1} {2}", device.FriendlyName, device.IsDefaultDevice, device.DesiredFormat, device.AudioFrameSize);
+                foreach (var format in device.SupportedFormats)
+                {
+                    System.Diagnostics.Debug.WriteLine("     format: {0}, {1}, {2}, {3}", format.WaveFormat, format.Channels,
+                        format.SamplesPerSecond, format.BitsPerSample);
+                }
             }
            
         }
-
-        CaptureSource videoRecorder;
-        FileSink fileWriter;
         
-        private void record_Click(object sender, EventArgs e)
+        private void recordPrimary_Click(object sender, EventArgs e)
+        {
+            // this method assume the primary or back camera is the default video capture device.
+            var videoDevice = CaptureDeviceConfiguration.GetDefaultVideoCaptureDevice();
+            StartCapture(videoDevice);
+        }
+
+        private void recordFront_Click(object sender, EventArgs e)
+        {
+            // this method uses the front facing camera is the second device listed in GetAvailableVideoCaptureDevices
+            var devices = CaptureDeviceConfiguration.GetAvailableVideoCaptureDevices();
+            var videoDevice = devices[1];
+            StartCapture(videoDevice);
+        }
+
+        private void StartCapture(VideoCaptureDevice videoDevice)
         {
             if (videoRecorder == null || videoRecorder.State != CaptureState.Started)
             {
                 videoRecorder = new CaptureSource
                 {
-                    VideoCaptureDevice = CaptureDeviceConfiguration.GetDefaultVideoCaptureDevice(),
+                    VideoCaptureDevice = videoDevice,
                     AudioCaptureDevice = CaptureDeviceConfiguration.GetDefaultAudioCaptureDevice()
                 };
 
@@ -72,10 +103,8 @@ namespace VideoCapture
         {
             var task = new MediaPlayerLauncher
             {
-                //Controls = MediaPlaybackControls.Stop,
-                Location = MediaLocationType.Install,
-                Media = new Uri("mytone.wma", UriKind.Relative),
-                //Orientation = MediaPlayerOrientation.Portrait,
+                Location = MediaLocationType.Data,
+                Media = new Uri("video-recording.mp4", UriKind.Relative),
             };
             task.Show();
         }
