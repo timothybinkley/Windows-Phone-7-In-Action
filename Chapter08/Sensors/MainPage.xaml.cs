@@ -1,179 +1,149 @@
 ﻿using System;
-using Microsoft.Devices.Sensors;
-using Microsoft.Phone.Controls;
-using System.Windows.Shapes;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
+using Microsoft.Phone.Controls;
+using System.Windows.Threading;
+using Microsoft.Devices.Sensors;
+using Microsoft.Xna.Framework;
 
 namespace Sensors
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        Accelerometer accelerometer;
-        /*
-        Compass compass;
-        Gyroscope gyro;
-        MotionSensor motion;
-        */
+        DispatcherTimer timer;
+        Accelerometer accelSensor;
+        Compass compassSensor;
+        Gyroscope gyroSensor;
 
         // Constructor
         public MainPage()
         {
             InitializeComponent();
-        }
 
-        private void UpdateReading( double max, double x, double y, double z)
-        {
-            double top = x <= 0.0 ? 175.0 : 175.0 - x * 175.0 / max;
-            double bottom = x >= 0.0 ? 175.0 : 175.0 + x * 175.0 / 2;
-            bar1.Margin = new Thickness(30.0, top, 30.0, bottom);
+            timer = new DispatcherTimer();
+            timer.Tick += timer_Tick;
+            timer.Interval = TimeSpan.FromMilliseconds(66);
 
-            top = y <= 0.0 ? 175.0 : 175.0 - y * 175.0 / 2;
-            bottom = y >= 0.0 ? 175.0 : 175.0 + y * 175.0 / 2;
-            bar2.Margin = new Thickness(30.0, top, 30.0, bottom);
 
-            top = z <= 0.0 ? 175.0 : 175.0 - z * 175.0 / 2;
-            bottom = z >= 0.0 ? 175.0 : 175.0 + z * 175.0 / 2;
-            bar3.Margin = new Thickness(30.0, top, 30.0, bottom);
-        }
-
-        private void StopActiveSensor()
-        {
-            if (accelerometer != null)
+            if (Accelerometer.IsSupported)
             {
-                accelerometer.ReadingChanged -= accelerometer_CurrentValueChanged;
-                accelerometer = null;
+                accelSensor = new Accelerometer();
+                accelSensor.TimeBetweenUpdates = TimeSpan.FromMilliseconds(66);
             }
-            //if (compass != null)
-            //{
-            //    compass.CurrentValueChanged -= compass_CurrentValueChangedChanged;
-            //    compass = null;    
-            //}
-            //if (gyro != null)
-            //{
-            //    gyro.CurrentValueChanged -= compass_CurrentValueChangedChanged;
-            //    gyro = null;    
-            //}
-            //if (motion != null)
-            //{
-            //    motion.CurrentValueChanged -= compass_CurrentValueChangedChanged;
-            //    motion = null;    
-            //}
-
-            header1.Text = "";
-            header2.Text = "";
-            header3.Text = "";
-            message.Text = "Select a sensor from the application bar.";
-
-            UpdateReading(1.0, 0.0, 0.0, 0.0);
-        }
-
-        private void accelerometer_Click(object sender, EventArgs e)
-        {
-            if (accelerometer == null)
+                        
+            if (Compass.IsSupported)
             {
-                StopActiveSensor();
+                compassSensor = new Compass();
+                compassSensor.TimeBetweenUpdates = TimeSpan.FromMilliseconds(66);
+                compassSensor.Calibrate += compassSensor_Calibrate;
+            }
 
-                header1.Text = "X";
-                header2.Text = "Y";
-                header3.Text = "Z";
-                message.Text = "Reading acceleration data from the accelerometer.";
-
-                accelerometer = new Accelerometer();
-                // accelerometer.TimeBetweenUpdates = Timespan.FromMilliseconds(33);
-                accelerometer.ReadingChanged += accelerometer_CurrentValueChanged;
-                accelerometer.Start();
+            if (Gyroscope.IsSupported)
+            {
+                gyroSensor = new Gyroscope();
+                gyroSensor.TimeBetweenUpdates = TimeSpan.FromMilliseconds(66);
             }
         }
 
-        void accelerometer_CurrentValueChanged(object sender, AccelerometerReadingEventArgs e) // SensorReadingEventArgs<???> e)
+        private void start_Click(object sender, EventArgs e)
+        {
+            if (!timer.IsEnabled)
+            {
+                String runningMessage = "Reading: ";
+                if (Accelerometer.IsSupported)
+                {
+                    accelSensor.Start();
+                    runningMessage += "Accelerometer ";
+                }
+
+                if (Compass.IsSupported)
+                {
+                    compassSensor.Start();
+                    runningMessage += "Compass ";
+                }
+
+                if (Gyroscope.IsSupported)
+                {
+                    gyroSensor.Start();
+                    runningMessage += "Gyroscope ";
+                }
+
+                timer.Start();
+                message.Text = runningMessage;
+            }
+        }
+
+        private void stop_Click(object sender, EventArgs e)
+        {
+            timer.Stop();
+            accelSensor.Stop();
+            compassSensor.Stop();
+            gyroSensor.Stop();
+            message.Text = "Press start";
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            ReadAccelerometerData();
+            ReadCompassData();
+            ReadGyroscopeData();
+        }
+
+        private void ReadAccelerometerData()
+        {
+            if (Accelerometer.IsSupported)
+            {
+                Vector3 reading = accelSensor.CurrentValue.Acceleration;
+                // height of control = 400; height of postive bar = 200; max value = 2;  
+                // set scale at 200/2 = 100  
+                accelX.SetValue(reading.X, 100.0f);
+                accelY.SetValue(reading.Y, 100.0f);
+                accelZ.SetValue(reading.Z, 100.0f);
+            }
+        }
+
+        void ReadCompassData()
+        {
+            if (Compass.IsSupported)
+            {
+                CompassReading currentValue = compassSensor.CurrentValue;
+                Vector3 reading = currentValue.MagnetometerReading;
+                // height of control = 400; height of postive bar = 200; approximate max value = 50;
+                // set scale at 200/50 = 4
+                compassX.SetValue(reading.X, 4.0f);
+                compassY.SetValue(reading.Y, 4.0f);
+                compassZ.SetValue(reading.Z, 4.0f);
+
+                heading.Text = String.Format("Compass (µT)        Heading {0} +/- {1} degrees", currentValue.TrueHeading, currentValue.HeadingAccuracy);
+            }
+        }
+
+        void ReadGyroscopeData()
+        {
+            if (Gyroscope.IsSupported)
+            {
+                Vector3 reading = gyroSensor.CurrentValue.RotationRate;
+                // height of control = 400; height of postive bar = 200; reasonable max value = 2pi = 6.25 (1.5 rotation per second)
+                // set scale at 200/6.25 = 32
+                gyroX.SetValue(reading.X, 32.0f);
+                gyroY.SetValue(reading.Y, 32.0f);
+                gyroZ.SetValue(reading.Z, 32.0f);
+            }
+        }
+
+        void compassSensor_Calibrate(object sender, CalibrationEventArgs e)
         {
             Dispatcher.BeginInvoke(() =>
-            {
-                UpdateReading(2.0, e.X, e.Y, e.Z);
-                //var reading = e.SensorReading.Acceleration;
-                //UpdateReading(2.0, reading.X, reading.Y, reading.Z);
-            });
-        }
-
-        private void compass_Click(object sender, EventArgs e)
-        {
-            //if (compass == null)
-            {
-                StopActiveSensor();
-
-                header1.Text = "X";
-                header2.Text = "Y";
-                header3.Text = "Z";
-                message.Text = "Reading magnetometer data from the compass.";
-
-                //compass = new Compass();
-                //compass.TimeBetweenUpdates = Timespan.FromMilliseconds(33);
-                //compass.CurrentValueChanged += compass_CurrentValueChangedChanged;
-                //compass.start();
-            }
-        }
-
-        void compass_CurrentValueChanged(object sender) // SensorReadingEventArgs<???> e)
-        {
-            Dispatcher.BeginInvoke(() =>
-            {
-                //var reading = e.SensorReading.MagnetometerReading;
-                //UpdateReading(360.0, reading.X, reading.Y, reading.Z);
-            });
-        }
-
-        private void gyro_Click(object sender, EventArgs e)
-        {
-            //if (gyro == null)
-            {
-                StopActiveSensor();
-
-                header1.Text = "X";
-                header2.Text = "Y";
-                header3.Text = "Z";
-                message.Text = "Reading rotation rates from the gyroscope.";
-
-                //gyro = new Gyroscope();
-                //gyro.TimeBetweenUpdates = Timespan.FromMilliseconds(33);
-                //gyro.CurrentValueChanged += gyro_CurrentValueChangedChanged;
-                //gyro.start();
-            }
-        }
-
-        void gyro_CurrentValueChanged(object sender) // SensorReadingEventArgs<???> e)
-        {
-            Dispatcher.BeginInvoke(() =>
-            {
-                //var reading = e.SensorReading.RotationRate;
-                //UpdateReading(360.0, reading.X, reading.Y, reading.Z);
-            });
-        }
-
-        private void motion_Click(object sender, EventArgs e)
-        {
-            //if (motion == null)
-            {
-                StopActiveSensor();
-
-                header1.Text = "Yaw";
-                header2.Text = "Pitch";
-                header3.Text = "Roll";
-                message.Text = "Reading attitude from from the motion sensor";
-
-                //motion = new MotionSensor();
-                //motion.TimeBetweenUpdates = Timespan.FromMilliseconds(33);
-                //motion.CurrentValueChanged += motion_CurrentValueChangedChanged;
-                //motion.start();
-            }
-        }
-
-        void motion_CurrentValueChanged(object sender) // SensorReadingEventArgs<???> e)
-        {
-            Dispatcher.BeginInvoke(() =>
-            {
-                //var reading = e.SensorReading.Attitude;
-                //UpdateReading(360.0, reading.Yaw, reading.Pitch, reading.Roll);
-            });
+                MessageBox.Show("The compass sensor needs to be calibrated. Wave the phone around in the air until the heading accuracy value is less than 20 degrees")
+            );
         }
     }
 }

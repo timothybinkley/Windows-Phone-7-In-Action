@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.0">
-  <App xmlns="" ProductID="{5cb3f421-7ff7-4ab0-92a8-a8c9ed3ec432}" Title="Sensors" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="Sensors author" Description="Sample description" Publisher="Sensors">
+<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
+  <App xmlns="" ProductID="{59e224fe-015c-45b1-b928-e1d0bdb61823}" Title="Sensors" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="Sensors author" Description="Sample description" Publisher="Sensors">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES"/>
@@ -15,6 +15,9 @@
       <Capability Name="ID_CAP_PUSH_NOTIFICATION"/>
       <Capability Name="ID_CAP_SENSORS"/>
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT"/>
+      <Capability Name="ID_CAP_ISV_CAMERA"/>
+      <Capability Name="ID_CAP_CONTACTS"/>
+      <Capability Name="ID_CAP_APPOINTMENTS"/>
     </Capabilities>
     <Tasks>
       <DefaultTask  Name ="_default" NavigationPage="MainPage.xaml"/>

@@ -3,11 +3,12 @@
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+                            xmlns:l="clr-namespace:Sensors"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             mc:Ignorable="d"
                             d:DesignWidth="480"
-                            d:DesignHeight="696"
+                            d:DesignHeight="768"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
@@ -40,73 +41,96 @@
         <Grid x:Name="ContentPanel"
               Grid.Row="1"
               Margin="12,0,12,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
+                <RowDefinition Height="25" />
                 <RowDefinition Height="400" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="X"
+                       Grid.Column="2" />
+            <TextBlock Text="Y"
+                       Grid.Column="6" />
+            <TextBlock Text="Z"
+                       Grid.Column="10" />
 
-            <TextBlock x:Name="header1"
-                       Grid.Column="0"
-                       Text=""
-                       TextAlignment="Center"
-                       VerticalAlignment="Center" />
-            <TextBlock x:Name="header2"
-                       Grid.Column="1"
-                       Text=""
-                       TextAlignment="Center"
-                       VerticalAlignment="Center" />
-            <TextBlock x:Name="header3"
-                       Grid.Column="2"
-                       Text=""
-                       TextAlignment="Center"
-                       VerticalAlignment="Center" />
-            <TextBlock x:Name="message"
-                       Grid.ColumnSpan="3"
-                       Grid.Row="3"
-                       Text="Select a sensor from the application bar."
-                       TextAlignment="Center"
-                       VerticalAlignment="Center" />
+            <l:Bar x:Name="accelX"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   BarFill="Red" />
+            <l:Bar x:Name="accelY"
+                   Grid.Row="1"
+                   Grid.Column="5"
+                   BarFill="Red" />
+            <l:Bar x:Name="accelZ"
+                   Grid.Row="1"
+                   Grid.Column="9"
+                   BarFill="Red" />
+            <l:Bar x:Name="compassX"
+                   Grid.Row="1"
+                   Grid.Column="2"
+                   BarFill="Yellow" />
+            <l:Bar x:Name="compassY"
+                   Grid.Row="1"
+                   Grid.Column="6"
+                   BarFill="Yellow" />
+            <l:Bar x:Name="compassZ"
+                   Grid.Row="1"
+                   Grid.Column="10"
+                   BarFill="Yellow" />
+            <l:Bar x:Name="gyroX"
+                   Grid.Row="1"
+                   Grid.Column="3"
+                   BarFill="Blue" />
+            <l:Bar x:Name="gyroY"
+                   Grid.Row="1"
+                   Grid.Column="7"
+                   BarFill="Blue" />
+            <l:Bar x:Name="gyroZ"
+                   Grid.Row="1"
+                   Grid.Column="11"
+                   BarFill="Blue" />
 
-            <Rectangle x:Name="bar1"
-                       Grid.Row="1"
-                       Grid.Column="0"
-                       Margin="30,175,30,175"
-                       Fill="{StaticResource PhoneAccentBrush}" />
-            <Rectangle x:Name="bar2"
-                       Grid.Row="1"
-                       Grid.Column="1"
-                       Margin="30,175,30,175"
-                       Fill="{StaticResource PhoneAccentBrush}" />
-            <Rectangle x:Name="bar3"
-                       Grid.Row="1"
-                       Grid.Column="2"
-                       Margin="30,175,30,175"
-                       Fill="{StaticResource PhoneAccentBrush}" />
+            <StackPanel Grid.Row="2"
+                        Grid.ColumnSpan="12">
+                <TextBlock Foreground="Red"
+                           Text="Accelerometer (g)" />
+                <TextBlock x:Name="heading"
+                           Foreground="Yellow"
+                           Text="Compass (µT)" />
+                <TextBlock Foreground="Blue"
+                           Text="Gyroscope (rad/sec)" />
+                <TextBlock x:Name="message"
+                           Text="Press start" />
+            </StackPanel >
 
         </Grid>
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True"
-                              IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/accelerometer.png"
-                                            Text="accelerometer"
-                                            Click="accelerometer_Click" />
-            <shell:ApplicationBarIconButton IconUri="/Images/compass.png"
-                                            Text="compass"
-                                            Click="compass_Click"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/gyro.png"
-                                            Text="gyro"
-                                            Click="gyro_Click"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/motion.png"
-                                            Text="motion" 
-                                            Click="motion_Click"/>
+                              IsMenuEnabled="False">
+            <shell:ApplicationBarIconButton Text="start"
+                                            Click="start_Click"
+                                            IconUri="/Images/appbar.transport.play.rest.png" />
+            <shell:ApplicationBarIconButton Text="stop"
+                                            Click="stop_Click"
+                                            IconUri="/Images/appbar.cancel.rest.png" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

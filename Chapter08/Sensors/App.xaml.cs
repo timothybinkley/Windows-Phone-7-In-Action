@@ -31,6 +31,12 @@ namespace Sensors
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 
+            // Standard Silverlight initialization
+            InitializeComponent();
+
+            // Phone-specific initialization
+            InitializePhoneApplication();
+
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -41,15 +47,16 @@ namespace Sensors
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;
 
                 // Enable non-production analysis visualization mode, 
-                // which shows areas of a page that are being GPU accelerated with a colored overlay.
+                // which shows areas of a page that are handed off to GPU with a colored overlay.
                 //Application.Current.Host.Settings.EnableCacheVisualization = true;
+
+                // Disable the application idle detection by setting the UserIdleDetectionMode property of the
+                // application's PhoneApplicationService object to Disabled.
+                // Caution:- Use this under debug mode only. Application that disables user idle detection will continue to run
+                // and consume battery power when the user is not using the phone.
+                PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            // Standard Silverlight initialization
-            InitializeComponent();
-
-            // Phone-specific initialization
-            InitializePhoneApplication();
         }
 
         // Code to execute when the application is launching (eg, from Start)
