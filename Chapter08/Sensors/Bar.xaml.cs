@@ -32,8 +32,8 @@ namespace Sensors
         public void SetValue(float value, float scale)
         {
             int height = (int)(value * scale);
-            positiveBar.Height = height > 0.0 ? height : 0;
-            negativeBar.Height = height < 0.0 ? height * -1 : 0;
+            positiveBar.Height = height > 0 ? height : 0;
+            negativeBar.Height = height < 0 ? height * -1 : 0;
             label.Text = value.ToString("0.0");
         }
 

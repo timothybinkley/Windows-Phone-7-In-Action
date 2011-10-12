@@ -7,7 +7,7 @@
       <Capability Name="ID_CAP_GAMERSERVICES"/>
       <Capability Name="ID_CAP_IDENTITY_DEVICE"/>
       <Capability Name="ID_CAP_IDENTITY_USER"/>
-      <!--<Capability Name="ID_CAP_LOCATION"/>-->
+      <Capability Name="ID_CAP_LOCATION"/>
       <Capability Name="ID_CAP_MEDIALIB"/>
       <Capability Name="ID_CAP_MICROPHONE"/>
       <Capability Name="ID_CAP_NETWORKING"/>

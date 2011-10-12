@@ -87,7 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
-    <None Include="Properties\WMAppManifest.xml" />
+    <None Include="Properties\WMAppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.1\Icons\dark\appbar.cancel.rest.png">

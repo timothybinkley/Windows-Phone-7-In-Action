@@ -57,7 +57,7 @@ namespace Sensors
         {
             if (!timer.IsEnabled)
             {
-                String runningMessage = "Reading: ";
+                string runningMessage = "Reading: ";
                 if (Accelerometer.IsSupported)
                 {
                     accelSensor.Start();
@@ -101,28 +101,29 @@ namespace Sensors
         {
             if (Accelerometer.IsSupported)
             {
-                Vector3 reading = accelSensor.CurrentValue.Acceleration;
+                AccelerometerReading reading = accelSensor.CurrentValue;
+                Vector3 acceleration = reading.Acceleration;
                 // height of control = 400; height of postive bar = 200; max value = 2;  
                 // set scale at 200/2 = 100  
-                accelX.SetValue(reading.X, 100.0f);
-                accelY.SetValue(reading.Y, 100.0f);
-                accelZ.SetValue(reading.Z, 100.0f);
+                accelX.SetValue(acceleration.X, 100.0f);
+                accelY.SetValue(acceleration.Y, 100.0f);
+                accelZ.SetValue(acceleration.Z, 100.0f);
             }
         }
 
         void ReadCompassData()
         {
-            if (Compass.IsSupported)
+            if (Compass.IsSupported && compassSensor.IsDataValid)
             {
-                CompassReading currentValue = compassSensor.CurrentValue;
-                Vector3 reading = currentValue.MagnetometerReading;
+                CompassReading reading = compassSensor.CurrentValue;
+                Vector3 magnetic = reading.MagnetometerReading;
                 // height of control = 400; height of postive bar = 200; approximate max value = 50;
                 // set scale at 200/50 = 4
-                compassX.SetValue(reading.X, 4.0f);
-                compassY.SetValue(reading.Y, 4.0f);
-                compassZ.SetValue(reading.Z, 4.0f);
+                compassX.SetValue(magnetic.X, 4.0f);
+                compassY.SetValue(magnetic.Y, 4.0f);
+                compassZ.SetValue(magnetic.Z, 4.0f);
 
-                heading.Text = String.Format("Compass (µT)        Heading {0} +/- {1} degrees", currentValue.TrueHeading, currentValue.HeadingAccuracy);
+                heading.Text = string.Format("Compass (µT)        Heading {0} +/- {1} degrees", reading.TrueHeading, reading.HeadingAccuracy);
             }
         }
 
@@ -130,12 +131,13 @@ namespace Sensors
         {
             if (Gyroscope.IsSupported)
             {
-                Vector3 reading = gyroSensor.CurrentValue.RotationRate;
+                GyroscopeReading reading = gyroSensor.CurrentValue;
+                Vector3 rotation = reading.RotationRate;
                 // height of control = 400; height of postive bar = 200; reasonable max value = 2pi = 6.25 (1.5 rotation per second)
                 // set scale at 200/6.25 = 32
-                gyroX.SetValue(reading.X, 32.0f);
-                gyroY.SetValue(reading.Y, 32.0f);
-                gyroZ.SetValue(reading.Z, 32.0f);
+                gyroX.SetValue(rotation.X, 32.0f);
+                gyroY.SetValue(rotation.Y, 32.0f);
+                gyroZ.SetValue(rotation.Z, 32.0f);
             }
         }
 

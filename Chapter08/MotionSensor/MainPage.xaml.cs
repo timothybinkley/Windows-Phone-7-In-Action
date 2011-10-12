@@ -88,7 +88,7 @@ namespace MotionSensor
         private void stop_Click(object sender, EventArgs e)
         {
             if (Motion.IsSupported)
-                sensor.Start();
+                sensor.Stop();
         }
     }
 }
