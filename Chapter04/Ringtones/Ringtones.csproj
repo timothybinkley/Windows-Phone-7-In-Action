@@ -81,12 +81,16 @@
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ApplicationIcon.jpg">
+    <Content Include="..\..\..\..\..\Program Files %28x86%29\Microsoft SDKs\Windows Phone\v7.1\Icons\dark\appbar.add.rest.png">
+      <Link>Images\appbar.add.rest.png</Link>
+    </Content>
+    <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Background.jpg">
+    <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\ImageLocationReadMe.txt" />
     <Content Include="mytone.wma" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>

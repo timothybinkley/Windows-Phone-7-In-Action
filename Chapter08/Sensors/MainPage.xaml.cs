@@ -84,9 +84,12 @@ namespace Sensors
         private void stop_Click(object sender, EventArgs e)
         {
             timer.Stop();
-            accelSensor.Stop();
-            compassSensor.Stop();
-            gyroSensor.Stop();
+            if(Accelerometer.IsSupported)
+                accelSensor.Stop();
+            if(Compass.IsSupported)
+                compassSensor.Stop();
+            if(Gyroscope.IsSupported)
+                gyroSensor.Stop();
             message.Text = "Press start";
         }
 

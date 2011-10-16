@@ -48,30 +48,5 @@ namespace Ringtones
                 chooserResult.Text = "ok";
             System.Diagnostics.Debug.WriteLine(chooserResult.Text);
         }
-
-        BackgroundTransferRequest request;
-
-        private void transer_Click(object sender, EventArgs e)
-        {
-            if (request == null)
-            {
-                request = new BackgroundTransferRequest(
-                    new Uri("http://wp7inaction.com/mytone.wma", UriKind.Absolute),
-                    new Uri("/transfers/mytone.wma", UriKind.RelativeOrAbsolute));
-
-                request.TransferStatusChanged += new EventHandler<BackgroundTransferEventArgs>(request_TransferStatusChanged);
-
-                BackgroundTransferService.Add(request);
-            }
-        }
-
-        void request_TransferStatusChanged(object sender, BackgroundTransferEventArgs e)
-        {
-            System.Diagnostics.Debug.WriteLine(e.Request.TransferStatus);
-            if (e.Request.TransferStatus == TransferStatus.Completed)
-            {
-                request = null;
-            }
-        }
     }
 }
