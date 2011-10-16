@@ -3,11 +3,11 @@ using System.Device.Location;
 using System.Text;
 using Microsoft.Phone.Controls;
 
-namespace LocationSensor
+namespace LocationService
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        GeoCoordinateWatcher sensor;
+        GeoCoordinateWatcher service;
         GeoCoordinate previous = new GeoCoordinate();
 
         // Constructor
@@ -18,44 +18,44 @@ namespace LocationSensor
 
         private void startDefault_Click(object sender, EventArgs e)
         {
-            StartSensor(GeoPositionAccuracy.Default);
+            StartService(GeoPositionAccuracy.Default);
         }
 
         private void startHigh_Click(object sender, EventArgs e)
         {
-            StartSensor(GeoPositionAccuracy.High);
+            StartService(GeoPositionAccuracy.High);
         }
 
         private void stop_Click(object sender, EventArgs e)
         {
-            StopSensor();
+            StopService();
         }
                 
-        private void StartSensor(GeoPositionAccuracy accuracy)
+        private void StartService(GeoPositionAccuracy accuracy)
         {
-            if (sensor != null)
-                StopSensor();
+            if (service != null)
+                StopService();
 
-            sensor = new GeoCoordinateWatcher(accuracy);
-            sensor.MovementThreshold = 1.0;
-            sensor.PositionChanged += sensor_PositionChanged;
-            sensor.StatusChanged += sensor_StatusChanged;
+            service = new GeoCoordinateWatcher(accuracy);
+            service.MovementThreshold = 1.0;
+            service.PositionChanged += service_PositionChanged;
+            service.StatusChanged += service_StatusChanged;
 
-            status.Text = string.Format("Permission: {0}\n", sensor.Permission);
+            status.Text = string.Format("Permission: {0}\n", service.Permission);
             position.Text = string.Empty;
 
-            if (sensor.Permission == GeoPositionPermission.Granted)
-                sensor.Start();
+            if (service.Permission == GeoPositionPermission.Granted)
+                service.Start();
         }
 
-        void sensor_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e)
+        void service_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e)
         {
             status.Text = string.Format("Status: {0}\n", e.Status);
         }
 
-        void sensor_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
+        void service_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
-            if (sensor.Status == GeoPositionStatus.Ready)
+            if (service.Status == GeoPositionStatus.Ready)
             {
                 var location = e.Position.Location;
 
@@ -78,7 +78,7 @@ namespace LocationSensor
                 previous = location;
 
                 builder.AppendFormat("Reading taken at {0:hh:mm:ss.fff tt}\n", e.Position.Timestamp);
-                builder.AppendFormat("Desired accuracy: {0}", sensor.DesiredAccuracy);
+                builder.AppendFormat("Desired accuracy: {0}", service.DesiredAccuracy);
 
                 position.Text = builder.ToString();
             }
@@ -95,16 +95,16 @@ namespace LocationSensor
             return result;
         }
 
-        private void StopSensor()
+        private void StopService()
         {
-            if (sensor != null)
+            if (service != null)
             {
-                sensor.Stop();
-                sensor.PositionChanged -= sensor_PositionChanged;
-                sensor.StatusChanged -= sensor_StatusChanged;
-                sensor.Dispose();
-                sensor = null;
-                position.Text += "\nSensor has been stopped.";
+                service.Stop();
+                service.PositionChanged -= sensor_PositionChanged;
+                service.StatusChanged -= sensor_StatusChanged;
+                service.Dispose();
+                service = null;
+                position.Text += "\nService has been stopped.";
             }
         }
 

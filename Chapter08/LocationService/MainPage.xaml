@@ -1,4 +1,4 @@
-﻿<phone:PhoneApplicationPage x:Class="LocationSensor.MainPage"
+﻿<phone:PhoneApplicationPage x:Class="LocationService.MainPage"
                             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -31,7 +31,7 @@
                        Text="WINDOWS PHONE 7 IN ACTION"
                        Style="{StaticResource PhoneTextNormalStyle}" />
             <TextBlock x:Name="PageTitle"
-                       Text="location sensor"
+                       Text="location service"
                        Margin="9,-7,0,0"
                        Style="{StaticResource PhoneTextTitle1Style}" />
         </StackPanel>

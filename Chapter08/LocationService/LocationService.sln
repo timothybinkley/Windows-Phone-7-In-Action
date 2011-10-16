@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010 Express for Windows Phone
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocationSensor", "LocationSensor.csproj", "{16C7F636-30D6-4F84-9EEF-FFD33C8D7C34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocationService", "LocationService.csproj", "{16C7F636-30D6-4F84-9EEF-FFD33C8D7C34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
