@@ -57,7 +57,7 @@ namespace LocationService
         {
             if (service.Status == GeoPositionStatus.Ready)
             {
-                var location = e.Position.Location;
+                GeoCoordinate location = e.Position.Location;
 
                 StringBuilder builder = new StringBuilder();
                 builder.AppendFormat("Latitude:      {0}\n", FormatCoordinate(location.Latitude, 'N', 'S'));
@@ -100,11 +100,11 @@ namespace LocationService
             if (service != null)
             {
                 service.Stop();
-                service.PositionChanged -= sensor_PositionChanged;
-                service.StatusChanged -= sensor_StatusChanged;
+                service.PositionChanged -= service_PositionChanged;
+                service.StatusChanged -= service_StatusChanged;
                 service.Dispose();
                 service = null;
-                position.Text += "\nService has been stopped.";
+                position.Text += "\nThe Location Service has been stopped.";
             }
         }
 

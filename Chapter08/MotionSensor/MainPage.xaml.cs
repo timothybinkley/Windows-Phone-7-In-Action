@@ -39,18 +39,18 @@ namespace MotionSensor
             Dispatcher.BeginInvoke(() =>
             {
                 Vector3 acceleration = reading.DeviceAcceleration;
-                // height of control = 400; height of postive bar = 200; max value = 1;  
-                // set scale at 200/1 = 200  
-                accelX.SetValue(acceleration.X, 200.0f);
-                accelY.SetValue(acceleration.Y, 200.0f);
-                accelZ.SetValue(acceleration.Z, 200.0f);
+                // height of control = 400; height of postive bar = 200; max value = 3;  
+                // set scale at 200/3 = 200  
+                accelX.SetValue(acceleration.X, 66.7f);
+                accelY.SetValue(acceleration.Y, 66.7f);
+                accelZ.SetValue(acceleration.Z, 66.7f);
 
                 Vector3 gravity = reading.Gravity;
-                // height of control = 400; height of postive bar = 200; max value = 2;  
-                // set scale at 200/2 = 100  
-                gravityX.SetValue(gravity.X, 100.0f);
-                gravityY.SetValue(gravity.Y, 100.0f);
-                gravityZ.SetValue(gravity.Z, 100.0f);
+                // height of control = 400; height of postive bar = 200; max value = 1;  
+                // set scale at 200/1 = 100  
+                gravityX.SetValue(gravity.X, 200.0f);
+                gravityY.SetValue(gravity.Y, 200.0f);
+                gravityZ.SetValue(gravity.Z, 200.0f);
 
                 Vector3 rotation = reading.DeviceRotationRate;
                 // height of control = 400; height of postive bar = 200; reasonable max value = 2pi = 6.25 (1.5 rotation per second)
@@ -66,7 +66,7 @@ namespace MotionSensor
 
                 Vector3 worldSpacePoint = new Vector3(0.0f, 10.0f, 0.0f);
                 Vector3 bodySpacePoint = Vector3.Transform(worldSpacePoint, attitude.RotationMatrix);
-                point.Text = string.Format("Attitude - (0.0, 10.0, 0.0) = ({0:F1}, {1:F1}, {2:F1})",
+                point.Text = string.Format("Attitude: Transform of (0.0, 10.0, 0.0) = ({0:F1}, {1:F1}, {2:F1})",
                     bodySpacePoint.X, bodySpacePoint.Y, bodySpacePoint.Z);
 
             });
