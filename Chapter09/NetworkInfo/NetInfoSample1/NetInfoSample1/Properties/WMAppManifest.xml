@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.0">
+<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
   <App xmlns="" ProductID="{b6ac9830-dfcd-4fff-8a5b-9c3f530f7614}" Title="NetInfo Sample" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="NetInfoSample1 author" Description="Sample description" Publisher="NetInfoSample1">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>

@@ -12,7 +12,11 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
-
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+    </UserControl.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -30,19 +34,13 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
-                <Ellipse Height="117" Name="netIndicatorEllipse" Stroke="Black" StrokeThickness="1" Width="147" Fill="#FF56EF12" Margin="8" />
-                
-                <TextBlock x:Name="networkStatusTextblock" 
-                           Style="{StaticResource PhoneTextNormalStyle}"
-                           
-                       />
-                <TextBlock x:Name="networkTypeTextblock" 
-                           Style="{StaticResource PhoneTextNormalStyle}"
-                       />
-                
-                <Button x:Name="testConnectionTextblock"
-                        Content="Test Connection"
-                        Click="testConnectionTextblock_Click" />
+                <TextBlock x:Name="CellularMobileOperatorTextBlock" />
+                <TextBlock x:Name="IsCellularDataEnabledTextBlock" />
+                <TextBlock x:Name="IsCellularDataRoamingEnabledTextBlock" />
+                <TextBlock x:Name="IsNetworkAvailableTextBlock" />
+                <TextBlock x:Name="IsWiFiEnabledTextBlock" />
+
+                <TextBlock x:Name="NetworkAvailabilityChangedTextBlock" />
             </StackPanel>
         </Grid>
         
