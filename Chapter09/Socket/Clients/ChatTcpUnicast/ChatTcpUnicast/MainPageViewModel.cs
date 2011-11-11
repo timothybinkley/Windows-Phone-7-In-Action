@@ -46,7 +46,7 @@ namespace ChatTcpUnicast {
         public DelegateCommand SendCommand { get; private set; }
         public DelegateCommand ConnectCommand { get; private set; }        
         public ObservableCollection<Message> Messages { get; set; }
-        private bool isChatViewVisible = true;
+        private bool isChatViewVisible;
 
         public bool IsChatViewVisible {
             get {
