@@ -68,6 +68,7 @@
     <Compile Include="Command\DelegateCommand.cs" />
     <Compile Include="Command\DelegateCommandBase.cs" />
     <Compile Include="Command\WeakEventHandlerManager.cs" />
+    <Compile Include="EventArgs`1.cs" />
     <Compile Include="GenericAttachedProperties.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -77,6 +78,7 @@
     <Compile Include="MessageContentPresenter.cs" />
     <Compile Include="MockMainViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SocketCommands.cs" />
     <Compile Include="TcpSocketClient.cs" />
   </ItemGroup>
   <ItemGroup>
