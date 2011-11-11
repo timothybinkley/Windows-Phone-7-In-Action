@@ -25,10 +25,7 @@ namespace ChatUdpUnicast {
         void OnConnectCommandExecuted() {
             client = new UdpSocketClient(IPAddress.Parse(ServerIpAddress));
             client.Received += new UdpSocketClient.ReceiveHandler(client_Received);
-            client.SendJoinMessageAsync(UserName, () => { IsChatViewVisible = true; },
-                error => {
-                    MessageBox.Show(error);
-                });
+            client.SendJoinMessageAsync(UserName, () => { IsChatViewVisible = true; });
         }
 
         void client_Received(object sender, EventArgs<Message> e) {
@@ -36,11 +33,7 @@ namespace ChatUdpUnicast {
         }
         void OnSendCommandExecuted() {
             client.SendAsync(UserName, Message.Text,
-                () => Message = new ChatUdpUnicast.Message() { Type = MessageType.Self },
-                 error => {
-                     MessageBox.Show(error);
-                 }
-            );
+                () => Message = new ChatUdpUnicast.Message() { Type = MessageType.Self });
 
         }
 

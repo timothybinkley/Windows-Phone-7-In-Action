@@ -77,20 +77,19 @@ namespace ChatUdpUnicast {
             return null;
         }
 
-        public void SendJoinMessageAsync(string userName, Action success, Action<string> failure) {
+        public void SendJoinMessageAsync(string userName, Action success) {
             var message = string.Format("{0};{1};{2}", SocketCommands.CONNECT, this.DeviceNameAndId, userName);
             SendAsync(message, () => {
                     OnRecieveFrom();
                     success();
-                },
-                failure);
+                });
         }
-        public void SendAsync(string userName, string message, Action success, Action<string> failure) {
+        public void SendAsync(string userName, string message, Action success) {
             var formattedMessage = string.Format("{0};{1};{2};{3};{4}",
                     SocketCommands.TEXT, this.DeviceNameAndId, userName, message, DateTime.Now);
-            SendAsync(formattedMessage, success, failure);
+            SendAsync(formattedMessage, success);
         }
-        private void SendAsync(string message, Action success, Action<string> failure) {
+        private void SendAsync(string message, Action success) {
 
             var buffer = Encoding.UTF8.GetBytes(message);
 
@@ -99,12 +98,7 @@ namespace ChatUdpUnicast {
             args.SetBuffer(buffer, 0, buffer.Length);
             args.Completed += (__, e) => {
                 Deployment.Current.Dispatcher.BeginInvoke(() => {
-                    if (e.SocketError != SocketError.Success) {
-                        failure("Your message can't be sent.");
-                    }
-                    else {
                         success();
-                    }
                 });
             };
             socket.SendToAsync(args);
