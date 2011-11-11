@@ -32,7 +32,7 @@ namespace TcpSocketServer {
         private static void Listen() {
             listener = new Socket(AddressFamily.InterNetwork,
                 SocketType.Stream, ProtocolType.Tcp);
-
+            
             try {
                 listener.Bind(new IPEndPoint(IPAddress.Any, PORT));
                 listener.Listen(MAX_PENDING_REQUEST);
@@ -112,9 +112,9 @@ namespace TcpSocketServer {
                 var msgArray = data.Split(';');
                 var command = msgArray[0];
                 var deviceName = msgArray[1];
-                if (!deviceName.Equals(socket.DeviceName, StringComparison.InvariantCultureIgnoreCase)) {
+                //if (!deviceName.Equals(socket.DeviceName, StringComparison.InvariantCultureIgnoreCase)) {
                     Send(socket.WorkSocket, data);
-                }
+                //}
             }
         }
 

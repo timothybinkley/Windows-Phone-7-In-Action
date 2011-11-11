@@ -56,10 +56,12 @@
 
                 <TextBlock Text="User Name : " Grid.Row="0" Grid.Column="0" 
 						   VerticalAlignment="Center"/>
-                <TextBox Text="{Binding UserName}"  Grid.Row="0" Grid.Column="1"/>
+                <TextBox Text="{Binding UserName, Mode=TwoWay}"  Grid.Row="0" Grid.Column="1"/>
                 <TextBlock Text="Server IP : " Grid.Row="1" Grid.Column="0"
 						   VerticalAlignment="Center"/>
-                <TextBox Text="{Binding ServerIpAddress}" Grid.Row="1" Grid.Column="1"/>
+                <TextBox Text="{Binding ServerIpAddress, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"
+                         InputScope="Number"
+                         />
 
                 <Button Content="Connect"  Grid.Row="2" Grid.Column="1"
                         Command="{Binding ConnectCommand}"

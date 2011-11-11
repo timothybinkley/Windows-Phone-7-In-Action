@@ -26,18 +26,20 @@ namespace ChatTcpUnicast {
                 ProtocolType.Tcp);
         }
 
-        public void ConnectAsync(Action success, Action<string> failure) {
-            var message = string.Format("{0};{1};", SocketCommands.CONNECT, this.DeviceNameAndId);
+        public void ConnectAsync(string userName, Action success, Action<string> failure) {
+            var message = string.Format("{0};{1};{2}", SocketCommands.CONNECT, this.DeviceNameAndId, userName);
             var args = new SocketAsyncEventArgs();
             args.RemoteEndPoint = this.IPEndPoint;
             args.Completed += (__, e) => {
-                if (e.SocketError == SocketError.Success) {
-                    failure("The remote host is not found.");
-                }
-                else {
-                    success();
-                    OnRecieve();
-                }
+                Deployment.Current.Dispatcher.BeginInvoke( () => {
+                    if (e.SocketError != SocketError.Success) {                    
+                        failure("The remote host is not found.");
+                    }
+                    else {
+                        success();
+                        OnRecieve();
+                    }
+                });
             };
             if (!string.IsNullOrEmpty(message)) {
                 var buffer = Encoding.UTF8.GetBytes(message);
@@ -47,11 +49,11 @@ namespace ChatTcpUnicast {
         }
 
 
-        public delegate void ReceiveHandler(object sender, EventArgs<string> e);
+        public delegate void ReceiveHandler(object sender, EventArgs<Message> e);
         public event ReceiveHandler Received;
-        private void RaiseReceived(string message) {
+        private void RaiseReceived(Message message) {
             if (Received != null) {
-                Received(this, new EventArgs<string>(message));
+                Received(this, new EventArgs<Message>(message));
             }
         }
 
@@ -61,19 +63,47 @@ namespace ChatTcpUnicast {
             receiveArgs.SetBuffer(new Byte[MAX_BUFFER_SIZE], 0, MAX_BUFFER_SIZE);
             var strBdr = new StringBuilder();
             receiveArgs.Completed += (__, result) => {
-                var package = Encoding.UTF8.GetString(result.Buffer, 0, result.BytesTransferred);
-                if (!string.IsNullOrEmpty(package)) {
-                    this.RaiseReceived(package);
-                }
+                Message message = CreateMessage(result);
+                Deployment.Current.Dispatcher.BeginInvoke(() => {
+                    this.RaiseReceived(message);
+                });
                 socket.ReceiveAsync(receiveArgs);
             };
             socket.ReceiveAsync(receiveArgs);
         }
 
-        private void SendAsync(string message, Action success, Action<string> failure) {
+        private Message CreateMessage(SocketAsyncEventArgs result) {
+            var package = Encoding.UTF8.GetString(result.Buffer, 0, result.BytesTransferred);
+            if (!string.IsNullOrEmpty(package)) {
+                var messageArray = package.Split(';');
+                var commandName = messageArray[0];
+                var deviceName = messageArray[1];
+                var userName = messageArray[2];
+                var userMessage = string.Format("{0} has joined.", userName);
+                MessageType type = MessageType.Notification;
+                if (messageArray.Length > 3) {
+                    userMessage = messageArray[3];
+                    type = deviceName == DeviceNameAndId ? MessageType.Self : MessageType.FromOthers;
+                }
+                DateTime messageSentTimeStamp = DateTime.Now;
+                if (messageArray.Length > 4) {
+                    messageSentTimeStamp = DateTime.Parse(messageArray[4]);
+                }
+
+                var message = new Message() {
+                    UserName = userName, Text = userMessage,
+                    Type = type, Timestamp = messageSentTimeStamp
+                };
+                return message;
+            }
+            return null;
+        }
+
+        public void SendAsync(string userName, string message, Action success, Action<string> failure) {
             if (socket.Connected) {
 
-                var formattedMessage = string.Format("{0};{1};{2}", SocketCommands.TEXT, this.DeviceNameAndId, message);
+                var formattedMessage = string.Format("{0};{1};{2};{3};{4}",
+                    SocketCommands.TEXT, this.DeviceNameAndId, userName, message, DateTime.Now);
 
                 var buffer = Encoding.UTF8.GetBytes(formattedMessage);
 
@@ -81,12 +111,14 @@ namespace ChatTcpUnicast {
                 args.RemoteEndPoint = this.IPEndPoint;
                 args.SetBuffer(buffer, 0, buffer.Length);
                 args.Completed += (__, e) => {
-                    if (e.SocketError == SocketError.Success) {
-                        failure("Your message can't be sent.");
-                    }
-                    else {
-                        success();
-                    }
+                    Deployment.Current.Dispatcher.BeginInvoke(() => {
+                        if (e.SocketError != SocketError.Success) {
+                            failure("Your message can't be sent.");
+                        }
+                        else {
+                            success();
+                        }
+                    });
                 };
                 socket.SendAsync(args);
             }

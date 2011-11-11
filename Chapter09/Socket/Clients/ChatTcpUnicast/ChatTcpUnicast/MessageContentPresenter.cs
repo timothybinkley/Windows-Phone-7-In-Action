@@ -23,10 +23,10 @@ namespace ChatTcpUnicast {
             
             // apply the required template
             Message message = newContent as Message;
-            if (message.Side == MessageType.Left) {
+            if (message.Type == MessageType.FromOthers) {
                 ContentTemplate = LeftTemplate;
             }
-            else if (message.Side == MessageType.Right) {
+            else if (message.Type == MessageType.Self) {
                 ContentTemplate = RightTemplate;
             }
             else {

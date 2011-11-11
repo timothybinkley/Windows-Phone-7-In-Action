@@ -14,16 +14,16 @@ namespace ChatTcpUnicast {
     public class MockMainViewModel : MainPageViewModel {
         public MockMainViewModel() {
             Messages = new ObservableCollection<Message> {
-                new Message() { DeviceId ="1", Text = "Dude! Are you allright?'", Side = MessageType.Left, UserName = "Leo", Timestamp = DateTime.Now },
-                new Message() { DeviceId ="2", Text = "John joined the chat.", Side = MessageType.Notification, UserName = "Me", Timestamp = DateTime.Now },
-                new Message() { DeviceId ="2", Text = "He was so drunk!", Side = MessageType.Left, UserName = "John", Timestamp = DateTime.Now },
-                new Message() { DeviceId ="2", Text = "I wasn't that drunk last night!", Side = MessageType.Right, UserName = "Me", Timestamp = DateTime.Now },
-                new Message() { DeviceId ="2", Text = "Dude, you were hugging an old man with a breard screeming 'DUMBLEDORE YOU'RE ALIVE'", 
-                    Side = MessageType.Left, UserName = "Leo", Timestamp = DateTime.Now },                
-                 new Message() { DeviceId ="2", Text = "haha.", Side = MessageType.Right, UserName = "Me", Timestamp = DateTime.Now }
+                new Message() { Text = "Dude! Are you allright?'", Type = MessageType.FromOthers, UserName = "Leo", Timestamp = DateTime.Now },
+                new Message() {  Text = "John joined the chat.", Type = MessageType.Notification, UserName = "Me", Timestamp = DateTime.Now },
+                new Message() {  Text = "He was so drunk!", Type = MessageType.FromOthers, UserName = "John", Timestamp = DateTime.Now },
+                new Message() { Text = "I wasn't that drunk last night!", Type = MessageType.Self, UserName = "Me", Timestamp = DateTime.Now },
+                new Message() {  Text = "Dude, you were hugging an old man with a breard screeming 'DUMBLEDORE YOU'RE ALIVE'", 
+                    Type = MessageType.FromOthers, UserName = "Leo", Timestamp = DateTime.Now },                
+                 new Message() {  Text = "haha.", Type = MessageType.Self, UserName = "Me", Timestamp = DateTime.Now }
             };
 
         }
-        
+
     }
 }

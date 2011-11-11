@@ -12,8 +12,8 @@ using System.ComponentModel;
 
 namespace ChatTcpUnicast {
     public enum MessageType { 
-        Left,
-        Right,
+        FromOthers,
+        Self,
         Notification
     }
     public class Message : INotifyPropertyChanged {
@@ -27,9 +27,9 @@ namespace ChatTcpUnicast {
             }
         }
         public DateTime Timestamp { get; set; }
-        public string DeviceId { get; set; }
+        
         public string UserName { get; set; }
-        public MessageType Side { get; set; }
+        public MessageType Type { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName) {

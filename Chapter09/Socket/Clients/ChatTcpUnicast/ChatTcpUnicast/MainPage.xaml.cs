@@ -20,7 +20,7 @@ namespace ChatTcpUnicast {
         }
 
         void MainPage_Loaded(object sender, RoutedEventArgs e) {
-            scrollViewer.ScrollToVerticalOffset(scrollViewer.ActualHeight);
+            scrollViewer.ScrollToVerticalOffset(scrollViewer.ActualHeight);            
         }
     }
 }
