@@ -10,7 +10,15 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 namespace ChatTcpUnicast {
-    public class GenericAttachedProperties {
+    public class EventArgs<T> : EventArgs {
+        private T data;
 
+        public EventArgs(T data) {
+            this.data = data;
+        }
+
+        public T Data {
+            get { return data; }
+        }
     }
 }
