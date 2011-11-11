@@ -100,7 +100,6 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Icons\appbar-cancel.png" />
     <Content Include="Icons\appbar-check.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>

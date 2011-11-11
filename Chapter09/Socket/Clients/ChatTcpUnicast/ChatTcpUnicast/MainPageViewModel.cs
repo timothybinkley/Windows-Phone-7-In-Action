@@ -29,12 +29,20 @@ namespace ChatTcpUnicast {
         }
         void OnSendCommandExecuted() {            
             Messages.Add(Message);
-            Message.Text = string.Empty;
+            Message = new ChatTcpUnicast.Message() { Side = MessageType.Right } ;
         }
 
         public string UserName { get; set; }
         public string ServerIpAddress { get; set; }
-        public Message Message { get; set; }
+        private Message message;
+
+        public Message Message {
+            get { return message; }
+            set {
+                message = value;
+                this.NotifyPropertyChanged("Message");
+            }
+        }
         public DelegateCommand SendCommand { get; private set; }
         public DelegateCommand ConnectCommand { get; private set; }        
         public ObservableCollection<Message> Messages { get; set; }

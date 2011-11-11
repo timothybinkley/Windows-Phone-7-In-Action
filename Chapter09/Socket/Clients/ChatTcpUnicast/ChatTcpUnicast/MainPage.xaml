@@ -95,7 +95,7 @@
                                                             <RowDefinition Height="*" />
                                                             <RowDefinition Height="38" />
                                                         </Grid.RowDefinitions>
-                                                        <TextBlock Text="{Binding Text, Mode=TwoWay}" 
+                                                        <TextBlock Text="{Binding Text}" 
 														   HorizontalAlignment="Stretch"
 														   Foreground="White" 
 														   TextWrapping="Wrap"
