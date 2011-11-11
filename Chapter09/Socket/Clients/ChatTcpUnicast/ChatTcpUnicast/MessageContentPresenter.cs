@@ -11,20 +11,27 @@ using System.Windows.Shapes;
 
 namespace ChatTcpUnicast {
     public class MessageContentPresenter : ContentControl {
+        public MessageContentPresenter() {
+            base.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Stretch;
+        }
         public DataTemplate RightTemplate { get; set; }
         public DataTemplate LeftTemplate { get; set; }
+        public DataTemplate NotificationTemplate { get; set; }
 
         protected override void OnContentChanged(object oldContent, object newContent) {
             base.OnContentChanged(oldContent, newContent);
-
+            
             // apply the required template
             Message message = newContent as Message;
-            if (message.Side == MessageSide.Left) {
+            if (message.Side == MessageType.Left) {
                 ContentTemplate = LeftTemplate;
             }
-            else {
+            else if (message.Side == MessageType.Right) {
                 ContentTemplate = RightTemplate;
             }
-        }
+            else {
+                ContentTemplate = NotificationTemplate;
+            }
+        }       
     }
 }

@@ -16,6 +16,13 @@ namespace ChatTcpUnicast {
         // Constructor
         public MainPage() {
             InitializeComponent();
+
+
+            Loaded += new RoutedEventHandler(MainPage_Loaded);
+        }
+
+        void MainPage_Loaded(object sender, RoutedEventArgs e) {
+            scrollViewer.ScrollToVerticalOffset(scrollViewer.ActualHeight);
         }
     }
 }
