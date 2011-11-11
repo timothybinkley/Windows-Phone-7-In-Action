@@ -69,7 +69,6 @@
     <Compile Include="Command\DelegateCommandBase.cs" />
     <Compile Include="Command\WeakEventHandlerManager.cs" />
     <Compile Include="EventArgs`1.cs" />
-    <Compile Include="GenericAttachedProperties.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

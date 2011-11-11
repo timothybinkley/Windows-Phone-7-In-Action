@@ -7,7 +7,7 @@ namespace TcpSocketServer
     {
         public static int Main(String[] args)
         {
-            //TcpServer.Start();
+            TcpServer.Start();
             return 0;
         }
     }

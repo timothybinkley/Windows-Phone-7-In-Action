@@ -67,8 +67,7 @@ namespace TcpSocketServer {
             manualReset.Set();
             Socket listener = (Socket)ar.AsyncState;
             Socket handler = listener.EndAccept(ar);
-
-            // Create the state object.
+            
             StateObject state = new StateObject();
             state.WorkSocket = handler;
             handler.BeginReceive(state.Buffer, 0, StateObject.BufferSize, 0,
@@ -78,8 +77,7 @@ namespace TcpSocketServer {
         public static void ReadCallback(IAsyncResult ar) {
             StateObject state = (StateObject)ar.AsyncState;
             Socket handler = state.WorkSocket;
-
-            // Read data from the client socket. 
+            
             int bytesRead = handler.EndReceive(ar);
 
             if (bytesRead > 0) {
@@ -91,10 +89,10 @@ namespace TcpSocketServer {
                     var deviceName = messages[1];
                     Console.WriteLine("Command '{0}' is received from Device Name '{1}'", command, deviceName);
                     switch (command) {
-
                         case SocketCommands.CONNECT:
                             state.DeviceName = deviceName;
                             stateObjects.Add(state);
+                            Send(rawMessage);
                             break;
                         default:
                             Send(rawMessage);
