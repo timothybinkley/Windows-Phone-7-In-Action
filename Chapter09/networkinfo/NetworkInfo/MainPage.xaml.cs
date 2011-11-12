@@ -22,19 +22,6 @@ namespace NetworkInfo {
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
         }
 
-        // Handle selection changed on ListBox
-        private void MainListBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            // If selected index is -1 (no selection) do nothing
-            if (MainListBox.SelectedIndex == -1)
-                return;
-
-            // Navigate to the new page
-            NavigationService.Navigate(new Uri("/DetailsPage.xaml?selectedItem=" + MainListBox.SelectedIndex, UriKind.Relative));
-
-            // Reset selected index to -1 (no selection)
-            MainListBox.SelectedIndex = -1;
-        }
-
         // Load data for the ViewModel Items
         private void MainPage_Loaded(object sender, RoutedEventArgs e) {
             if (!App.ViewModel.IsDataLoaded) {

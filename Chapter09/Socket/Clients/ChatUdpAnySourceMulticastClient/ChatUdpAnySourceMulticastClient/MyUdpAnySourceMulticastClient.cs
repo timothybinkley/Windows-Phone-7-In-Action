@@ -28,7 +28,7 @@ namespace ChatUdpAnySourceMulticastClient {
         /// address assignments, please see the IANA website.
         /// http://go.microsoft.com/fwlink/?LinkId=221630
         /// </remarks>
-        private const string GROUP_ADDRESS = "224.0.1.11";
+        private const string GROUP_ADDRESS = "224.0.0.253";
 
         /// <summary>
         /// This defines the port number through which all communication with the multicast group will take place. 
@@ -37,7 +37,7 @@ namespace ChatUdpAnySourceMulticastClient {
         /// The value in this example is arbitrary and you are free to choose your own.
         /// </remarks>
         private const int GROUP_PORT = 54329;
-
+        
         private UdpAnySourceMulticastClient socket;
         private bool disposed = false;
         private const int MAX_BUFFER_SIZE =  2048;
