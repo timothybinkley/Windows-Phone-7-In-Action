@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Net.Sockets;
 using System.Text;
 using Microsoft.Phone.Info;
+using System.Globalization;
 
 namespace ChatTcpUnicast {
     public class TcpSocketClient : IDisposable {
@@ -87,7 +88,7 @@ namespace ChatTcpUnicast {
                 }
                 DateTime messageSentTimeStamp = DateTime.Now;
                 if (messageArray.Length > 4) {
-                    messageSentTimeStamp = DateTime.Parse(messageArray[4]);
+                    messageSentTimeStamp = DateTime.Parse(messageArray[4], CultureInfo.InvariantCulture);
                 }
 
                 var message = new Message() {
