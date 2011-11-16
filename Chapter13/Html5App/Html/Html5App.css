@@ -1,0 +1,60 @@
+﻿body
+{
+    font-family: Segoe WP;
+    font-size: 20px;
+    background: black;
+    color: white;
+}
+h1
+{
+    font-size: 72px;
+    font-weight: normal;
+    margin-top: -5px;
+    margin-bottom: -10px;
+}
+h2
+{
+    font-size: 20px;
+    font-weight: normal;
+    margin-top: 0px;
+    margin-bottom: -10px;
+}
+section
+{
+    height: 250px;
+}
+article
+{
+    margin-bottom: 20px;
+}
+input
+{
+    font-size: 25.333px;
+	width: 400px;
+	margin: 12px;
+	padding: 12px;
+}
+a
+{
+    font-size: 22.667px;
+    font-weight: normal;
+    margin-top: 0px;
+    margin-bottom: -10px;
+}
+.wp7button
+{
+    color: white;
+    border-style: solid;
+    border-color: white;
+    border-width: 3px;
+    background: transparent;
+    font-size: 25.33px;
+    font-family: Segoe WP Semibold;
+    padding-left: 10px;
+    padding-top: 3px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    text-decoration: none;
+}
+
+
