@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODataWeb", "ODataWeb\ODataWeb.csproj", "{AA363D4F-BA30-41DD-BF64-57F42C1BA17D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ODataWebTests", "ODataWebTests\ODataWebTests.csproj", "{0A5680F4-C893-469E-A7E2-792F9E233971}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataServiceProvider", "DataServiceProvider\DataServiceProvider.csproj", "{6B6D1F18-EABE-4219-B86A-D18FB61C9DE0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA363D4F-BA30-41DD-BF64-57F42C1BA17D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA363D4F-BA30-41DD-BF64-57F42C1BA17D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA363D4F-BA30-41DD-BF64-57F42C1BA17D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA363D4F-BA30-41DD-BF64-57F42C1BA17D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A5680F4-C893-469E-A7E2-792F9E233971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A5680F4-C893-469E-A7E2-792F9E233971}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A5680F4-C893-469E-A7E2-792F9E233971}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A5680F4-C893-469E-A7E2-792F9E233971}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B6D1F18-EABE-4219-B86A-D18FB61C9DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B6D1F18-EABE-4219-B86A-D18FB61C9DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B6D1F18-EABE-4219-B86A-D18FB61C9DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B6D1F18-EABE-4219-B86A-D18FB61C9DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

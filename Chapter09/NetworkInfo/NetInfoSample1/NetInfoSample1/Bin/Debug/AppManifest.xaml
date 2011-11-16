@@ -1,5 +1,0 @@
-﻿<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" EntryPointAssembly="NetInfoSample1" EntryPointType="NetInfoSample1.App" RuntimeVersion="3.0.40624.0">
-  <Deployment.Parts>
-    <AssemblyPart x:Name="NetInfoSample1" Source="NetInfoSample1.dll" />
-  </Deployment.Parts>
-</Deployment>
