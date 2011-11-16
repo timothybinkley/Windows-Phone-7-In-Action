@@ -1,0 +1,39 @@
+
+<html>
+<body>
+<h1>Setting up the OData Sample Services</h1>
+<h2>License</h2>
+<p>The sample code is released under the <a href="license.txt">Ms-PL license</a></p>
+<h2>Requirements</h2>
+<ul>
+<li>IIS</li>
+<li>Microsoft .NET Framework 4.0</li>
+<li>Microsoft SQL Server or SQL Server Express</li>
+</ul>
+<h2>Setup</h2>
+<ol>
+<li>Copy all files into a directory, setup the directory as an IIS application.</li>
+<li>Configurate the IIS application pool such that it runs with an identity that has CREATE database permission on the sql server.</li>
+<li>Make sure this user also has write permission on the OData\ directory.</li>
+<li>Start the IIS application, and browse to: \Northwind\Northwind.svc
+<br />This will automatically generate a Northwind database and connect to it.
+<br />By default the generated database is on the local sql express server. You can change this by modifying the connection string stored in Web.config
+<pre>
+&lt;connectionStrings&gt;
+<br />&nbsp;&nbsp;&nbsp;&lt;add name="NorthwindSetup" connectionString="data source=.\SQLEXPRESS;Integrated Security=True;" providerName="System.Data.SqlClient"/&gt;
+<br />&nbsp;&nbsp;&nbsp;&lt;add name="NorthwindEntities" connectionString="metadata=res://*/Northwind.Model.NorthwindModel.csdl|res://*/Northwind.Model.NorthwindModel.ssdl|res://*/Northwind.Model.NorthwindModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=.\sqlexpress;Initial Catalog=Northwind;Integrated Security=True;MultipleActiveResultSets=True&quot;" providerName="System.Data.EntityClient"/&gt;
+<br />&lt;/connectionStrings&gt;
+</pre>
+The first connection string (NorthwindSetup) is used to generate the database. The second one is used for EF to connect to the database.
+
+After the database is generated, a file named "db.lock" will be placed to the \Northwind\ directory. This ensures the database is not always regenerated.
+If you have corrupted the database, you can simply remove this file and the database will regenerate. The file location can also be changed by modifying
+the Web.config file:
+<pre>
+&lt;add key="NW_dbHolderPath" value="Northwind\db.lock"/&gt;
+</pre>
+</li>
+</body>
+</html>
+
+

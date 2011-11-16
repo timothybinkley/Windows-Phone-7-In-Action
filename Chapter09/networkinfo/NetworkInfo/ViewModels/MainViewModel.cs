@@ -57,27 +57,41 @@ namespace NetworkInfo {
         }
 
         private void LoadSystemNetworkInformation() {
-            this.SystemNetInfo.Add(new ItemViewModel() { LineOne = "network status", 
-                LineTwo = SystemNet.NetworkInterface.GetIsNetworkAvailable() ? "On" : "Off" });
+            this.SystemNetInfo.Add(new ItemViewModel() { 
+                    LineOne = "network status", 
+                    LineTwo = SystemNet.NetworkInterface.GetIsNetworkAvailable() ? "On" : "Off" 
+                });
+
             SystemNet.NetworkChange.NetworkAddressChanged += (__, e) => {
                 this.SystemNetInfo.Clear();
-                this.SystemNetInfo.Add(new ItemViewModel() { LineOne = "network status", 
+                this.SystemNetInfo.Add(new ItemViewModel(){
+                    LineOne = "network status", 
                     LineTwo = SystemNet.NetworkInterface.GetIsNetworkAvailable() ? "On" : "Off" });
             };
         }
 
 
         private void LoadDeviceInformation() {
-            this.DeviceInfo.Add(new ItemViewModel() { LineOne = "cellular operator", 
-                LineTwo = DeviceNetworkInformation.CellularMobileOperator.ToLower() });
-            this.DeviceInfo.Add(new ItemViewModel() { LineOne = "data enabled", 
-                LineTwo = DeviceNetworkInformation.IsCellularDataEnabled.ToString().ToLower() });
-            this.DeviceInfo.Add(new ItemViewModel() { LineOne = "roaming enabled", 
-                LineTwo = DeviceNetworkInformation.IsCellularDataRoamingEnabled.ToString().ToLower() });
-            this.DeviceInfo.Add(new ItemViewModel() { LineOne = "network status", 
-                LineTwo = DeviceNetworkInformation.IsNetworkAvailable.ToString().ToLower() });
-            this.DeviceInfo.Add(new ItemViewModel() { LineOne = "wifi enabled", 
-                LineTwo = DeviceNetworkInformation.IsWiFiEnabled.ToString().ToLower() });
+            this.DeviceInfo.Add(new ItemViewModel() { 
+                LineOne = "cellular operator", 
+                LineTwo = DeviceNetworkInformation.CellularMobileOperator.ToLower() 
+            });
+            this.DeviceInfo.Add(new ItemViewModel() { 
+                LineOne = "data enabled", 
+                LineTwo = DeviceNetworkInformation.IsCellularDataEnabled.ToString().ToLower() 
+            });
+            this.DeviceInfo.Add(new ItemViewModel() { 
+                LineOne = "roaming enabled", 
+                LineTwo = DeviceNetworkInformation.IsCellularDataRoamingEnabled.ToString().ToLower() 
+            });
+            this.DeviceInfo.Add(new ItemViewModel() { 
+                LineOne = "network status", 
+                LineTwo = DeviceNetworkInformation.IsNetworkAvailable.ToString().ToLower() 
+            });
+            this.DeviceInfo.Add(new ItemViewModel() { 
+                LineOne = "wifi enabled", 
+                LineTwo = DeviceNetworkInformation.IsWiFiEnabled.ToString().ToLower() 
+            });
 
             //DeviceNetworkInformation.NetworkAvailabilityChanged += new EventHandler<NetworkNotificationEventArgs>(DeviceNetworkInformation_NetworkAvailabilityChanged);
         }
