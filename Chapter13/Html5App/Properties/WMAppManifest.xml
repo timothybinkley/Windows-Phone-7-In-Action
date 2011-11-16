@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.0">
-  <App xmlns="" ProductID="{9bc27cf2-170a-4751-aa06-96c4cb25cd80}" Title="Navigator" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="Navigator author" Description="Sample description" Publisher="Navigator">
+<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
+  <App xmlns="" ProductID="{6809d7e4-2719-42e5-a260-0a94f3cac7fd}" Title="Html5App" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="Html5App author" Description="Sample description" Publisher="Html5App">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES"/>
@@ -15,16 +15,19 @@
       <Capability Name="ID_CAP_PUSH_NOTIFICATION"/>
       <Capability Name="ID_CAP_SENSORS"/>
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT"/>
+      <Capability Name="ID_CAP_ISV_CAMERA"/>
+      <Capability Name="ID_CAP_CONTACTS"/>
+      <Capability Name="ID_CAP_APPOINTMENTS"/>
     </Capabilities>
     <Tasks>
       <DefaultTask  Name ="_default" NavigationPage="MainPage.xaml"/>
     </Tasks>
     <Tokens>
-      <PrimaryToken TokenID="NavigatorToken" TaskName="_default">
+      <PrimaryToken TokenID="Html5AppToken" TaskName="_default">
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>Navigator</Title>
+          <Title>Html5App</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

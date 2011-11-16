@@ -1,9 +1,21 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Navigation;
+using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.IO.IsolatedStorage;
+using System.Windows.Resources;
 
-namespace Navigator
+namespace Html5App
 {
     public partial class App : Application
     {
@@ -21,6 +33,12 @@ namespace Navigator
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 
+            // Standard Silverlight initialization
+            InitializeComponent();
+
+            // Phone-specific initialization
+            InitializePhoneApplication();
+
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
             {
@@ -31,35 +49,61 @@ namespace Navigator
                 //Application.Current.Host.Settings.EnableRedrawRegions = true;
 
                 // Enable non-production analysis visualization mode, 
-                // which shows areas of a page that are being GPU accelerated with a colored overlay.
+                // which shows areas of a page that are handed off to GPU with a colored overlay.
                 //Application.Current.Host.Settings.EnableCacheVisualization = true;
+
+                // Disable the application idle detection by setting the UserIdleDetectionMode property of the
+                // application's PhoneApplicationService object to Disabled.
+                // Caution:- Use this under debug mode only. Application that disables user idle detection will continue to run
+                // and consume battery power when the user is not using the phone.
+                PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            // Standard Silverlight initialization
-            InitializeComponent();
-
-            // Phone-specific initialization
-            InitializePhoneApplication();
         }
 
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            string[] applicationFiles = { @"Html\Html5App.css", @"Html\MainPage.html", @"Html\Location.html"};
+
+            // Obtain the virtual store for the application.
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                storage.CreateDirectory("Html");
+
+                foreach (string file in applicationFiles)
+                {
+                    StreamResourceInfo sourceInfo = Application.GetResourceStream(new Uri(file, UriKind.Relative));
+                    using (var source = sourceInfo.Stream)
+                    {
+                        // Copy the file from appdata storage to isolated storage. 
+                        using (IsolatedStorageFileStream target = storage.CreateFile(file))
+                        {
+                            // read the file 4k bytes at a time
+                            byte[] buffer = new byte[4096];
+                            int bytesRead = -1;
+
+                            while ((bytesRead = source.Read(buffer, 0, buffer.Length)) > 0)
+                            {
+                                target.Write(buffer, 0, bytesRead);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            // Ensure that application state is restored appropriately
         }
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
-            // Ensure that required application state is persisted here.
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
