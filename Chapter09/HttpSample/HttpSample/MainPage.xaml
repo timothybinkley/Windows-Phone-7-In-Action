@@ -28,13 +28,12 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <StackPanel>
-            <Button x:Name="getImageButton"
-                        Content="Get Image"
-                        Click="getImageButton_Click" />
-
-            <Image x:Name="imageControl" />
-            </StackPanel>
+<StackPanel>
+    <Button x:Name="getImageButton"
+           Content="Get Image"
+           Click="getImageButton_Click" />
+    <Image x:Name="imageControl" />
+</StackPanel>
         </Grid>
     </Grid>
  
