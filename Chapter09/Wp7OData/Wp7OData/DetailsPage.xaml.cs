@@ -11,6 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
+using Wp7OData.ViewModels;
 
 namespace Wp7OData {
     public partial class DetailsPage : PhoneApplicationPage {
@@ -26,6 +27,7 @@ namespace Wp7OData {
                 int index = int.Parse(selectedIndex);
                 DataContext = App.ViewModel.Items[index];
             }
+            
         }
     }
 }

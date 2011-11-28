@@ -41,5 +41,12 @@ namespace Wp7OData {
                 App.ViewModel.LoadData();
             }
         }
+
+        private void AddNewAppBar_Click(object sender, EventArgs e) {
+            NavigationService.Navigate(new Uri("/EditableDetailsPage.xaml", UriKind.Relative));
+
+            // Reset selected index to -1 (no selection)
+            MainListBox.SelectedIndex = -1;
+        }
     }
 }

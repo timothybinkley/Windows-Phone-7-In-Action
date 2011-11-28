@@ -15,7 +15,8 @@
     shell:SystemTray.IsVisible="True">
 
     <!--Data context is set to sample data above and first item in sample data collection below and LayoutRoot contains the root grid where all other page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent" d:DataContext="{Binding Items[0]}">
+    <Grid x:Name="LayoutRoot" Background="Transparent" 
+          d:DataContext="{Binding Items[0]}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -23,26 +24,26 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="PageTitle" Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="ListTitle" Text="{Binding LineOne}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="Windows Phone 7 in Action" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="ListTitle" Text="{Binding Name}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel contains details text. Place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock x:Name="ContentText" Text="{Binding LineThree}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="ContentText" Text="{Binding Description}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}"/>
         </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Delete"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Edit"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>
