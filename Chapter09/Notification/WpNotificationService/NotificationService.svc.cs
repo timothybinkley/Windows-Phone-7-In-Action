@@ -21,20 +21,19 @@ namespace WpNotificationService {
 
         string tileMessage = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
                                 "<wp:Notification xmlns:wp=\"WPNotification\">" +
-                                    "<wp:Tile Id=\"Navigation Uri of the Tile to update\">" +
+                                    "<wp:Tile>" +
                                         "<wp:BackgroundImage>{0}</wp:BackgroundImage>" +
                                         "<wp:Count>{1}</wp:Count>" +
-                                        "<wp:Title>{2}</wp:Title>" +
-                                        "<wp:BackBackgroundImage>{3}</wp:BackBackgroundImage>"+
-                                        "<wp:BackTitle>{4}</wp:BackTitle>"+
-                                        "<wp:BackContent>{5}</wp:BackContent>"+
+                                        "<wp:Title>{2}</wp:Title>" +                                       
                                     "</wp:Tile> " +
                                 "</wp:Notification>";
+
+        
 
         string rawMessage = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
                                 "<root>" +
                                     "<Value1>{0}<Value1>" +
-                                    "<Value2>{0}<Value2>" +
+                                    "<Value2>{1}<Value2>" +
                                 "</root>";
 
         
@@ -86,29 +85,29 @@ namespace WpNotificationService {
         public IList<NotificationResponse> SendToast(Toast toast) {
             List<NotificationResponse> statuses = new List<NotificationResponse>();
             string message = string.Format(toastMessage, toast.Text1, toast.Text2, toast.Param);
-            NotifyAll(statuses, message, (int)ToastBackingInterval.ImmediateDelivery);
+            NotifyAll(statuses, message, (int)ToastBackingInterval.ImmediateDelivery, "toast");
             return statuses;
         }
 
-        private void NotifyAll(List<NotificationResponse> statuses, string message, int interval) {
+        private void NotifyAll(List<NotificationResponse> statuses, string message, int interval, string target) {
             byte[] msg = System.Text.Encoding.UTF8.GetBytes(message);
             foreach (var uri in clients.Values) {
-                statuses.Add(Post(uri, msg, interval, "toast"));
+                statuses.Add(Post(uri, msg, interval, target));
             }
         }
 
         public IList<NotificationResponse> SendTitle(Title title) {
             List<NotificationResponse> statuses = new List<NotificationResponse>();
             string message = string.Format(tileMessage, title.Title1.BackgroundImagePath, title.Title1.Count, title.Title1.Title,
-                title.Title2.BackgroundImagePath, title.Title2.Count, title.Title2.Title, "token");
-            NotifyAll(statuses, message, (int)TitleBackingInterval.ImmediateDelivery);
+                title.Title2.BackgroundImagePath, title.Title2.Count, title.Title2.Title);
+            NotifyAll(statuses, message, (int)TitleBackingInterval.ImmediateDelivery, "token");
             return statuses;
         }
 
         public IList<NotificationResponse> SendRaw(Raw raw) {
             List<NotificationResponse> statuses = new List<NotificationResponse>();
-            string message = string.Format(toastMessage, raw.Text1, raw.Text2);
-            NotifyAll(statuses, message, (int)RawBackingInterval.ImmediateDelivery);
+            string message = string.Format(rawMessage, raw.Text1, raw.Text2);
+            NotifyAll(statuses, message, (int)RawBackingInterval.ImmediateDelivery, string.Empty);
             return statuses;
         }
     }

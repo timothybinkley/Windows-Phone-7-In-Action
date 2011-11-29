@@ -14,6 +14,7 @@ using System.IO.IsolatedStorage;
 using Microsoft.Phone.Notification;
 using WPNotificationClient.Services;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace WPNotificationClient {
     public partial class MainPage : PhoneApplicationPage {
@@ -32,77 +33,70 @@ namespace WPNotificationClient {
                 _appId = Guid.NewGuid();
                 IsolatedStorageSettings.ApplicationSettings["AppID"] = _appId;
             }
+
+            SetUpChannel();
         }
 
         void SetUpChannel() {
             _channel = HttpNotificationChannel.Find(CHANNEL_NAME);
 
-            if (_channel == null) {                
+            if (_channel == null) {
                 _channel = new HttpNotificationChannel(CHANNEL_NAME);
                 _channel.ChannelUriUpdated += OnChannelUriUpdated;
-                _channel.ErrorOccurred += OnErrorOccurred;
                 _channel.Open();
             }
-            else {                
-                RegisterForNotifications();
+            else {
+                _channel.ChannelUriUpdated += OnChannelUriUpdated;
+                Subscribe();    
             }
+
+            
         }
 
-        void RegisterForNotifications() {
-            RegisterWithSubscriptionService();
+        private void SubscribeEvents() {            
+            _channel.ErrorOccurred += OnErrorOccurred;
             _channel.ShellToastNotificationReceived += OnShellToastNotificationReceived;
             _channel.HttpNotificationReceived += OnHttpNotificationReceived;
-            _channel.ErrorOccurred += OnErrorOccurred;
-        }
 
-        void RegisterWithSubscriptionService() {
+            if (!_channel.IsShellTileBound) {
+                _channel.BindToShellTile();
+            }
+
+            if (!_channel.IsShellToastBound) {
+                _channel.BindToShellToast();
+            }
+        }        
+
+        void Subscribe() {
+            SubscribeEvents();
+
             var svc = new NotificationServiceClient();
             svc.SubscribeCompleted += (s, e) => {
                 if (e.Error != null) {
-                    
+                    MessageBox.Show(e.Error.Message);
                 }
             };
             svc.SubscribeAsync(_appId, _channel.ChannelUri.ToString());
         }
-        
-        void UnRegisterForNotifications() {
-            _channel.HttpNotificationReceived -= OnHttpNotificationReceived;
-            _channel.ShellToastNotificationReceived -= OnShellToastNotificationReceived;
-            _channel.ErrorOccurred -= OnErrorOccurred;
-        }
+     
 
         void OnChannelUriUpdated(object sender, NotificationChannelUriEventArgs e) {
-            _channel.ErrorOccurred -= OnErrorOccurred;
-            _channel.ChannelUriUpdated -= OnChannelUriUpdated;
-
-            _channel = HttpNotificationChannel.Find(CHANNEL_NAME);
-
-            if (!_channel.IsShellTileBound) {
-                Collection<Uri> uris = new Collection<Uri>();
-                uris.Add(new Uri("http://chris.59north.com/"));
-                _channel.BindToShellTile(uris);
-            }
-
-            if (!_channel.IsShellToastBound)
-                _channel.BindToShellToast();
-
-            RegisterForNotifications();
-
-            
+            SetUpChannel();
         }
 
         void OnErrorOccurred(object sender, NotificationChannelErrorEventArgs e) {
-            
-            //OnErrorOccurred(e.Message);
+            MessageBox.Show(e.Message);
         }
         void OnHttpNotificationReceived(object sender, HttpNotificationEventArgs e) {
-            //StreamReader sr = new StreamReader(e.Notification.Body);
-            //OnRawMessageReceived(sr.ReadToEnd());
-            //sr.Close();
+            StreamReader sr = new StreamReader(e.Notification.Body);
+            var msg = sr.ReadToEnd();
+            sr.Close();
         }
         void OnShellToastNotificationReceived(object sender, NotificationEventArgs e) {
-            //ToastData td = new ToastData(e.Collection["wp:Text1"], e.Collection["wp:Text2"]);
-            //OnToastReceived(td);
+            Deployment.Current.Dispatcher.BeginInvoke(() => {
+                ToastText1Textblock.Text = e.Collection["wp:Text1"];
+                ToastText2Textblock.Text = e.Collection["wp:Text2"];
+            });
         }
     }
 }

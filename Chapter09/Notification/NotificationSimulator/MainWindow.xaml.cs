@@ -25,7 +25,7 @@ namespace NotificationSimulator {
 
         private void SendToast_Click(object sender, RoutedEventArgs e) {
             var client = new NotificationServiceClient();
-            client.SendToast(new Toast() { Text1 = ToastText1.Text, Text2 = ToastText2.Text });
+            client.SendToast(new Toast() { Text1 = ToastText1.Text, Text2 = ToastText2.Text, BackingInterval = ToastBackingInterval.ImmediateDelivery });
         }
 
         private void SendTile_Click(object sender, RoutedEventArgs e) {
@@ -33,12 +33,13 @@ namespace NotificationSimulator {
             client.SendTitle(new Title() {
                 Title1 = new TitleItem() { Title = TileTitle1.Text, Count = TileCount1.Text, BackgroundImagePath = TileImage1.Text },
                 Title2 = new TitleItem() { Title = TileTitle2.Text, Count = TileCount2.Text, BackgroundImagePath = TileImage2.Text },
+                BackingInterval = TitleBackingInterval.ImmediateDelivery
             });
         }
 
         private void SendRaw_Click(object sender, RoutedEventArgs e) {
             var client = new NotificationServiceClient();
-            client.SendRaw(new Raw() { Text1 = Rawtext.Text });
+            client.SendRaw(new Raw() { Text1 = Rawtext1.Text, Text2 = Rawtext2.Text, BackingInterval = RawBackingInterval.ImmediateDelivery });
         }
     }
 }
