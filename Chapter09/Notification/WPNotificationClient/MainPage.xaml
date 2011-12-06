@@ -36,21 +36,7 @@
                 <TextBlock x:Name="ToastText1Textblock" Text="Text 1 :" Margin="50,0,0,0"
                     Style="{StaticResource PhoneTextNormalStyle}"/>
                 <TextBlock x:Name="ToastText2Textblock" Text="Text 2 :" Margin="50,0,0,0"
-                    Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock 
-                       Text="Title" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                <TextBlock x:Name="TitleTitle1Textblock" Text="Title 1 :" Margin="50,0,0,0"
-                    Style="{StaticResource PhoneTextNormalStyle}"/>
-                <TextBlock x:Name="TitleBackgroundImage1Textblock" Text="BackgroundImage 1 :" Margin="50,0,0,0"
-                    Style="{StaticResource PhoneTextNormalStyle}"/>
-                <TextBlock x:Name="TitleCount1Textblock" Text="Count 1 :" Margin="50,0,0,0"
-                    Style="{StaticResource PhoneTextNormalStyle}"/>
-                <TextBlock x:Name="TitleTitle2Textblock" Text="Title 2 :" Margin="50,0,0,0"
-                    Style="{StaticResource PhoneTextNormalStyle}"/>
-                <TextBlock x:Name="TitleBackgroundImage2Textblock" Text="BackgroundImage 2 :" Margin="50,0,0,0"
-                    Style="{StaticResource PhoneTextNormalStyle}"/>
-                <TextBlock x:Name="TitleCount2Textblock" Text="Count 2 :" Margin="50,0,0,0"
-                    Style="{StaticResource PhoneTextNormalStyle}"/>
+                    Style="{StaticResource PhoneTextNormalStyle}"/>            
             <TextBlock 
                        Text="Raw" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                 <TextBlock x:Name="RawText1Textblock" Text="Text 1 :" Margin="50,0,0,0"

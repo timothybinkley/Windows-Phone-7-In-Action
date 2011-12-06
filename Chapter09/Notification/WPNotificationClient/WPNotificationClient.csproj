@@ -58,6 +58,7 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -86,17 +87,17 @@
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
-    <None Include="Service References\Services\NotificationService.wsdl" />
-    <None Include="Service References\Services\NotificationService.xsd">
+    <None Include="Service References\Services\NotificationService1.wsdl" />
+    <None Include="Service References\Services\NotificationService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\Services\NotificationService1.xsd">
+    <None Include="Service References\Services\NotificationService41.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\Services\NotificationService2.xsd">
+    <None Include="Service References\Services\NotificationService42.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\Services\NotificationService3.xsd">
+    <None Include="Service References\Services\NotificationService43.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\Services\WPNotificationClient.Services.NotificationResponse.datasource">
@@ -105,6 +106,7 @@
     <Content Include="Blue.jpg" />
     <Content Include="Green.jpg" />
     <Content Include="Red.jpg" />
+    <None Include="Service References\Services\NotificationService1.disco" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>
@@ -114,7 +116,6 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Service References\Services\NotificationService.disco" />
     <None Include="Service References\Services\configuration91.svcinfo" />
     <None Include="Service References\Services\configuration.svcinfo" />
     <None Include="Service References\Services\Reference.svcmap">

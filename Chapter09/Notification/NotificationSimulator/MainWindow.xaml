@@ -52,9 +52,10 @@
                     <TextBlock Text="Count:" VerticalAlignment="Center" Grid.Row="2" />
                     <TextBlock Text="Image:" VerticalAlignment="Center" Grid.Row="3" />
 
-                    <TextBox x:Name="TileTitle1" Grid.Column="1" Width="300" Margin="20,5" Grid.Row="1" />
-                    <TextBox x:Name="TileCount1" Grid.Column="1" Grid.Row="2" Width="25" Margin="20,5" HorizontalAlignment="Left" />
-                    <ComboBox x:Name="TileImage1" Grid.Column="1" Grid.Row="3" Width="100" Margin="20,5" SelectedIndex="0" HorizontalAlignment="Left">
+                    <TextBox x:Name="TileFrontTitle" Grid.Column="1" Width="300" Margin="20,5" Grid.Row="1" />
+                    <TextBox x:Name="TileCount" Grid.Column="1" Grid.Row="2" Width="25" Margin="20,5" HorizontalAlignment="Left"
+                             InputScope="TelephoneNumber"/>
+                    <ComboBox x:Name="TileFrontImagePath" Grid.Column="1" Grid.Row="3" Width="100" Margin="20,5" SelectedIndex="0" HorizontalAlignment="Left">
                         <Sys:String>Blue.jpg</Sys:String>
                         <Sys:String>Green.jpg</Sys:String>
                         <Sys:String>Red.jpg</Sys:String>                        
@@ -63,12 +64,12 @@
                     <TextBlock Text="Back Title" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"/>
 
                     <TextBlock Text="Title:" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" />
-                    <TextBlock Text="Count:" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2" />
+                    <TextBlock Text="Content:" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2" />
                     <TextBlock Text="Image:" VerticalAlignment="Center" Grid.Row="3" Grid.Column="2" />
 
-                    <TextBox x:Name="TileTitle2" Grid.Column="3" Width="300" Margin="20,5" Grid.Row="1" />
-                    <TextBox x:Name="TileCount2" Grid.Column="3" Grid.Row="2" Width="25" Margin="20,5" HorizontalAlignment="Left" />
-                    <ComboBox x:Name="TileImage2" Grid.Column="3" Grid.Row="3" Width="100" Margin="20,5" SelectedIndex="0" HorizontalAlignment="Left">
+                    <TextBox x:Name="TileBackTitle" Grid.Column="3" Width="300" Margin="20,5" Grid.Row="1" />
+                    <TextBox x:Name="TileBackContent" Grid.Column="3" Grid.Row="2" Width="300" Margin="20,5" HorizontalAlignment="Left" />
+                    <ComboBox x:Name="TileBackImagePath" Grid.Column="3" Grid.Row="3" Width="100" Margin="20,5" SelectedIndex="0" HorizontalAlignment="Left">
                         <Sys:String>Blue.jpg</Sys:String>
                         <Sys:String>Green.jpg</Sys:String>
                         <Sys:String>Red.jpg</Sys:String>

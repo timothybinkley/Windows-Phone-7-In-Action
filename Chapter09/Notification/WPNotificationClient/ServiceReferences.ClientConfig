@@ -9,7 +9,7 @@
             </basicHttpBinding>
         </bindings>
         <client>
-            <endpoint address="http://localhost:3448/NotificationService.svc"
+            <endpoint address="http://localhost:18558/NotificationService.svc"
                 binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_INotificationService"
                 contract="Services.INotificationService" name="BasicHttpBinding_INotificationService" />
         </client>

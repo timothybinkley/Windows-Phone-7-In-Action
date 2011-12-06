@@ -33,7 +33,6 @@ namespace Wp7OData {
         }
 
         private ObservableCollection<Category> items;
-
         public ObservableCollection<Category> Items {
             get { return items; }
             set { 

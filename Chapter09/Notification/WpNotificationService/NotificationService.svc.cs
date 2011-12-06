@@ -8,10 +8,12 @@ using System.Net;
 using System.IO;
 
 namespace WpNotificationService {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "NotificationService" in code, svc and config file together.
+
     public class NotificationService : INotificationService {
+
         string toastMessage = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-                                "<wp:Notification xmlns:wp=\"WPNotification\">" +
+                                "<wp:Notification " +
+                                    "xmlns:wp=\"WPNotification\">" +
                                     "<wp:Toast>" +
                                         "<wp:Text1>{0}</wp:Text1>" +
                                         "<wp:Text2>{1}</wp:Text2>" +
@@ -20,25 +22,32 @@ namespace WpNotificationService {
                                 "</wp:Notification>";
 
         string tileMessage = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-                                "<wp:Notification xmlns:wp=\"WPNotification\">" +
+                                "<wp:Notification " +
+                                   "xmlns:wp=\"WPNotification\">" +
                                     "<wp:Tile>" +
-                                        "<wp:BackgroundImage>{0}</wp:BackgroundImage>" +
+                                        "<wp:BackgroundImage>{0}" +
+                                          "</wp:BackgroundImage>" +
                                         "<wp:Count>{1}</wp:Count>" +
-                                        "<wp:Title>{2}</wp:Title>" +                                       
+                                        "<wp:Title>{2}</wp:Title>" +
+                                        "<wp:BackBackgroundImage>{3}" +
+                                          "</wp:BackBackgroundImage>" +
+                                        "<wp:BackTitle>{4}</wp:BackTitle>" +
+                                        "<wp:BackContent>{5}" +
+                                          "</wp:BackContent>" +
                                     "</wp:Tile> " +
                                 "</wp:Notification>";
 
-        
+
 
         string rawMessage = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
                                 "<root>" +
-                                    "<Value1>{0}<Value1>" +
-                                    "<Value2>{1}<Value2>" +
+                                    "<Value1>{0}</Value1>" +
+                                    "<Value2>{1}</Value2>" +
                                 "</root>";
 
-        
 
-      
+
+
 
         private NotificationResponse Post(Uri uri, byte[] msg, int interval, string target) {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
@@ -62,10 +71,12 @@ namespace WpNotificationService {
                 string subscriptStatus = response.Headers["X-SubscriptionStatus"];
                 string deviceConnectionStatus = response.Headers["X-DeviceConnectionStatus"];
 
-                notificationResponse.NotificationStatus = (NotificationStatus)Enum.Parse(typeof(NotificationStatus), notificationStatus, true);
-                notificationResponse.SubscriptionStatus = (SubscriptionStatus)Enum.Parse(typeof(SubscriptionStatus), subscriptStatus, true);
-                notificationResponse.DeviceConnectionStatus = (DeviceConnectionStatus)Enum.Parse(typeof(DeviceConnectionStatus), 
-                                            deviceConnectionStatus, true);
+                notificationResponse.NotificationStatus = (NotificationStatus)Enum
+                    .Parse(typeof(NotificationStatus), notificationStatus, true);
+                notificationResponse.SubscriptionStatus = (SubscriptionStatus)Enum
+                    .Parse(typeof(SubscriptionStatus), subscriptStatus, true);
+                notificationResponse.DeviceConnectionStatus = (DeviceConnectionStatus)Enum
+                    .Parse(typeof(DeviceConnectionStatus), deviceConnectionStatus, true);
                 notificationResponse.HttpStatusCode = HttpStatusCode.OK;
             }
             catch (WebException ex) {
@@ -77,8 +88,15 @@ namespace WpNotificationService {
             return notificationResponse;
         }
 
+        private void NotifyAll(List<NotificationResponse> statuses, string message, int interval, string target) {
+            byte[] msg = System.Text.Encoding.UTF8.GetBytes(message);
+            foreach (var uri in clients.Values) {
+                statuses.Add(Post(uri, msg, interval, target));
+            }
+        }
         static Dictionary<Guid, Uri> clients = new Dictionary<Guid, Uri>();
-        public void Subscribe(Guid id, string uri){
+
+        public void Subscribe(Guid id, string uri) {
             clients[id] = new Uri(uri);
         }
 
@@ -89,17 +107,10 @@ namespace WpNotificationService {
             return statuses;
         }
 
-        private void NotifyAll(List<NotificationResponse> statuses, string message, int interval, string target) {
-            byte[] msg = System.Text.Encoding.UTF8.GetBytes(message);
-            foreach (var uri in clients.Values) {
-                statuses.Add(Post(uri, msg, interval, target));
-            }
-        }
-
         public IList<NotificationResponse> SendTitle(Title title) {
             List<NotificationResponse> statuses = new List<NotificationResponse>();
-            string message = string.Format(tileMessage, title.Title1.BackgroundImagePath, title.Title1.Count, title.Title1.Title,
-                title.Title2.BackgroundImagePath, title.Title2.Count, title.Title2.Title);
+            string message = string.Format(tileMessage, title.FrontImagePath, title.Count, title.FrontTitle,
+                title.BackImagePath, title.BackContent, title.BackTitle);
             NotifyAll(statuses, message, (int)TitleBackingInterval.ImmediateDelivery, "token");
             return statuses;
         }
@@ -110,6 +121,10 @@ namespace WpNotificationService {
             NotifyAll(statuses, message, (int)RawBackingInterval.ImmediateDelivery, string.Empty);
             return statuses;
         }
+
+
+
+
     }
 
     [DataContract]
@@ -125,7 +140,7 @@ namespace WpNotificationService {
     }
 
     [DataContract]
-    public enum ToastBackingInterval{
+    public enum ToastBackingInterval {
         [EnumMember]
         ImmediateDelivery = 2,
         [EnumMember]
@@ -134,27 +149,26 @@ namespace WpNotificationService {
         DeliveredWithin900Seconds = 22
     }
 
-    [DataContract]
-    public class TitleItem {
-        [DataMember]
-        public string Title { get; set; }
-        [DataMember]
-        public string BackgroundImagePath { get; set; } 
-        [DataMember]
-        public string Count { get; set; }
-        
-    }
+
     [DataContract]
     public class Title {
         [DataMember]
-        public TitleItem Title1 { get; set; }
+        public string FrontTitle { get; set; }
         [DataMember]
-        public TitleItem Title2 { get; set; }       
+        public string FrontImagePath { get; set; }
         [DataMember]
-        public TitleBackingInterval BackingInterval { get; set; }   
+        public int Count { get; set; }
+        [DataMember]
+        public string BackTitle { get; set; }
+        [DataMember]
+        public string BackImagePath { get; set; }
+        [DataMember]
+        public string BackContent { get; set; }
+        [DataMember]
+        public TitleBackingInterval BackingInterval { get; set; }
     }
     [DataContract]
-    public enum TitleBackingInterval{
+    public enum TitleBackingInterval {
         [EnumMember]
         ImmediateDelivery = 1,
         [EnumMember]
@@ -167,12 +181,12 @@ namespace WpNotificationService {
         [DataMember]
         public string Text1 { get; set; }
         [DataMember]
-        public string Text2 { get; set; }        
+        public string Text2 { get; set; }
         [DataMember]
         public RawBackingInterval BackingInterval { get; set; }
     }
     [DataContract]
-    public enum RawBackingInterval{
+    public enum RawBackingInterval {
         [EnumMember]
         ImmediateDelivery = 3,
         [EnumMember]
@@ -181,7 +195,7 @@ namespace WpNotificationService {
         DeliveredWithin900Seconds = 23
     }
 
-    
+
     [DataContract]
     public enum NotificationStatus {
         [EnumMember]

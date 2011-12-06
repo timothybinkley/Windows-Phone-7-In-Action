@@ -70,7 +70,7 @@ namespace Wp7OData {
 
                         var category = new CategoryModel() {
                             Id = Convert.ToInt32(properties.Element(d + "CategoryID").Value),
-                            Name = properties.Element(d + "CategoryName").Value,
+                            CategoryName = properties.Element(d + "CategoryName").Value,
                             Description = properties.Element(d + "Description").Value
                         };
                         items.Add(category);

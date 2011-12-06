@@ -18,15 +18,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:3448/NotificationService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:18558/NotificationService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="NotificationService.wsdl" MetadataType="Wsdl" ID="962eae21-6c9a-412f-9d1d-9dbf00ca00a8" SourceId="1" SourceUrl="http://localhost:3448/NotificationService.svc?wsdl" />
-    <MetadataFile FileName="NotificationService.disco" MetadataType="Disco" ID="be908cf1-6886-41dd-8285-2e5043edde6c" SourceId="1" SourceUrl="http://localhost:3448/NotificationService.svc?disco" />
-    <MetadataFile FileName="NotificationService.xsd" MetadataType="Schema" ID="ace41238-a664-4f38-b016-d9b342b48031" SourceId="1" SourceUrl="http://localhost:3448/NotificationService.svc?xsd=xsd0" />
-    <MetadataFile FileName="NotificationService1.xsd" MetadataType="Schema" ID="e89b7377-0f8a-4876-add1-9ccc3aedc2ee" SourceId="1" SourceUrl="http://localhost:3448/NotificationService.svc?xsd=xsd1" />
-    <MetadataFile FileName="NotificationService2.xsd" MetadataType="Schema" ID="b81daacc-f499-4ffc-ae64-6fdce61efd73" SourceId="1" SourceUrl="http://localhost:3448/NotificationService.svc?xsd=xsd2" />
-    <MetadataFile FileName="NotificationService3.xsd" MetadataType="Schema" ID="02a09525-e63c-4539-b059-1477660f1f16" SourceId="1" SourceUrl="http://localhost:3448/NotificationService.svc?xsd=xsd3" />
+    <MetadataFile FileName="NotificationService4.xsd" MetadataType="Schema" ID="471d0e8a-6ba9-4421-bfc4-f09dc021a890" SourceId="1" SourceUrl="http://localhost:18558/NotificationService.svc?xsd=xsd3" />
+    <MetadataFile FileName="NotificationService1.wsdl" MetadataType="Wsdl" ID="1074d0a7-a472-40ae-b0ae-af078fe771ec" SourceId="1" SourceUrl="http://localhost:18558/NotificationService.svc?wsdl" />
+    <MetadataFile FileName="NotificationService41.xsd" MetadataType="Schema" ID="791a2a6c-5fb2-45f0-882d-88fb4db357b7" SourceId="1" SourceUrl="http://localhost:18558/NotificationService.svc?xsd=xsd2" />
+    <MetadataFile FileName="NotificationService42.xsd" MetadataType="Schema" ID="edca178c-5b7f-4af1-886b-d08c52e0d341" SourceId="1" SourceUrl="http://localhost:18558/NotificationService.svc?xsd=xsd1" />
+    <MetadataFile FileName="NotificationService1.disco" MetadataType="Disco" ID="06ac5313-6c39-4d34-8177-48533b4a238e" SourceId="1" SourceUrl="http://localhost:18558/NotificationService.svc?disco" />
+    <MetadataFile FileName="NotificationService43.xsd" MetadataType="Schema" ID="a502c5b7-93ec-47a2-aeaf-81dfa814a6d8" SourceId="1" SourceUrl="http://localhost:18558/NotificationService.svc?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

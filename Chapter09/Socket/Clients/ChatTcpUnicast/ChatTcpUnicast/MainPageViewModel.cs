@@ -16,9 +16,9 @@ using System.ComponentModel;
 namespace ChatTcpUnicast {
     public class MainPageViewModel : INotifyPropertyChanged {
         TcpSocketClient client;
-        public MainPageViewModel() {            
+        public MainPageViewModel() {
             Messages = new ObservableCollection<Message>();
-            Message = new ChatTcpUnicast.Message() { Type = MessageType.Self };            
+            Message = new ChatTcpUnicast.Message() { Type = MessageType.Self };
             SendCommand = new DelegateCommand(OnSendCommandExecuted);
             ConnectCommand = new DelegateCommand(OnConnectCommandExecuted);
         }
@@ -43,7 +43,7 @@ namespace ChatTcpUnicast {
                      MessageBox.Show(error);
                  }
             );
-            
+
         }
 
         public string UserName { get; set; }

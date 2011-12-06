@@ -15,10 +15,12 @@ using Microsoft.Phone.Notification;
 using WPNotificationClient.Services;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Xml.Linq;
+using System.Text;
 
 namespace WPNotificationClient {
     public partial class MainPage : PhoneApplicationPage {
-        // Constructor
+
         Guid _appId;
         HttpNotificationChannel _channel;
         private const string CHANNEL_NAME = "PushNotificationChannel";
@@ -26,14 +28,18 @@ namespace WPNotificationClient {
         public MainPage() {
             InitializeComponent();
 
+            //StreamReader sr = new StreamReader("<?xml version=\"1.0\" encoding=\"utf-8\"?><root><Value1>g<Value1><Value2>g<Value2></root>");
+            //var doc = XDocument.Load(stream);
+
             if (IsolatedStorageSettings.ApplicationSettings.Contains("AppID")) {
-                _appId = (Guid)IsolatedStorageSettings.ApplicationSettings["AppID"];
+                _appId = (Guid)IsolatedStorageSettings
+                            .ApplicationSettings["AppID"];
             }
             else {
                 _appId = Guid.NewGuid();
-                IsolatedStorageSettings.ApplicationSettings["AppID"] = _appId;
+                IsolatedStorageSettings
+                    .ApplicationSettings["AppID"] = _appId;
             }
-
             SetUpChannel();
         }
 
@@ -47,13 +53,21 @@ namespace WPNotificationClient {
             }
             else {
                 _channel.ChannelUriUpdated += OnChannelUriUpdated;
-                Subscribe();    
+                Subscribe();
             }
-
-            
+        }
+        void Subscribe() {
+            SubscribeEvents();
+            var svc = new NotificationServiceClient();
+            svc.SubscribeCompleted += (s, e) => {
+                if (e.Error != null) {
+                    MessageBox.Show(e.Error.Message);
+                }
+            };
+            svc.SubscribeAsync(_appId, _channel.ChannelUri.ToString());
         }
 
-        private void SubscribeEvents() {            
+        private void SubscribeEvents() {
             _channel.ErrorOccurred += OnErrorOccurred;
             _channel.ShellToastNotificationReceived += OnShellToastNotificationReceived;
             _channel.HttpNotificationReceived += OnHttpNotificationReceived;
@@ -65,20 +79,10 @@ namespace WPNotificationClient {
             if (!_channel.IsShellToastBound) {
                 _channel.BindToShellToast();
             }
-        }        
-
-        void Subscribe() {
-            SubscribeEvents();
-
-            var svc = new NotificationServiceClient();
-            svc.SubscribeCompleted += (s, e) => {
-                if (e.Error != null) {
-                    MessageBox.Show(e.Error.Message);
-                }
-            };
-            svc.SubscribeAsync(_appId, _channel.ChannelUri.ToString());
         }
-     
+
+
+
 
         void OnChannelUriUpdated(object sender, NotificationChannelUriEventArgs e) {
             SetUpChannel();
@@ -89,7 +93,11 @@ namespace WPNotificationClient {
         }
         void OnHttpNotificationReceived(object sender, HttpNotificationEventArgs e) {
             StreamReader sr = new StreamReader(e.Notification.Body);
-            var msg = sr.ReadToEnd();
+            var doc = XDocument.Load(sr);
+            Deployment.Current.Dispatcher.BeginInvoke(() => {
+                RawText1Textblock.Text = doc.Descendants("Value1").First().Value;
+                RawText1Textblock.Text = doc.Descendants("Value2").First().Value;
+            });
             sr.Close();
         }
         void OnShellToastNotificationReceived(object sender, NotificationEventArgs e) {

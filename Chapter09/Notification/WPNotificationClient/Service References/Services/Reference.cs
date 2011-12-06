@@ -235,11 +235,58 @@ namespace WPNotificationClient.Services {
     [System.Runtime.Serialization.DataContractAttribute(Name="Title", Namespace="http://schemas.datacontract.org/2004/07/WpNotificationService")]
     public partial class Title : object, System.ComponentModel.INotifyPropertyChanged {
         
+        private string BackContentField;
+        
+        private string BackImagePathField;
+        
+        private string BackTitleField;
+        
         private WPNotificationClient.Services.TitleBackingInterval BackingIntervalField;
         
-        private WPNotificationClient.Services.TitleItem Title1Field;
+        private int CountField;
         
-        private WPNotificationClient.Services.TitleItem Title2Field;
+        private string FrontImagePathField;
+        
+        private string FrontTitleField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BackContent {
+            get {
+                return this.BackContentField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BackContentField, value) != true)) {
+                    this.BackContentField = value;
+                    this.RaisePropertyChanged("BackContent");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BackImagePath {
+            get {
+                return this.BackImagePathField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BackImagePathField, value) != true)) {
+                    this.BackImagePathField = value;
+                    this.RaisePropertyChanged("BackImagePath");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BackTitle {
+            get {
+                return this.BackTitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BackTitleField, value) != true)) {
+                    this.BackTitleField = value;
+                    this.RaisePropertyChanged("BackTitle");
+                }
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public WPNotificationClient.Services.TitleBackingInterval BackingInterval {
@@ -255,72 +302,12 @@ namespace WPNotificationClient.Services {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public WPNotificationClient.Services.TitleItem Title1 {
-            get {
-                return this.Title1Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Title1Field, value) != true)) {
-                    this.Title1Field = value;
-                    this.RaisePropertyChanged("Title1");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public WPNotificationClient.Services.TitleItem Title2 {
-            get {
-                return this.Title2Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.Title2Field, value) != true)) {
-                    this.Title2Field = value;
-                    this.RaisePropertyChanged("Title2");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TitleItem", Namespace="http://schemas.datacontract.org/2004/07/WpNotificationService")]
-    public partial class TitleItem : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string BackgroundImagePathField;
-        
-        private string CountField;
-        
-        private string TitleField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string BackgroundImagePath {
-            get {
-                return this.BackgroundImagePathField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.BackgroundImagePathField, value) != true)) {
-                    this.BackgroundImagePathField = value;
-                    this.RaisePropertyChanged("BackgroundImagePath");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Count {
+        public int Count {
             get {
                 return this.CountField;
             }
             set {
-                if ((object.ReferenceEquals(this.CountField, value) != true)) {
+                if ((this.CountField.Equals(value) != true)) {
                     this.CountField = value;
                     this.RaisePropertyChanged("Count");
                 }
@@ -328,14 +315,27 @@ namespace WPNotificationClient.Services {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Title {
+        public string FrontImagePath {
             get {
-                return this.TitleField;
+                return this.FrontImagePathField;
             }
             set {
-                if ((object.ReferenceEquals(this.TitleField, value) != true)) {
-                    this.TitleField = value;
-                    this.RaisePropertyChanged("Title");
+                if ((object.ReferenceEquals(this.FrontImagePathField, value) != true)) {
+                    this.FrontImagePathField = value;
+                    this.RaisePropertyChanged("FrontImagePath");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FrontTitle {
+            get {
+                return this.FrontTitleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FrontTitleField, value) != true)) {
+                    this.FrontTitleField = value;
+                    this.RaisePropertyChanged("FrontTitle");
                 }
             }
         }

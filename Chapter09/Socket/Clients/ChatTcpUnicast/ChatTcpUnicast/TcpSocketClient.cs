@@ -32,8 +32,8 @@ namespace ChatTcpUnicast {
             var args = new SocketAsyncEventArgs();
             args.RemoteEndPoint = this.IPEndPoint;
             args.Completed += (__, e) => {
-                Deployment.Current.Dispatcher.BeginInvoke( () => {
-                    if (e.SocketError != SocketError.Success) {                    
+                Deployment.Current.Dispatcher.BeginInvoke(() => {
+                    if (e.SocketError != SocketError.Success) {
                         failure("The remote host is not found.");
                     }
                     else {

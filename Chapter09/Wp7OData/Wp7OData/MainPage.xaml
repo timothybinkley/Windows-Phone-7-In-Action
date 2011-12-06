@@ -29,28 +29,32 @@
 
         <!--ContentPanel contains ListBox and ListBox ItemTemplate. Place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-                <ListBox x:Name="MainListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}" 
-                         SelectionChanged="MainListBox_SelectionChanged">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                          <StackPanel Margin="0,0,0,17" Width="432">                            
-                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>                            
-                          </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+<ListBox x:Name="MainListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}" 
+            SelectionChanged="MainListBox_SelectionChanged">
+    <ListBox.ItemTemplate>
+        <DataTemplate>
+            <StackPanel Margin="0,0,0,17" Width="432">
+            <TextBlock Text="{Binding CategoryName}" 
+                        TextWrapping="Wrap" Margin="12,-6,12,0" 
+                        Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+            <TextBlock Text="{Binding Description}" 
+                        TextWrapping="Wrap" Margin="12,-6,12,0" 
+                        Style="{StaticResource PhoneTextSubtleStyle}"/>                            
+            </StackPanel>
+        </DataTemplate>
+    </ListBox.ItemTemplate>
+</ListBox>
         </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <phone:PhoneApplicationPage.ApplicationBar>
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" 
                                             x:Name="AddNewAppBar"
                                             Click="AddNewAppBar_Click"
                                             Text="Button 1"/>            
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
 
 </phone:PhoneApplicationPage>

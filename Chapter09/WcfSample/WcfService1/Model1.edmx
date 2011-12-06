@@ -67,7 +67,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Model1">
-        <EntityTypeShape EntityType="NorthwindModel.Category" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9361681781212492" IsExpanded="true" />
+        <EntityTypeShape EntityType="NorthwindModel.Category" Width="1.5" PointX="9.125" PointY="0.5" Height="1.9361681781212492" IsExpanded="true" />
       </Diagram>
     </Diagrams>
   </Designer>

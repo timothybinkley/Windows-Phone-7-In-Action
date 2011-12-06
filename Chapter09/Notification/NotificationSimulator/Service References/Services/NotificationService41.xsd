@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WpNotificationService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WpNotificationService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:3448/NotificationService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://localhost:3448/NotificationService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Net" />
+  <xs:import schemaLocation="http://localhost:18558/NotificationService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:18558/NotificationService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Net" />
   <xs:complexType name="Toast">
     <xs:sequence>
       <xs:element minOccurs="0" name="BackingInterval" type="tns:ToastBackingInterval" />
@@ -81,9 +81,13 @@
   <xs:element name="SubscriptionStatus" nillable="true" type="tns:SubscriptionStatus" />
   <xs:complexType name="Title">
     <xs:sequence>
+      <xs:element minOccurs="0" name="BackContent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BackImagePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BackTitle" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="BackingInterval" type="tns:TitleBackingInterval" />
-      <xs:element minOccurs="0" name="Title1" nillable="true" type="tns:TitleItem" />
-      <xs:element minOccurs="0" name="Title2" nillable="true" type="tns:TitleItem" />
+      <xs:element minOccurs="0" name="Count" type="xs:int" />
+      <xs:element minOccurs="0" name="FrontImagePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FrontTitle" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Title" nillable="true" type="tns:Title" />
@@ -113,14 +117,6 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="TitleBackingInterval" nillable="true" type="tns:TitleBackingInterval" />
-  <xs:complexType name="TitleItem">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="BackgroundImagePath" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Count" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="TitleItem" nillable="true" type="tns:TitleItem" />
   <xs:complexType name="Raw">
     <xs:sequence>
       <xs:element minOccurs="0" name="BackingInterval" type="tns:RawBackingInterval" />
