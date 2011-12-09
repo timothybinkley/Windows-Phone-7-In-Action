@@ -1,16 +1,17 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Silverlight Hello")]
-[assembly: AssemblyDescription("Silverlight Hello Description")]
+[assembly: AssemblyDescription("A sample Hello World application from the book Windows Phone 7 in Action.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("WP7 in Action")]
 [assembly: AssemblyProduct("Silverlight Hello")]
-[assembly: AssemblyCopyright("Copyright © Manning 2010")]
+[assembly: AssemblyCopyright("Copyright © Manning 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +32,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: AssemblyVersion("1.0.0")]
+[assembly: AssemblyFileVersion("1.0.0")]
+[assembly: NeutralResourcesLanguageAttribute("en")]
