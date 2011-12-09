@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Net.Sockets;
 using System.Text;
 using Microsoft.Phone.Info;
+using System.Globalization;
 
 namespace ChatUdpAnySourceMulticastClient {
     public class MyUdpAnySourceMulticastClient : IDisposable {
@@ -28,7 +29,7 @@ namespace ChatUdpAnySourceMulticastClient {
         /// address assignments, please see the IANA website.
         /// http://go.microsoft.com/fwlink/?LinkId=221630
         /// </remarks>
-        private const string GROUP_ADDRESS = "224.0.0.253";
+        private const string GROUP_ADDRESS = "224.0.0.1";
 
         /// <summary>
         /// This defines the port number through which all communication with the multicast group will take place. 
@@ -84,7 +85,7 @@ namespace ChatUdpAnySourceMulticastClient {
                 }
                 DateTime messageSentTimeStamp = DateTime.Now;
                 if (messageArray.Length > 4) {
-                    messageSentTimeStamp = DateTime.Parse(messageArray[4]);
+                    messageSentTimeStamp = DateTime.Parse(messageArray[4], CultureInfo.InvariantCulture);
                 }
 
                 var message = new Message() {

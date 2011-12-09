@@ -13,8 +13,7 @@ using System.Windows.Media.Imaging;
 namespace Wp7OData.ViewModels {
     public class CategoryModel {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public BitmapImage Picture { get; set; }
+        public string CategoryName { get; set; }
+        public string Description { get; set; }        
     }
 }

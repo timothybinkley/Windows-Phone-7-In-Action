@@ -44,8 +44,6 @@ namespace TcpSocketServer {
             }
         }
 
-
-
         private static void WaitForConnections() {
             while (true) {
                 manualReset.Reset();
@@ -111,10 +109,8 @@ namespace TcpSocketServer {
             foreach (var socket in stateObjects) {
                 var msgArray = data.Split(';');
                 var command = msgArray[0];
-                var deviceName = msgArray[1];
-                //if (!deviceName.Equals(socket.DeviceName, StringComparison.InvariantCultureIgnoreCase)) {
-                    Send(socket.WorkSocket, data);
-                //}
+                var deviceName = msgArray[1];                
+                Send(socket.WorkSocket, data);                
             }
         }
 

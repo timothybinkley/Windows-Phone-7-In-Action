@@ -1,0 +1,107 @@
+﻿<Window x:Class="NotificationSimulator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Sys="clr-namespace:System;assembly=mscorlib"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <TabControl HorizontalAlignment="Stretch" Margin="12,12,12,12" Name="tabControl1" VerticalAlignment="Stretch">
+            <TabItem Header="Toast">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Text 1:" VerticalAlignment="Center" />
+                    <TextBlock Text="Text 2:" VerticalAlignment="Center" Grid.Row="1" />
+
+                    <TextBox x:Name="ToastText1" Grid.Column="1" Width="300" Margin="20,5" />
+                    <TextBox x:Name="ToastText2" Grid.Column="1" Grid.Row="1" Width="300" Margin="20,5" />
+
+                    <Button Content="Send Toast" x:Name="SendToast" Grid.Column="1" Grid.Row="2" Margin="20,5" Click="SendToast_Click" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Tile">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Front Title" VerticalAlignment="Center" />
+                    
+                    <TextBlock Text="Title:" VerticalAlignment="Center" Grid.Row="1" />
+                    <TextBlock Text="Count:" VerticalAlignment="Center" Grid.Row="2" />
+                    <TextBlock Text="Image:" VerticalAlignment="Center" Grid.Row="3" />
+
+                    <TextBox x:Name="TileFrontTitle" Grid.Column="1" Width="300" Margin="20,5" Grid.Row="1" />
+                    <TextBox x:Name="TileCount" Grid.Column="1" Grid.Row="2" Width="25" Margin="20,5" HorizontalAlignment="Left"
+                             InputScope="TelephoneNumber"/>
+                    <ComboBox x:Name="TileFrontImagePath" Grid.Column="1" Grid.Row="3" Width="100" Margin="20,5" SelectedIndex="0" HorizontalAlignment="Left">
+                        <Sys:String>Blue.jpg</Sys:String>
+                        <Sys:String>Green.jpg</Sys:String>
+                        <Sys:String>Red.jpg</Sys:String>                        
+                    </ComboBox>
+
+                    <TextBlock Text="Back Title" VerticalAlignment="Center"  Grid.Column="2" Grid.Row="0"/>
+
+                    <TextBlock Text="Title:" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" />
+                    <TextBlock Text="Content:" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2" />
+                    <TextBlock Text="Image:" VerticalAlignment="Center" Grid.Row="3" Grid.Column="2" />
+
+                    <TextBox x:Name="TileBackTitle" Grid.Column="3" Width="300" Margin="20,5" Grid.Row="1" />
+                    <TextBox x:Name="TileBackContent" Grid.Column="3" Grid.Row="2" Width="300" Margin="20,5" HorizontalAlignment="Left" />
+                    <ComboBox x:Name="TileBackImagePath" Grid.Column="3" Grid.Row="3" Width="100" Margin="20,5" SelectedIndex="0" HorizontalAlignment="Left">
+                        <Sys:String>Blue.jpg</Sys:String>
+                        <Sys:String>Green.jpg</Sys:String>
+                        <Sys:String>Red.jpg</Sys:String>
+                    </ComboBox>
+
+                    <Button Content="Send Tile" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" Margin="20,5" Click="SendTile_Click" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Raw">
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Message 1:" VerticalAlignment="Top" Margin="0,5,0,0" />
+
+                    <TextBox x:Name="Rawtext1" Grid.Column="1" Width="300" Height="50" Margin="20,5" />
+
+                    <TextBlock Text="Message 2:" VerticalAlignment="Top" Margin="0,5,0,0" Grid.Row="1" />
+
+                    <TextBox x:Name="Rawtext2" Grid.Column="1" Width="300" Height="50" Margin="20,5" Grid.Row="1" />
+
+                    <Button Content="Send Message" Grid.Column="1" Grid.Row="2" Margin="20,5" Click="SendRaw_Click" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

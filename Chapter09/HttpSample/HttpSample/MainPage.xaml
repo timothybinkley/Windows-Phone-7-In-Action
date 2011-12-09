@@ -6,55 +6,47 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
     shell:SystemTray.IsVisible="True">
-	<phone:PhoneApplicationPage.Resources>
-		
-	</phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Rectangle Stroke="Black" Height="48" VerticalAlignment="Top">
-        	<Rectangle.Fill>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="#FFC1C9CD" Offset="0"/>
-        			<GradientStop Color="#FFEBF2F5" Offset="1"/>
-        		</LinearGradientBrush>
-        	</Rectangle.Fill>
-        </Rectangle>
-        <Rectangle Height="97" Stroke="Black" VerticalAlignment="Top" d:LayoutOverrides="GridBox" Margin="0,47,0,0">
-        	<Rectangle.Fill>
-        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-        			<GradientStop Color="#FFB2BDCC" Offset="0"/>
-        			<GradientStop Color="#FF6D83A1" Offset="1"/>
-        			<GradientStop Color="#FF899CB3" Offset="0.454"/>
-        			<GradientStop Color="#FF7E93AF" Offset="0.482"/>
-        		</LinearGradientBrush>
-        	</Rectangle.Fill>
-        </Rectangle>
-        <ListBox x:Name="suppliersListbox">
-        	<ListBoxItem Content="ListBoxItem" />
-        	<ListBoxItem Content="ListBoxItem"/>
-        	<ListBoxItem Content="ListBoxItem"/>
-        	<ListBoxItem Content="ListBoxItem"/>
-        </ListBox>
-       
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contains the name of the application and page title-->
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="WINDOWS PHONE 7 IN ACTION" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Text="web client" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+<StackPanel>
+    <Button x:Name="getImageButton"
+           Content="Get Image"
+           Click="getImageButton_Click" />
+    <Image x:Name="imageControl" />
+</StackPanel>
+        </Grid>
     </Grid>
  
     <!--Sample code showing usage of ApplicationBar-->
-    <phone:PhoneApplicationPage.ApplicationBar>
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Add"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
 
 </phone:PhoneApplicationPage>

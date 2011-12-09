@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WpNotificationService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WpNotificationService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:18558/NotificationService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:18558/NotificationService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Net" />
+  <xs:complexType name="Toast">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BackingInterval" type="tns:ToastBackingInterval" />
+      <xs:element minOccurs="0" name="Param" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Text1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Text2" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Toast" nillable="true" type="tns:Toast" />
+  <xs:simpleType name="ToastBackingInterval">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ImmediateDelivery">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DeliveredWithin450Seconds">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DeliveredWithin900Seconds">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">22</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ToastBackingInterval" nillable="true" type="tns:ToastBackingInterval" />
+  <xs:complexType name="ArrayOfNotificationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NotificationResponse" nillable="true" type="tns:NotificationResponse" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNotificationResponse" nillable="true" type="tns:ArrayOfNotificationResponse" />
+  <xs:complexType name="NotificationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DeviceConnectionStatus" type="tns:DeviceConnectionStatus" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System.Net" minOccurs="0" name="HttpStatusCode" type="q1:HttpStatusCode" />
+      <xs:element minOccurs="0" name="NotificationStatus" type="tns:NotificationStatus" />
+      <xs:element minOccurs="0" name="SubscriptionStatus" type="tns:SubscriptionStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NotificationResponse" nillable="true" type="tns:NotificationResponse" />
+  <xs:simpleType name="DeviceConnectionStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Connected" />
+      <xs:enumeration value="TemporarilyDisconnected" />
+      <xs:enumeration value="Inactive" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="DeviceConnectionStatus" nillable="true" type="tns:DeviceConnectionStatus" />
+  <xs:simpleType name="NotificationStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Received" />
+      <xs:enumeration value="QueueFull" />
+      <xs:enumeration value="Suppressed" />
+      <xs:enumeration value="Dropped" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="NotificationStatus" nillable="true" type="tns:NotificationStatus" />
+  <xs:simpleType name="SubscriptionStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Active" />
+      <xs:enumeration value="Expired" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="SubscriptionStatus" nillable="true" type="tns:SubscriptionStatus" />
+  <xs:complexType name="Title">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BackContent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BackImagePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BackTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BackingInterval" type="tns:TitleBackingInterval" />
+      <xs:element minOccurs="0" name="Count" type="xs:int" />
+      <xs:element minOccurs="0" name="FrontImagePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FrontTitle" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Title" nillable="true" type="tns:Title" />
+  <xs:simpleType name="TitleBackingInterval">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ImmediateDelivery">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DeliveredWithin450Seconds">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DeliveredWithin900Seconds">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TitleBackingInterval" nillable="true" type="tns:TitleBackingInterval" />
+  <xs:complexType name="Raw">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BackingInterval" type="tns:RawBackingInterval" />
+      <xs:element minOccurs="0" name="Text1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Text2" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Raw" nillable="true" type="tns:Raw" />
+  <xs:simpleType name="RawBackingInterval">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ImmediateDelivery">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DeliveredWithin450Seconds">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">13</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="DeliveredWithin900Seconds">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">23</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="RawBackingInterval" nillable="true" type="tns:RawBackingInterval" />
+</xs:schema>

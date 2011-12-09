@@ -20,34 +20,34 @@
         <!--Pivot Control-->
         <controls:Pivot Title="NETWORK SETTINGS">
             <!--Pivot item one-->
-            <controls:PivotItem Header="sys.net">                
+            <controls:PivotItem Header="sys.net">
                 <ListBox x:Name="FirstListBox" Margin="0,0,-12,0" ItemsSource="{Binding SystemNetInfo}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                          <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                              <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                              <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                          </StackPanel>
+                            <StackPanel Margin="0,0,0,17" Width="432" Height="78">
+                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </controls:PivotItem>
- 
+
             <!--Pivot item two-->
-            <controls:PivotItem Header="phone.net">                 
+            <controls:PivotItem Header="phone.net">
                 <ListBox x:Name="SecondListBox" Margin="0,0,-12,0" ItemsSource="{Binding PhoneNetInfo}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="0,0,0,17">
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,17">
+                                <TextBlock Text="{Binding LineOne}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
                                 <TextBlock Text="{Binding LineTwo}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </controls:PivotItem>
 
-            <controls:PivotItem Header="device">                
+            <controls:PivotItem Header="device">
                 <ListBox x:Name="ThirdListBox" Margin="0,0,-12,0" ItemsSource="{Binding DeviceInfo}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -60,7 +60,7 @@
                 </ListBox>
             </controls:PivotItem>
         </controls:Pivot>
-    </Grid> 
+    </Grid>
 
 
 </phone:PhoneApplicationPage>

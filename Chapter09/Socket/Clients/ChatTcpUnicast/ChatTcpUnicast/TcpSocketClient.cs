@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Net.Sockets;
 using System.Text;
 using Microsoft.Phone.Info;
+using System.Globalization;
 
 namespace ChatTcpUnicast {
     public class TcpSocketClient : IDisposable {
@@ -31,8 +32,8 @@ namespace ChatTcpUnicast {
             var args = new SocketAsyncEventArgs();
             args.RemoteEndPoint = this.IPEndPoint;
             args.Completed += (__, e) => {
-                Deployment.Current.Dispatcher.BeginInvoke( () => {
-                    if (e.SocketError != SocketError.Success) {                    
+                Deployment.Current.Dispatcher.BeginInvoke(() => {
+                    if (e.SocketError != SocketError.Success) {
                         failure("The remote host is not found.");
                     }
                     else {
@@ -87,7 +88,7 @@ namespace ChatTcpUnicast {
                 }
                 DateTime messageSentTimeStamp = DateTime.Now;
                 if (messageArray.Length > 4) {
-                    messageSentTimeStamp = DateTime.Parse(messageArray[4]);
+                    messageSentTimeStamp = DateTime.Parse(messageArray[4], CultureInfo.InvariantCulture);
                 }
 
                 var message = new Message() {
