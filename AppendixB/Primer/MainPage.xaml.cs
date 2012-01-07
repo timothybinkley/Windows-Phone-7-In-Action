@@ -15,7 +15,7 @@ namespace Primer
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             SampleModel model = (SampleModel)DataContext;
-            MessageBox.Show("You entered: " + model.UserName);
+            MessageBox.Show("You entered : " + model.UserName);
         }
     }
 }
