@@ -96,6 +96,8 @@ namespace GraphicsWorld
         /// </summary>
         private void OnDraw(object sender, GameTimerEventArgs e)
         {
+            scoreboardRenderer.Render();
+
             var device = SharedGraphicsDeviceManager.Current.GraphicsDevice;
             device.Clear(Color.CornflowerBlue);
             device.DepthStencilState = DepthStencilState.Default;
@@ -103,10 +105,7 @@ namespace GraphicsWorld
             gamePlay.Draw();
             
             spriteBatch.Begin();
-
-            scoreboardRenderer.Render();
             spriteBatch.Draw(scoreboardRenderer.Texture, scoreboardPosition, Color.White);
-            
             spriteBatch.End();
         }
 

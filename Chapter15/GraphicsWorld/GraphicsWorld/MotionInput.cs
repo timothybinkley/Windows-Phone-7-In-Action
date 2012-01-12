@@ -3,6 +3,7 @@ using Microsoft.Phone.Shell;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace GraphicsWorld
 {
@@ -12,15 +13,15 @@ namespace GraphicsWorld
 
         Motion motionSensor = new Motion();
 
-        readonly float minimumAngle = MathHelper.ToRadians(30.0f);
-        readonly float maximumAngle = MathHelper.ToRadians(330.0f);
+        readonly float minimumVector = (float)Math.Sin(MathHelper.PiOver4/3); // 15 degrees
+        readonly float maximumVector = (float)Math.Sin(MathHelper.PiOver4); // 45 degrees
 
         static readonly Rectangle forwardSrc = new Rectangle(0, 0, 50, 50);
         static readonly Rectangle backwardSrc = new Rectangle(50, 50, 50, 50);
         static readonly Rectangle leftSrc = new Rectangle(0, 50, 50, 50);
         static readonly Rectangle rightSrc = new Rectangle(50, 0, 50, 50);
         
-        Vector2 forwardPos = new Vector2(215.0f, 10.0f);
+        Vector2 forwardPos = new Vector2(215.0f, 82.0f);
         Vector2 backwardPos = new Vector2(215.0f, 745.0f);
         Vector2 leftPos = new Vector2(10.0f, 375.0f);
         Vector2 rightPos = new Vector2(425.0f, 375.0f);
@@ -56,13 +57,13 @@ namespace GraphicsWorld
 
         public void Update()
         {
-            var roll = motionSensor.CurrentValue.Attitude.Roll;
-            var pitch = motionSensor.CurrentValue.Attitude.Pitch;
-            
-            MoveBackward = pitch > minimumAngle && pitch <= MathHelper.Pi;
-            MoveForward = pitch > MathHelper.Pi && pitch < maximumAngle;
-            TurnRight = roll > minimumAngle && roll <= MathHelper.Pi;
-            TurnLeft = roll > MathHelper.Pi && roll < maximumAngle;
+            var x = motionSensor.CurrentValue.Gravity.X;
+            var y = motionSensor.CurrentValue.Gravity.Y;
+                        
+            MoveBackward = y < -minimumVector && y >= -maximumVector;
+            MoveForward = y > minimumVector && y < maximumVector;
+            TurnRight = x > minimumVector && x <= maximumVector;
+            TurnLeft = x < -minimumVector && x >= -maximumVector;
         }
 
         public void Draw()

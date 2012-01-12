@@ -128,21 +128,22 @@ namespace GraphicsWorld
         /// </summary>
         private void OnDraw(object sender, GameTimerEventArgs e)
         {
+            scoreboardRenderer.Render();
+            if (isPaused) 
+                buttonRenderer.Render();
+
             var device = SharedGraphicsDeviceManager.Current.GraphicsDevice;
-            device.Clear(Color.SkyBlue);
             device.DepthStencilState = DepthStencilState.Default;
             device.RasterizerState = RasterizerState.CullCounterClockwise;
+            device.BlendState = BlendState.AlphaBlend;
+            device.Clear(Color.SkyBlue); 
             gamePlay.Draw();
             input.Draw();
     
             spriteBatch.Begin();
-            scoreboardRenderer.Render();
             spriteBatch.Draw(scoreboardRenderer.Texture, scoreboardPosition, Color.White);
             if (isPaused)
-            {
-                buttonRenderer.Render();
                 spriteBatch.Draw(buttonRenderer.Texture, buttonPosition, Color.White);
-            }
             spriteBatch.End();
         }
         
