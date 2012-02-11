@@ -59,7 +59,7 @@ namespace Html5App
             if (e.Error != null || e.TaskResult != TaskResult.OK)
                 message = "No address chosen";
             else
-                message = e.Address;
+                message = e.Address.Replace("\r\n", ",");
             webBrowser.InvokeScript("addressChooserCompleted", message);
         }
 

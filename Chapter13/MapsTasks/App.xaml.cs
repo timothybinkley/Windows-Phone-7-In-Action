@@ -12,10 +12,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using System.IO.IsolatedStorage;
-using System.Windows.Resources;
 
-namespace Html5App
+namespace MapsTasks
 {
     public partial class App : Application
     {
@@ -65,33 +63,6 @@ namespace Html5App
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            string[] applicationFiles = { @"Html\Html5App.css", @"Html\MainPage.html"};
-
-            // Obtain the virtual store for the application.
-            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
-            {
-                storage.CreateDirectory("Html");
-
-                foreach (string file in applicationFiles)
-                {
-                    StreamResourceInfo sourceInfo = Application.GetResourceStream(new Uri(file, UriKind.Relative));
-                    using (var source = sourceInfo.Stream)
-                    {
-                        // Copy the file from appdata storage to isolated storage. 
-                        using (IsolatedStorageFileStream target = storage.CreateFile(file))
-                        {
-                            // read the file 4k bytes at a time
-                            byte[] buffer = new byte[4096];
-                            int bytesRead = -1;
-
-                            while ((bytesRead = source.Read(buffer, 0, buffer.Length)) > 0)
-                            {
-                                target.Write(buffer, 0, bytesRead);
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         // Code to execute when the application is activated (brought to foreground)

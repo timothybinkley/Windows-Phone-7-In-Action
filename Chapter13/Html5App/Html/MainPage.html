@@ -38,20 +38,21 @@
         </svg>
     </section>
     <section>
-        <label for="nameInput">
-            Enter your name:</label><br />
-        <input id="nameInput" oninput="updateLink();" /><br />
+        <label for="address">
+            Enter your address:</label><br />
+        <input id="address" oninput="updateLink();" /><br />
     </section>
     <footer>
         <nav>
-            <a id="locationLink" class="wp7button" href="Location.html">Find me</a>
+          <button type="button" class="wp7button" onclick="window.external.Notify('chooseAddress');" >
+            Choose an address
+          </button>
         </nav>
     </footer>
 </body>
 <script>
-    function updateLink() {
-        var nameControl = document.getElementById('nameInput');
-        document.getElementById('locationLink').href = 'Location.html#name=' + nameControl.value;
-    }
-</script>
+  function addressChooserCompleted(address) {
+  document.getElementById('address').innerText = address;
+  }
+</script>  
 </html>
