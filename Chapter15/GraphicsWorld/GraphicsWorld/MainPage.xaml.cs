@@ -25,12 +25,12 @@ namespace GraphicsWorld
                 input = 3;
             else
                 input = 4;
-            NavigationService.Navigate(new Uri("/GamePage.xaml?Input=" + input, UriKind.Relative));
+            NavigationService.Navigate(GamePage.BuildNavigationUri(input));
         }
 
         private void demoGame(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/GamePage.xaml?Input=0", UriKind.Relative));
+            NavigationService.Navigate(GamePage.BuildNavigationUri(0));
         }
     }
 }

@@ -20,6 +20,11 @@ namespace GraphicsWorld
         UIElementRenderer scoreboardRenderer;
         Vector2 scoreboardPosition = new Vector2(12, 12);
 
+        public static Uri BuildNavigationUri()
+        {
+            return new Uri("/GamePage.xaml", UriKind.Relative); 
+        }
+
         public GamePage()
         {
             InitializeComponent();

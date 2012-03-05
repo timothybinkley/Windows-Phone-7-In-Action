@@ -26,6 +26,11 @@ namespace GraphicsWorld
         
         bool isPaused;
 
+        public static Uri BuildNavigationUri(int input)
+        {
+            return new Uri("/GamePage.xaml?Input=" + input, UriKind.Relative);
+        }
+
         public GamePage()
         {
             InitializeComponent();

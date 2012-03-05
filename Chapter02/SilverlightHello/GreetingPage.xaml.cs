@@ -1,8 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
-using System;
 using Microsoft.Phone.Shell;
 
 namespace SilverlightHello
@@ -46,8 +46,12 @@ namespace SilverlightHello
                 BackgroundImage = new Uri("Background.png", UriKind.Relative),
                 Title = string.Format("Hello {0}!", helloMessage.Text),
             };
-            ShellTile.Create(new Uri("/GreetingPage.xaml?name="
-                + helloMessage.Text, UriKind.Relative), tileData);
+            ShellTile.Create(BuildNavigationUri(helloMessage.Text), tileData);
+        }
+
+        public static Uri BuildNavigationUri(string name)
+        {
+            return new Uri("/GreetingPage.xaml?name=" + name, UriKind.Relative);
         }
     }
 }

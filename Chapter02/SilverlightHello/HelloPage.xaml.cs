@@ -28,8 +28,7 @@ namespace SilverlightHello
 
         private void navigateForwardButton_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/GreetingPage.xaml?name="
-                + nameInput.Text, UriKind.Relative));
+            NavigationService.Navigate(GreetingPage.BuildNavigationUri(nameInput.Text));
         }
 
         Color[] colors = new Color[] { Colors.Red, Colors.Orange, Colors.Yellow, Colors.Green, Colors.Blue, Colors.Purple };
