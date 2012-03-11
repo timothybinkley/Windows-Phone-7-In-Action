@@ -3,7 +3,6 @@
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-                            xmlns:lifetime="clr-namespace:Lifetime"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             mc:Ignorable="d"
@@ -14,7 +13,8 @@
                             Foreground="{StaticResource PhoneForegroundBrush}"
                             SupportedOrientations="Portrait"
                             Orientation="Portrait"
-                            shell:SystemTray.IsVisible="True" Tap="PhoneApplicationPage_Tap">
+                            shell:SystemTray.IsVisible="True"
+                            Tap="PhoneApplicationPage_Tap">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot"
@@ -38,45 +38,98 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <StackPanel x:Name="ContentPanel"
-                    Grid.Row="1"
-                    Margin="12,0,12,0">
-            <lifetime:SecondsAgo x:Name="appConstructed"
-                                 Label="Application constructed:" />
-            <lifetime:SecondsAgo x:Name="launched"
-                                 Label="Application launched:" />
-            <lifetime:SecondsAgo x:Name="deactivated"
-                                 Label="Application deactivated:" />
-            <lifetime:SecondsAgo x:Name="activated"
-                                 Label="Application activated:" />
-            <StackPanel Orientation="Horizontal"
-                        Margin="12,6,0,0">
-                <TextBlock Text="App Instance Preserved:" />
-                <TextBlock x:Name="instancePreserved"
-                           Margin="12,0,0,0" />
-            </StackPanel>
+        <Grid x:Name="ContentPanel"
+              Grid.Row="1"
+              Margin="12,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="39" />
+                <RowDefinition Height="39" />
+                <RowDefinition Height="39" />
+                <RowDefinition Height="39" />
+                <RowDefinition Height="63" />
+                <RowDefinition Height="39" />
+                <RowDefinition Height="39" />
+                <RowDefinition Height="63" />
+                <RowDefinition Height="39" />
+                <RowDefinition Height="63" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-            <lifetime:SecondsAgo x:Name="pageConstructed"
-                                 Margin="0,24,0,0"
-                                 Label="Page constructed:" />
-            <lifetime:SecondsAgo x:Name="navigatedTo"
-                                 Label="Page navigated to:" />
-            <lifetime:SecondsAgo x:Name="navigatedFrom"
-                                 Label="Page navigated from:" />
+            <TextBlock Grid.Row="0"
+                       Text="Application constructed:" />
+            <TextBlock x:Name="appConstructed"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       Text="{Binding StringFormat='\{0:N0\} seconds ago'}" />
+            <TextBlock Grid.Row="1"
+                       Text="Application launched:" />
+            <TextBlock x:Name="launched"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding StringFormat='\{0:N0\} seconds ago'}" />
 
-            <lifetime:SecondsAgo x:Name="obscured"
-                                 Margin="0,24,0,0"
-                                 Label="Page obscured:" />
-            <lifetime:SecondsAgo x:Name="unobscured"
-                                 Label="Page unobscured:" />
+            <TextBlock Grid.Row="2"
+                       Text="Application deactivated:" />
+            <TextBlock x:Name="deactivated"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       Text="{Binding StringFormat='\{0:N0\} seconds ago'}" />
+            <TextBlock Grid.Row="3"
+                       Text="Application activated:" />
+            <TextBlock x:Name="activated"
+                       Grid.Row="3"
+                       Grid.Column="1"
+                       Text="{Binding StringFormat='\{0:N0\} seconds ago'}" />
+            <TextBlock Grid.Row="4"
+                       Text="App Instance Preserved:" />
+            <TextBlock x:Name="instancePreserved"
+                       Grid.Row="4"
+                       Grid.Column="1" />
+
+            <TextBlock Grid.Row="5"
+                       Text="Page constructed:" />
+            <TextBlock x:Name="pageConstructed"
+                       Grid.Row="5"
+                       Grid.Column="1"
+                       Text="{Binding StringFormat='\{0:N0\} seconds ago'}" />
+            <TextBlock Grid.Row="6"
+                       Text="Page navigated to:" />
+            <TextBlock x:Name="navigatedTo"
+                       Grid.Row="6"
+                       Grid.Column="1"
+                       Text="{Binding StringFormat='\{0:N0\} seconds ago'}" />
+            <TextBlock Grid.Row="7"
+                       Text="Page navigated from:" />
+            <TextBlock x:Name="navigatedFrom"
+                       Grid.Row="7"
+                       Grid.Column="1"
+                       Text="{Binding StringFormat='\{0:N0\} seconds ago'}" />
+
+            <TextBlock Grid.Row="8"
+                       Text="Page obscured:" />
+            <TextBlock x:Name="obscured"
+                       Grid.Row="8"
+                       Grid.Column="1"
+                       Text="{Binding StringFormat='\{0:N0\} seconds ago'}" />
+            <TextBlock Grid.Row="9"
+                       Text="Page unobscured:" />
+            <TextBlock x:Name="unobscured"
+                       Grid.Row="9"
+                       Grid.Column="1"
+                       Text="{Binding StringFormat='\{0:N0\} seconds ago'}" />
 
             <CheckBox x:Name="runOption"
+                      Grid.Row="10"
+                      Grid.ColumnSpan="2"
                       Margin="0,24,0,0"
                       Content="Run while the screen is locked."
                       Checked="runOption_Checked"
                       IsChecked="False" />
-
-        </StackPanel>
+        </Grid>
     </Grid>
 
 </phone:PhoneApplicationPage>

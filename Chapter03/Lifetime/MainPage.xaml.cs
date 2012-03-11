@@ -27,32 +27,33 @@ namespace Lifetime
 
         public void UpdateUserInterface()
         {
-            
+            DateTime now = DateTime.Now;
+
             // page level times
-            pageConstructed.Value = pageConstructedTime;
-            navigatedTo.Value = navigatedToTime;
+            pageConstructed.DataContext = (now - pageConstructedTime).TotalSeconds;
+            navigatedTo.DataContext = (now - navigatedToTime).TotalSeconds;
 
             if (navigatedFromTime != DateTime.MinValue)
-                navigatedFrom.Value = navigatedFromTime;
+                navigatedFrom.DataContext = (now - navigatedFromTime).TotalSeconds;
 
             if (obscuredTime != DateTime.MinValue)
-                obscured.Value = obscuredTime;
+                obscured.DataContext = (now - obscuredTime).TotalSeconds;
 
             if (unobscuredTime != DateTime.MinValue)
-                unobscured.Value = unobscuredTime;
+                unobscured.DataContext = (now - unobscuredTime).TotalSeconds;
 
             // app level times
             var app = (App)Application.Current;
 
-            appConstructed.Value = app.AppConstructedTime;
-            launched.Value = app.LaunchedTime;
+            appConstructed.DataContext = (now - app.AppConstructedTime).TotalSeconds;
+            launched.DataContext = (now - app.LaunchedTime).TotalSeconds;
 
             if (app.DeactivatedTime != DateTime.MinValue)
-                deactivated.Value = app.DeactivatedTime;
+                deactivated.DataContext = (now - app.DeactivatedTime).TotalSeconds;
 
             if (app.ActivatedTime != DateTime.MinValue)
-                activated.Value = app.ActivatedTime;
-            
+                activated.DataContext = (now - app.ActivatedTime).TotalSeconds;
+
             instancePreserved.Text = app.IsApplicationInstancePreserved.ToString();
         }
 
@@ -60,19 +61,21 @@ namespace Lifetime
         {
             navigatedToTime = DateTime.Now;
 
-            bool appInstancePreserved =  ((App)Application.Current).IsApplicationInstancePreserved ?? true;
+            var app = (App)Application.Current;
+            bool appInstancePreserved = app.IsApplicationInstancePreserved ?? true;
+
             if (!appInstancePreserved && State.ContainsKey("NavigatedFromTime"))
             {
                 navigatedFromTime = (DateTime)State["NavigatedFromTime"];
             }
-            
+
             UpdateUserInterface();
             base.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            if (e.IsNavigationInitiator)
+            if (!e.IsNavigationInitiator)
             {
                 navigatedFromTime = DateTime.Now;
                 State["NavigatedFromTime"] = navigatedFromTime;
@@ -101,10 +104,10 @@ namespace Lifetime
         private void PhoneApplicationPage_Tap(object sender, GestureEventArgs e)
         {
             // perform an action to generate an obscured event.
-            //var task = new PhoneCallTask();
-            //task.DisplayName = "Manning Publications Co.";
-            //task.PhoneNumber = "888 555 1212";
-            //task.Show();
+            var task = new Microsoft.Phone.Tasks.PhoneCallTask();
+            task.DisplayName = "Manning Publications Co.";
+            task.PhoneNumber = "888 555 1212";
+            task.Show();
         }
 
     }

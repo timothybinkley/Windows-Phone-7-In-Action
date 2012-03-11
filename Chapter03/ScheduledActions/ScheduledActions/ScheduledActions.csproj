@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{70F4F2CC-2324-4EB7-B3AD-458CD49FBFC0}</ProjectGuid>
+    <ProjectGuid>{535438CB-7828-43CE-9D0A-96B2A72C36C9}</ProjectGuid>
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Notifications</RootNamespace>
-    <AssemblyName>Notifications</AssemblyName>
+    <RootNamespace>ScheduledActions</RootNamespace>
+    <AssemblyName>ScheduledActions</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
@@ -20,9 +20,9 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>Notifications.xap</XapFilename>
+    <XapFilename>ScheduledActions.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>Notifications.App</SilverlightAppEntry>
+    <SilverlightAppEntry>ScheduledActions.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
   </PropertyGroup>
@@ -96,13 +96,13 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="wp7iaAlarm.wma" />
+    <Content Include="Images\ImageLocationReadMe.txt" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NotificationsAgent\NotificationsAgent.csproj">
-      <Project>{D1587B93-B284-4543-A966-A622132716FC}</Project>
-      <Name>NotificationsAgent</Name>
+    <ProjectReference Include="..\NotificationsCleanupAgent\NotificationsCleanupAgent.csproj">
+      <Project>{AA67C848-E3DA-4615-B86A-359F469C8133}</Project>
+      <Name>NotificationsCleanupAgent</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

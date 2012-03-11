@@ -1,25 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
 using Microsoft.Phone.Scheduler;
+using Microsoft.Phone.Shell;
 
-namespace Notifications
+namespace ScheduledActions
 {
     public partial class App : Application
     {
         public string AgentStatus { get; private set; }
-        
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -66,20 +57,24 @@ namespace Notifications
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            // check to see if the task is already scheduled.
             PeriodicTask cleanupTask;
+
             cleanupTask = ScheduledActionService.
-                Find("NotificationCleanupTask") as PeriodicTask;
+            Find("NotificationCleanupTask") as PeriodicTask;
             if (cleanupTask != null)
             {
-                if (cleanupTask.LastExitReason != AgentExitReason.Completed && cleanupTask.LastExitReason != AgentExitReason.None)
-                    AgentStatus += string.Format("The background task failed to complete its last execution at {0:g} with an exit reason of {1}. ", cleanupTask.LastScheduledTime, cleanupTask.LastExitReason);
-                
+                if (cleanupTask.LastExitReason != AgentExitReason.Completed
+                    && cleanupTask.LastExitReason != AgentExitReason.None)
+                {
+                    AgentStatus += string.Format("The background task failed to complete its last execution at {0:g} with an exit reason of {1}. ",
+                        cleanupTask.LastScheduledTime, cleanupTask.LastExitReason);
+                }
+
                 if (!cleanupTask.IsEnabled)
                     AgentStatus += "The background task was disabled by the user. ";
 
                 if (cleanupTask.ExpirationTime < DateTime.Now)
-                    AgentStatus += "The background task was expired. ";
+                    AgentStatus = "The background task was expired. ";
 
                 ScheduledActionService.Remove(cleanupTask.Name);
             }
@@ -92,12 +87,13 @@ namespace Notifications
             }
             catch (InvalidOperationException)
             {
-                AgentStatus += "Unable to create or reschedule the background task. ";
+                AgentStatus += "Unable to create the background task.";
                 cleanupTask = null;
             }
 
             if (cleanupTask != null)
-                ScheduledActionService.LaunchForTest(cleanupTask.Name, TimeSpan.FromSeconds(3));
+                ScheduledActionService.LaunchForTest(cleanupTask.Name,
+                   TimeSpan.FromSeconds(3));
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -173,6 +169,5 @@ namespace Notifications
         }
 
         #endregion
-               
     }
 }

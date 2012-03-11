@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{129c98a5-6e6e-4c90-9b81-444f2ff545ed}" Title="Notifications" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Notifications author" Description="Sample description" Publisher="Notifications">
+  <App xmlns="" ProductID="{f0afed2d-cf3b-426a-8e7c-8c88edb700cd}" Title="ScheduledActions" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="ScheduledActions author" Description="Sample description" Publisher="ScheduledActions">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />
@@ -21,15 +21,15 @@
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
       <ExtendedTask Name="BackgroundTask">
-        <BackgroundServiceAgent Specifier="ScheduledTaskAgent" Name="NotificationsAgent" Source="NotificationsAgent" Type="NotificationsAgent.ScheduledAgent" />
+        <BackgroundServiceAgent Specifier="ScheduledTaskAgent" Name="NotificationsCleanupAgent" Source="NotificationsCleanupAgent" Type="NotificationsCleanupAgent.ScheduledAgent" />
       </ExtendedTask>
     </Tasks>
     <Tokens>
-      <PrimaryToken TokenID="NotificationsToken" TaskName="_default">
+      <PrimaryToken TokenID="ScheduledActionsToken" TaskName="_default">
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>Notifications</Title>
+          <Title>ScheduledActions</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>
