@@ -1,22 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Tasks;
 using Microsoft.Phone.UserData;
 
 namespace UserData
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        Contacts contacts;
+        Contacts contacts = new Contacts();
         Appointments appointments = new Appointments();
 
         public MainPage()
         {
             InitializeComponent();
-            contacts = new Contacts();
             contacts.SearchCompleted += contacts_SearchCompleted;
             appointments.SearchCompleted += appointments_SearchCompleted;
         }
@@ -41,7 +38,7 @@ namespace UserData
             searchContactsResult.Text = string.Format("{0} contacts found", e.Results.Count());
             if (e.Results.Count() > 1)
                 searchContactsResult.Text += string.Format(", displaying the first match");
-            contactLayout.DataContext = e.Results.FirstOrDefault();
+            contactControl.Content = e.Results.FirstOrDefault();
         }
 
         #endregion
@@ -66,77 +63,9 @@ namespace UserData
             apptsResult.Text = string.Format("{0} appointments found", e.Results.Count()); 
             if (e.Results.Count() > 1)
                 apptsResult.Text += string.Format(", displaying the first match");
-            appointmentLayout.DataContext = e.Results.FirstOrDefault(); 
+            appointmentControl.Content = e.Results.FirstOrDefault(); 
         }
 
         #endregion
-
-        #region choosers pivot item code
-
-        //PhoneNumberChooserTask phoneChooser = new PhoneNumberChooserTask();
-        //EmailAddressChooserTask emailChooser = new EmailAddressChooserTask();
-        //AddressChooserTask addressChooser = new AddressChooserTask();
-
-        private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            //phoneChooser.Completed += phoneChooser_Completed;
-            //emailChooser.Completed += emailChooser_Completed;
-            //addressChooser.Completed += addressChooser_Completed;
-        }
-
-        /*
-        private void ChoosePhoneNumber_Click(object sender, RoutedEventArgs e)
-        {
-            phoneChooser.Show();
-        }
-
-        void phoneChooser_Completed(object sender, PhoneNumberResult e)
-        {
-            if (e.Error != null)
-                chooserResult.Text = e.Error.Message;
-            else if (e.TaskResult == TaskResult.Cancel)
-                chooserResult.Text = "user canceled";
-            else if (e.TaskResult == TaskResult.None)
-                chooserResult.Text = "no result";
-            else if (e.TaskResult == TaskResult.OK)
-                chooserResult.Text = string.Format("Phone Number for {0}\r\n{1}", e.DisplayName, e.PhoneNumber);
-        }
-
-        private void ChooseEmailAddress_Click(object sender, RoutedEventArgs e)
-        {
-            emailChooser.Show();
-        }
-
-        void emailChooser_Completed(object sender, EmailResult e)
-        {
-            if (e.Error != null)
-                chooserResult.Text = e.Error.Message;
-            else if (e.TaskResult == TaskResult.Cancel)
-                chooserResult.Text = "user canceled";
-            else if (e.TaskResult == TaskResult.None)
-                chooserResult.Text = "no result";
-            else if (e.TaskResult == TaskResult.OK)
-                chooserResult.Text = string.Format("Email Address for {0}\r\n{1}", e.DisplayName, e.Email);
-        }
-
-        private void ChooseStreetAddress_Click(object sender, RoutedEventArgs e)
-        {
-            addressChooser.Show();
-        }
-
-        void addressChooser_Completed(object sender, AddressResult e)
-        {
-            if (e.Error != null)
-                chooserResult.Text = e.Error.Message;
-            else if (e.TaskResult == TaskResult.Cancel)
-                chooserResult.Text = "user canceled";
-            else if (e.TaskResult == TaskResult.None)
-                chooserResult.Text = "no result";
-            else if (e.TaskResult == TaskResult.OK)
-                chooserResult.Text = string.Format("Street Address for {0}\r\n{1}", e.DisplayName, e.Address);
-        }
-        */
-        #endregion
-
     }
 }

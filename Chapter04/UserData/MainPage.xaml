@@ -14,8 +14,7 @@
                             Foreground="{StaticResource PhoneForegroundBrush}"
                             SupportedOrientations="Portrait"
                             Orientation="Portrait"
-                            shell:SystemTray.IsVisible="True"
-                            Loaded="PhoneApplicationPage_Loaded">
+                            shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot"
@@ -27,8 +26,7 @@
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBox x:Name="filterBox"
-                                 Width="350"
-                                 Margin="0,6" />
+                                 Width="350" />
                         <Button Click="searchContacts_Click">
                             <Image Source="/Images/appbar.feature.search.rest.png" />
                         </Button>
@@ -45,39 +43,40 @@
                     <TextBlock Text="Search Result:"
                                Style="{StaticResource PhoneTextGroupHeaderStyle}" />
                     <TextBlock x:Name="searchContactsResult"
-                               Margin="12" />
-                    <StackPanel x:Name="contactLayout"
-                                Margin="12">
-                        <TextBlock Text="{Binding Accounts[0].Name, StringFormat='Account Name: \{0\} '}" />
-                        
-                        <TextBlock Text="{Binding DisplayName, StringFormat='Display Name: \{0\} '}" />
-                        <StackPanel Orientation="Horizontal"
-                                    Margin="0,6">
-                            <TextBlock Text="{Binding CompleteName.FirstName, StringFormat='Complete Name: \{0\}'}" />
-                            <TextBlock Text="{Binding CompleteName.MiddleName}"
-                                       Margin="6,0" />
-                            <TextBlock Text="{Binding CompleteName.LastName}" />
-                        </StackPanel>
+                               Margin="{StaticResource PhoneMargin}" />
 
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding PhoneNumbers[0].Kind, StringFormat='\{0\} Number: '}" />
-                            <TextBlock Text="{Binding PhoneNumbers[0].PhoneNumber}" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding EmailAddresses[0].Kind, StringFormat='\{0\} Email: '}" />
-                            <TextBlock Text="{Binding EmailAddresses[0].EmailAddress}" />
-                        </StackPanel>
+                    <ContentControl x:Name="contactControl">
+                        <ContentControl.ContentTemplate>
+                            <DataTemplate>
+                                <StackPanel  Margin="{StaticResource PhoneMargin}">
+                                    <TextBlock Text="{Binding DisplayName, StringFormat='Display Name: \{0\}'}" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding CompleteName.FirstName, StringFormat='Complete Name: \{0\} '}" />
+                                        <TextBlock Text="{Binding CompleteName.MiddleName,StringFormat='\{0\} '}" />
+                                        <TextBlock Text="{Binding CompleteName.LastName}" />
+                                    </StackPanel>
 
-                        <TextBlock Text="{Binding Addresses[0].Kind, StringFormat='\{0\} Address: '}"
-                                   Margin="0,6,0,0" />
-                        <TextBlock Text="{Binding Addresses[0].PhysicalAddress.AddressLine1}" />
-                        <TextBlock Text="{Binding Addresses[0].PhysicalAddress.City}" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding PhoneNumbers[0].Kind, StringFormat='\{0\} Number: '}" />
+                                        <TextBlock Text="{Binding PhoneNumbers[0].PhoneNumber}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding EmailAddresses[0].Kind, StringFormat='\{0\} Email: '}" />
+                                        <TextBlock Text="{Binding EmailAddresses[0].EmailAddress}" />
+                                    </StackPanel>
 
-                        <TextBlock Text="{Binding Companies[0].CompanyName, StringFormat='Company: \{0\}'}"
-                                   Margin="0,6,0,0" />
-                        <TextBlock Text="{Binding Companies[0].JobTitle, StringFormat='Title: \{0\}'}" />
-                        <TextBlock Text="{Binding Companies[0].OfficeLocation, StringFormat='Office Location: \{0\}'}" />
-                    </StackPanel>
+                                    <TextBlock Text="{Binding Addresses[0].Kind, StringFormat='\{0\} Address: '}" />
+                                    <TextBlock Text="{Binding Addresses[0].PhysicalAddress.AddressLine1}" />
+                                    <TextBlock Text="{Binding Addresses[0].PhysicalAddress.City}" />
+
+                                    <TextBlock Text="{Binding Companies[0].CompanyName, StringFormat='Company: \{0\}'}" />
+                                    <TextBlock Text="{Binding Companies[0].JobTitle, StringFormat='Title: \{0\}'}" />
+                                    <TextBlock Text="{Binding Companies[0].OfficeLocation, StringFormat='Office Location: \{0\}'}" />
+                                </StackPanel>
+                            </DataTemplate>
+
+                        </ContentControl.ContentTemplate>
+                    </ContentControl>
                 </StackPanel>
             </controls:PivotItem>
 
@@ -100,56 +99,33 @@
                             <Image Source="/Images/appbar.feature.search.rest.png" />
                         </Button>
                     </StackPanel>
-                   
+
                     <TextBlock Text="Search Result:"
                                Style="{StaticResource PhoneTextGroupHeaderStyle}" />
                     <TextBlock x:Name="apptsResult"
-                               Margin="12" />
-                    <StackPanel x:Name="appointmentLayout"
-                                Margin="12">
-                        <TextBlock Text="{Binding Account.Name, StringFormat='Account Name: \{0\} '}" />
+                               Margin="{StaticResource PhoneMargin}" />
+                    <ContentControl x:Name="appointmentControl">
+                        <ContentControl.ContentTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="{StaticResource PhoneMargin}">
+                                    <TextBlock Text="{Binding Subject, StringFormat='Subject: \{0\} '}" />
 
-                        <TextBlock Text="{Binding Subject, StringFormat='Subject: \{0\} '}" />
-                        <TextBlock Text="{Binding StartTime, StringFormat='Start: \{0\}'}" />
-                        <TextBlock Text="{Binding EndTime, StringFormat='End: \{0\}'}" />
-                        <TextBlock Text="{Binding Status, StringFormat='Status: \{0\}'}" />
+                                    <TextBlock Text="{Binding StartTime, StringFormat='Start: \{0\}'}" />
+                                    <TextBlock Text="{Binding EndTime, StringFormat='End: \{0\}'}" />
+                                    <TextBlock Text="{Binding Status, StringFormat='Status: \{0\}'}" />
 
-                        <TextBlock Text="{Binding Organizer.DisplayName, StringFormat='Organizer: \{0\}'}" />
+                                    <TextBlock Text="{Binding Organizer.DisplayName, StringFormat='Organizer: \{0\}'}" />
 
-                        <TextBlock Text="{Binding Attendees[0].DisplayName, StringFormat='Attendee: \{0\}'}" />
-                    </StackPanel>
+                                    <TextBlock Text="{Binding Attendees[0].DisplayName, StringFormat='Attendee: \{0\}'}" />
+                                </StackPanel>
+                            </DataTemplate>
+
+                        </ContentControl.ContentTemplate>
+                    </ContentControl>
                 </StackPanel>
             </controls:PivotItem>
 
-            <!--Pivot item three-->
-            <!--<controls:PivotItem Header="choosers">
-                <StackPanel>
-                    <Button Content="Choose Phone Number"
-                            Click="ChoosePhoneNumber_Click" />
-                    <Button Content="Choose Email Address"
-                            Click="ChooseEmailAddress_Click" />
-                    <Button Content="Choose Street Address"
-                            Click="ChooseStreetAddress_Click" />
-                    <TextBlock Text="Chooser Result:"
-                               Style="{StaticResource PhoneTextGroupHeaderStyle}" />
-                    <TextBlock x:Name="chooserResult"
-                               TextWrapping="Wrap"
-                               Text="" />
-                </StackPanel>
-            </controls:PivotItem>-->
         </controls:Pivot>
     </Grid>
-
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton x:Name="appbar_button1" IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
 
 </phone:PhoneApplicationPage>
