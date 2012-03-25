@@ -17,9 +17,9 @@ namespace DataStorage
         public MainPage()
         {
             InitializeComponent();
-            //repository = new HighScoreSettingsRepository();
+            repository = new HighScoreSettingsRepository();
             //repository = new HighScoreFileRepository();
-            repository = new HighScoreDatabaseRepository();
+            //repository = new HighScoreDatabaseRepository();
             highscores = new ObservableCollection<HighScore>(repository.Load());
             HighScoresList.ItemsSource = highscores;
         }

@@ -27,7 +27,9 @@ namespace DataStorage
             if (!db.DatabaseExists())
             {
                 db.CreateDatabase();
-                IsolatedStorageSettings.ApplicationSettings["DatabaseSchemaVersionWhenCreated"] = 2;
+                DatabaseSchemaUpdater updater = db.CreateDatabaseSchemaUpdater();
+                updater.DatabaseSchemaVersion = 1;
+                updater.Execute();
             }
             else
             {
@@ -35,15 +37,9 @@ namespace DataStorage
                 int databaseSchemaVersion = updater.DatabaseSchemaVersion;
                 if (databaseSchemaVersion == 0)
                 {
-                    // get the database version from application settings
-                    databaseSchemaVersion = (int)IsolatedStorageSettings.ApplicationSettings["DatabaseSchemaVersionWhenCreated"];
-                }
-
-                if (databaseSchemaVersion == 1)
-                {
-                    // add the difficulty column introduced in version two
+                    // add the difficulty column introduced in version one
                     updater.AddColumn<HighScore>("Difficulty");
-                    updater.DatabaseSchemaVersion = 2;
+                    updater.DatabaseSchemaVersion = 1;
                     updater.Execute();
                 }
             }
