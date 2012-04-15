@@ -29,13 +29,38 @@ namespace Sensors
             }
         }
 
-        public void SetValue(float value, float scale)
+        private int scale;
+
+        public int Scale
         {
-            int height = (int)(value * scale);
+            get { return scale; }
+            set
+            {
+                scale = value;
+                Update();
+            }
+        }
+
+        private float barValue;
+
+        public float Value
+        {
+            get { return barValue; }
+            set
+            {
+                barValue = value;
+                Update();
+            }
+        }
+
+        private void Update()
+        {
+            int height = (int)(barValue * scale);
             positiveBar.Height = height > 0 ? height : 0;
             negativeBar.Height = height < 0 ? height * -1 : 0;
-            label.Text = value.ToString("0.0");
+            label.Text = barValue.ToString("0.0");
         }
+
 
     }
 }

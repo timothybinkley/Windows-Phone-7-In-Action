@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Microsoft.Phone.Controls;
 using System.Windows.Threading;
 using Microsoft.Devices.Sensors;
+using Microsoft.Phone.Controls;
 using Microsoft.Xna.Framework;
 
 namespace Sensors
@@ -77,7 +68,7 @@ namespace Sensors
                 }
 
                 timer.Start();
-                message.Text = runningMessage;
+                messageBlock.Text = runningMessage;
             }
         }
 
@@ -90,7 +81,7 @@ namespace Sensors
                 compassSensor.Stop();
             if(Gyroscope.IsSupported)
                 gyroSensor.Stop();
-            message.Text = "Press start";
+            messageBlock.Text = "Press start";
         }
 
         void timer_Tick(object sender, EventArgs e)
@@ -108,9 +99,9 @@ namespace Sensors
                 Vector3 acceleration = reading.Acceleration;
                 // height of control = 400; height of postive bar = 200; max value = 2;  
                 // set scale at 200/2 = 100  
-                accelX.SetValue(acceleration.X, 100.0f);
-                accelY.SetValue(acceleration.Y, 100.0f);
-                accelZ.SetValue(acceleration.Z, 100.0f);
+                accelX.Value = acceleration.X;
+                accelY.Value = acceleration.Y;
+                accelZ.Value = acceleration.Z;
             }
         }
 
@@ -122,9 +113,9 @@ namespace Sensors
                 Vector3 magnetic = reading.MagnetometerReading;
                 // height of control = 400; height of postive bar = 200; approximate max value = 50;
                 // set scale at 200/50 = 4
-                compassX.SetValue(magnetic.X, 4.0f);
-                compassY.SetValue(magnetic.Y, 4.0f);
-                compassZ.SetValue(magnetic.Z, 4.0f);
+                compassX.Value = magnetic.X;
+                compassY.Value = magnetic.Y;
+                compassZ.Value = magnetic.Z;
 
                 heading.Text = string.Format("Compass (µT)        Heading {0} +/- {1} degrees", reading.TrueHeading, reading.HeadingAccuracy);
             }
@@ -138,9 +129,9 @@ namespace Sensors
                 Vector3 rotation = reading.RotationRate;
                 // height of control = 400; height of postive bar = 200; reasonable max value = 2pi = 6.25 (1.5 rotation per second)
                 // set scale at 200/6.25 = 32
-                gyroX.SetValue(rotation.X, 32.0f);
-                gyroY.SetValue(rotation.Y, 32.0f);
-                gyroZ.SetValue(rotation.Z, 32.0f);
+                gyroX.Value = rotation.X;
+                gyroY.Value = rotation.Y;
+                gyroZ.Value = rotation.Z;
             }
         }
 

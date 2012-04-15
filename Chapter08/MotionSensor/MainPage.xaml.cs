@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Microsoft.Phone.Controls;
 using Microsoft.Devices.Sensors;
+using Microsoft.Phone.Controls;
 using Microsoft.Xna.Framework;
 
 namespace MotionSensor
@@ -40,29 +31,29 @@ namespace MotionSensor
             {
                 Vector3 acceleration = reading.DeviceAcceleration;
                 // height of control = 400; height of postive bar = 200; max value = 3;  
-                // set scale at 200/3 = 200  
-                accelX.SetValue(acceleration.X, 66.7f);
-                accelY.SetValue(acceleration.Y, 66.7f);
-                accelZ.SetValue(acceleration.Z, 66.7f);
+                // set scale at 200/3 = 67  
+                accelX.Value = acceleration.X;
+                accelY.Value = acceleration.Y;
+                accelZ.Value = acceleration.Z;
 
                 Vector3 gravity = reading.Gravity;
                 // height of control = 400; height of postive bar = 200; max value = 1;  
-                // set scale at 200/1 = 100  
-                gravityX.SetValue(gravity.X, 200.0f);
-                gravityY.SetValue(gravity.Y, 200.0f);
-                gravityZ.SetValue(gravity.Z, 200.0f);
+                // set scale at 200/1 = 200  
+                gravityX.Value = gravity.X;
+                gravityY.Value = gravity.Y;
+                gravityZ.Value = gravity.Z;
 
                 Vector3 rotation = reading.DeviceRotationRate;
                 // height of control = 400; height of postive bar = 200; reasonable max value = 2pi = 6.25 (1.5 rotation per second)
                 // set scale at 200/6.25 = 32
-                gyroX.SetValue(rotation.X, 32.0f);
-                gyroY.SetValue(rotation.Y, 32.0f);
-                gyroZ.SetValue(rotation.Z, 32.0f);
+                gyroX.Value = rotation.X;
+                gyroY.Value = rotation.Y;
+                gyroZ.Value = rotation.Z;
 
                 AttitudeReading attitude = reading.Attitude;
-                attitudeX.SetValue(attitude.Pitch, 64.0f); // 0->pi 200/3.14 = 64
-                attitudeY.SetValue(attitude.Roll, 128.0f);  // 0->pi/2 200/1.57 = 128
-                attitudeZ.SetValue(attitude.Yaw, 32.0f);   // 0->2pi 200/6.28 = 32
+                attitudeX.Value = attitude.Pitch; // 0->pi 200/3.14 = 64
+                attitudeY.Value = attitude.Roll;  // 0->pi/2 200/1.57 = 128
+                attitudeZ.Value = attitude.Yaw;   // 0->2pi 200/6.28 = 32
 
                 Vector3 worldSpacePoint = new Vector3(0.0f, 10.0f, 0.0f);
                 Vector3 bodySpacePoint = Vector3.Transform(worldSpacePoint, attitude.RotationMatrix);

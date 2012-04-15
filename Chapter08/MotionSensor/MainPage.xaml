@@ -47,84 +47,103 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="30" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="48" />
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="30" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="48" />
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="30" />
-                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
             <TextBlock Text="X"
-                       Grid.Column="2" />
+                       Grid.Column="1" />
             <TextBlock Text="Y"
-                       Grid.Column="7" />
+                       Grid.Column="6" />
             <TextBlock Text="Z"
-                       Grid.Column="12" />
+                       Grid.Column="11" />
 
+            <!-- height of control = 400; height of postive bar = 200; max value = 3;  
+                 set scale at 200/3 = 67 -->
             <l:Bar x:Name="accelX"
                    Grid.Row="1"
-                   Grid.Column="1"
-                   BarFill="Red" />
+                   Grid.Column="0"
+                   BarFill="Red"
+                   Scale="67" />
             <l:Bar x:Name="accelY"
                    Grid.Row="1"
-                   Grid.Column="6"
-                   BarFill="Red" />
+                   Grid.Column="5"
+                   BarFill="Red"
+                   Scale="67"/>
             <l:Bar x:Name="accelZ"
                    Grid.Row="1"
-                   Grid.Column="11"
-                   BarFill="Red" />
-            
+                   Grid.Column="10"
+                   BarFill="Red"
+                   Scale="67"/>
+
+            <!-- height of control = 400; height of postive bar = 200; max value = 1;  
+                 set scale at 200/1 = 200 -->
             <l:Bar x:Name="gravityX"
                    Grid.Row="1"
-                   Grid.Column="2"
-                   BarFill="Yellow" />
+                   Grid.Column="1"
+                   BarFill="Yellow"
+                   Scale="200" />
             <l:Bar x:Name="gravityY"
                    Grid.Row="1"
-                   Grid.Column="7"
-                   BarFill="Yellow" />
+                   Grid.Column="6"
+                   BarFill="Yellow"
+                   Scale="200" />
             <l:Bar x:Name="gravityZ"
                    Grid.Row="1"
-                   Grid.Column="12"
-                   BarFill="Yellow" />
-            
+                   Grid.Column="11"
+                   BarFill="Yellow"
+                   Scale="200" />
+
+            <!--height of control = 400; height of postive bar = 200; reasonable max value = 2pi = 6.25 (1.5 rotation per second)
+                set scale at 200/6.25 = 32 -->
             <l:Bar x:Name="gyroX"
                    Grid.Row="1"
-                   Grid.Column="3"
-                   BarFill="Blue" />
+                   Grid.Column="2"
+                   BarFill="Blue"
+                   Scale="32" />
             <l:Bar x:Name="gyroY"
                    Grid.Row="1"
-                   Grid.Column="8"
-                   BarFill="Blue" />
+                   Grid.Column="7"
+                   BarFill="Blue"
+                   Scale="32" />
             <l:Bar x:Name="gyroZ"
                    Grid.Row="1"
-                   Grid.Column="13"
-                   BarFill="Blue" />
+                   Grid.Column="12"
+                   BarFill="Blue"
+                   Scale="32" />
 
+            <!-- 0->pi 200/3.14 = 64 -->
             <l:Bar x:Name="attitudeX"
                    Grid.Row="1"
-                   Grid.Column="4"
-                   BarFill="Violet" />
+                   Grid.Column="3"
+                   BarFill="Violet"
+                   Scale="64"/>
+            <!-- 0->pi/2 200/1.57 = 128 -->
             <l:Bar x:Name="attitudeY"
                    Grid.Row="1"
-                   Grid.Column="9"
-                   BarFill="Violet" />
+                   Grid.Column="8"
+                   BarFill="Violet" 
+                   Scale="128"/>
+            <!-- 0->2pi 200/6.28 = 32 -->
             <l:Bar x:Name="attitudeZ"
                    Grid.Row="1"
-                   Grid.Column="14"
-                   BarFill="Violet" />
+                   Grid.Column="13"
+                   BarFill="Violet"
+                   Scale="32"/>
 
             <StackPanel Grid.Row="2"
-                        Grid.ColumnSpan="16">
+                        Grid.ColumnSpan="14">
                 <TextBlock Foreground="Red"
                            Text="Acceleration (g)" />
                 <TextBlock Foreground="Yellow"
@@ -132,7 +151,7 @@
                 <TextBlock Foreground="Blue"
                            Text="Rotation (rad/sec)" />
                 <TextBlock x:Name="point"
-                    Foreground="Violet"
+                           Foreground="Violet"
                            Text="Attitude" />
             </StackPanel >
 

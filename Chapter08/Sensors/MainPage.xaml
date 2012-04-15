@@ -8,7 +8,7 @@
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                             mc:Ignorable="d"
                             d:DesignWidth="480"
-                            d:DesignHeight="768"
+                            d:DesignHeight="696"
                             FontFamily="{StaticResource PhoneFontFamilyNormal}"
                             FontSize="{StaticResource PhoneFontSizeNormal}"
                             Foreground="{StaticResource PhoneForegroundBrush}"
@@ -48,68 +48,82 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="40" />
                 <ColumnDefinition Width="40" />
                 <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="48" />
                 <ColumnDefinition Width="40" />
                 <ColumnDefinition Width="40" />
                 <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="48" />
                 <ColumnDefinition Width="40" />
                 <ColumnDefinition Width="40" />
                 <ColumnDefinition Width="40" />
-                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
+            
             <TextBlock Text="X"
-                       Grid.Column="2" />
+                       Grid.Column="1" />
             <TextBlock Text="Y"
-                       Grid.Column="6" />
+                       Grid.Column="5" />
             <TextBlock Text="Z"
-                       Grid.Column="10" />
+                       Grid.Column="9" />
 
+            <!--height of control = 400; height of postive bar = 200; max value = 2;  
+                set scale at 200/2 = 100 -->
             <l:Bar x:Name="accelX"
                    Grid.Row="1"
-                   Grid.Column="1"
-                   BarFill="Red" />
+                   Grid.Column="0"
+                   BarFill="Red"
+                   Scale="100"/>
             <l:Bar x:Name="accelY"
                    Grid.Row="1"
-                   Grid.Column="5"
-                   BarFill="Red" />
+                   Grid.Column="4"
+                   BarFill="Red"
+                   Scale="100" />
             <l:Bar x:Name="accelZ"
                    Grid.Row="1"
-                   Grid.Column="9"
-                   BarFill="Red" />
-            
+                   Grid.Column="8"
+                   BarFill="Red"
+                   Scale="100" />
+
+            <!-- height of control = 400; height of postive bar = 200; approximate max value = 50;
+                 set scale at 200/50 = 4-->
             <l:Bar x:Name="compassX"
                    Grid.Row="1"
-                   Grid.Column="2"
-                   BarFill="Yellow" />
+                   Grid.Column="1"
+                   BarFill="Yellow"
+                   Scale="4" />
             <l:Bar x:Name="compassY"
                    Grid.Row="1"
-                   Grid.Column="6"
-                   BarFill="Yellow" />
+                   Grid.Column="5"
+                   BarFill="Yellow"
+                   Scale="4" />
             <l:Bar x:Name="compassZ"
                    Grid.Row="1"
-                   Grid.Column="10"
-                   BarFill="Yellow" />
-            
+                   Grid.Column="9"
+                   BarFill="Yellow"
+                   Scale="4" />
+
+            <!-- height of control = 400; height of postive bar = 200; reasonable max value = 2pi = 6.25 (1.5 rotation per second)
+                 set scale at 200/6.25 = 32 -->
             <l:Bar x:Name="gyroX"
                    Grid.Row="1"
-                   Grid.Column="3"
-                   BarFill="Blue" />
+                   Grid.Column="2"
+                   BarFill="Blue"
+                   Scale="32" />
             <l:Bar x:Name="gyroY"
                    Grid.Row="1"
-                   Grid.Column="7"
-                   BarFill="Blue" />
+                   Grid.Column="6"
+                   BarFill="Blue"
+                   Scale="32" />
             <l:Bar x:Name="gyroZ"
                    Grid.Row="1"
-                   Grid.Column="11"
-                   BarFill="Blue" />
+                   Grid.Column="10"
+                   BarFill="Blue"
+                   Scale="32" />
 
             <StackPanel Grid.Row="2"
-                        Grid.ColumnSpan="12">
+                        Grid.ColumnSpan="11">
                 <TextBlock Foreground="Red"
                            Text="Accelerometer (g)" />
                 <TextBlock x:Name="heading"
@@ -117,7 +131,7 @@
                            Text="Compass (µT)" />
                 <TextBlock Foreground="Blue"
                            Text="Gyroscope (rad/sec)" />
-                <TextBlock x:Name="message"
+                <TextBlock x:Name="messageBlock"
                            Text="Press start" />
             </StackPanel >
 
