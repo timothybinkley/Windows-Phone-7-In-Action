@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
@@ -94,26 +95,18 @@ namespace NotificationClient
             int badgeCount;
             Int32.TryParse(tileBadgeCount.Text, out badgeCount);
 
-            Uri tileUri = new Uri("/", UriKind.Relative);
-            foreach (ShellTile tile in ShellTile.ActiveTiles)
+            ShellTile tile = ShellTile.ActiveTiles.First();
+            StandardTileData tileData = new StandardTileData
             {
-                if (tile.NavigationUri == tileUri)
-                {
-                    // if the tile was found, update it
-                    StandardTileData tileData = new StandardTileData
-                    {
-                        BackgroundImage = new Uri(imagePath, UriKind.Relative),
-                        Count = badgeCount,
-                        Title = tileTitle.Text,
+                BackgroundImage = new Uri(imagePath, UriKind.Relative),
+                Count = badgeCount,
+                Title = tileTitle.Text,
                     
-                        BackBackgroundImage = new Uri(backImagePath, UriKind.Relative),
-                        BackTitle = tileBackTitle.Text,
-                        BackContent = tileBackContent.Text,
-                    };
-                    tile.Update(tileData);
-                    break;
-                }
-            }
+                BackBackgroundImage = new Uri(backImagePath, UriKind.Relative),
+                BackTitle = tileBackTitle.Text,
+                BackContent = tileBackContent.Text,
+            };
+            tile.Update(tileData);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace NotificationSimulator
 
         private void LoadInformation(string trigger)
         {
-            System.Diagnostics.Debug.WriteLine(trigger);
+            //System.Diagnostics.Debug.WriteLine(trigger);
             statusMessage.Text = "loading...";
             ThreadPool.QueueUserWorkItem((state) =>
             {
