@@ -1,21 +1,24 @@
 ﻿using System;
+using System.Linq;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Media;
-using System.Linq;
+using Microsoft.Devices;
 using System.Windows.Navigation;
+using Microsoft.Phone;
+using ExifLib;
+using Microsoft.Xna.Framework.Media;
+using System.Collections.Generic;
 
 namespace PhotoEditor
 {
     public partial class MainPage : PhoneApplicationPage
     {
         private WriteableBitmap currentImage;
-        private Object camera; //private PhotoCamera camera;
+        private PhotoCamera camera;
 
         // Constructor
         public MainPage()
@@ -25,11 +28,14 @@ namespace PhotoEditor
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            imageDetails.Text = "";
+            if (State.ContainsKey("customCamera"))
+            {
+                State.Remove("customCamera");
+                InitializeCamera();
+            }
 
-            IDictionary<string, string> queryStrings =
-               NavigationContext.QueryString;
-
+            IDictionary<string, string> queryStrings = NavigationContext.QueryString;
+            
             string token = null;
             string source = null;
             if (queryStrings.ContainsKey("token"))
@@ -40,55 +46,63 @@ namespace PhotoEditor
             else if (queryStrings.ContainsKey("FileId"))
             {
                 token = queryStrings["FileId"];
-                source = "Photos_Extra_Share";
+                source = "Share";
             }
 
             if (!string.IsNullOrEmpty(token))
             {
                 MediaLibrary mediaLib = new MediaLibrary();
                 Picture picture = mediaLib.GetPictureFromToken(token);
-                currentImage = ImageUtil.GetBitmap(picture.GetImage());
+
+                currentImage = PictureDecoder.DecodeJpeg(picture.GetImage());
                 photoContainer.Fill = new ImageBrush { ImageSource = currentImage };
                 imageDetails.Text = string.Format("Image from {0}.\nPicture name:\n{1}\nMedia library token:\n{2}",
                     source, picture.Name, token);
             }
 
-            imageDetails.Text += "\nUri: " + e.Uri.ToString();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            if (camera != null)
+            {
+                CleanUpCamera();
+                State["customCamera"] = true;
+            }
         }
 
         private void Choose_Click(object sender, EventArgs e)
         {
             var task = new PhotoChooserTask();
             task.ShowCamera = true;
-            task.Completed += new EventHandler<PhotoResult>(phoneChooserTask_Completed);
+            task.Completed += chooserTask_Completed;
             task.Show();
-        }
-
-        void phoneChooserTask_Completed(object sender, PhotoResult e)
-        {
-            if (e.TaskResult == TaskResult.OK)
-            {
-                currentImage = ImageUtil.GetBitmap(e.ChosenPhoto);
-                photoContainer.Fill = new ImageBrush { ImageSource = currentImage };
-                imageDetails.Text = string.Format("Image from PhotoChooserTask\nOriginal filename:\n{0}", e.OriginalFileName);
-            }
         }
 
         private void Capture_Click(object sender, EventArgs e)
         {
             var task = new CameraCaptureTask();
-            task.Completed += new EventHandler<PhotoResult>(cameraCaptureTask_Completed);
+            task.Completed += chooserTask_Completed;
             task.Show();
         }
 
-        void cameraCaptureTask_Completed(object sender, PhotoResult e)
+        void chooserTask_Completed(object sender, PhotoResult e)
         {
             if (e.TaskResult == TaskResult.OK)
             {
-                var angle = ImageUtil.GetAngleFromChosenPhoto(e.ChosenPhoto, e.OriginalFileName);
-                currentImage = ImageUtil.GetBitmap(e.ChosenPhoto, angle);
+                int angle = GetAngleFromExif(e.ChosenPhoto);
+                currentImage = DecodeImage(e.ChosenPhoto, angle);
+                //currentImage = PictureDecoder.DecodeJpeg(e.ChosenPhoto);
+
                 photoContainer.Fill = new ImageBrush { ImageSource = currentImage };
-                imageDetails.Text = string.Format("Image from CameraCaptureTask.\nImage was rotated {0} degrees.\nOriginal filename:\n{0}", angle, e.OriginalFileName);
+                imageDetails.Text = string.Format("Image from {0}\n", sender.GetType().Name);
+                imageDetails.Text += string.Format("Image rotated {0} degrees.\n", angle);
+                imageDetails.Text += string.Format("Original filename:\n{0}", e.OriginalFileName);
+            }
+            else
+            {
+                photoContainer.Fill = new SolidColorBrush(Colors.Gray);
+                imageDetails.Text = e.TaskResult.ToString();
             }
         }
 
@@ -97,54 +111,95 @@ namespace PhotoEditor
             if (camera == null)
             {
                 currentImage = null;
-                imageDetails.Text = string.Format("Choose custom camera again to close camera. Use the hardware buttons to take a picture.");
-                camera = new Object(); //    camera = new PhotoCamera();
-                //    TODO: wire up the appropriate hardware buttons to call event handlers
-                //    camera.ButtonFullPress += camera_ButtonFullPress
-                //    camera.CaptureImageCompleted += camera_CaptureImageCompleted
-                //    camera.Start();
-                //
-                //    var brush = new VideoBrush();
-                //    brush.SetSource(camera);
-                photoContainer.Fill = new SolidColorBrush(Colors.Gray); //    photoContainer.Fill = brush;
+                imageDetails.Text = string.Format("Choose custom camera again to close camera. Use the hardware shutter button to take a picture.\n");
+                InitializeCamera();
             }
             else
             {
+                CleanUpCamera();
                 photoContainer.Fill = new SolidColorBrush(Colors.Gray);
                 imageDetails.Text = "Choose an image source from the menu.";
-
-                //    camera.ButtonFullPress -= camera_ButtonFullPress
-                //    camera.CaptureImageCompleted -= camera_CaptureImageCompleted
-                //    camera.Stop();
-                camera = null;
             }
         }
 
-        //private void camera_ButtonFullPress(object sender, EventArgs e)
-        //{
-        //    camera.CaptureImageAsync();
-        //}
+        void InitializeCamera()
+        {
+            camera = new PhotoCamera(CameraType.Primary);
+            camera.Initialized += camera_Initialized;
+            camera.CaptureImageAvailable += camera_CaptureImageAvailable;
+            camera.CaptureCompleted += camera_CaptureCompleted;
 
-        //void camera_CaptureImageCompleted(object sender, CaptureImageCompletedEventArgs e)
-        //{
-        //    currentImage = e.Result;
-        //    photoContainer.Fill = new ImageBrush { ImageSource = e.Result };
-        //    imageDetails.Text = string.Format("Image from PhotoEditor.");
-        //    camera.Stop();
-        //    camera = null;
-        //}
+            CameraButtons.ShutterKeyPressed += cameraButtons_ShutterKeyPressed;
+
+            // create and rotate the brush since our orientation does not match the cameras default orientation.
+            var brush = new VideoBrush();
+            brush.SetSource(camera);
+            brush.RelativeTransform = new RotateTransform { CenterX = 0.5, CenterY = 0.5, Angle = camera.Orientation };
+            photoContainer.Fill = brush;
+        }
+
+        void camera_Initialized(object sender, CameraOperationCompletedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                imageDetails.Text += string.Format("{0} supported resolutions.\n", camera.AvailableResolutions.Count());
+                imageDetails.Text += string.Format("Current resolution: {0}\n", camera.Resolution);
+                imageDetails.Text += string.Format("Preview resolution: {0}\n", camera.PreviewResolution);
+            });
+
+            camera.Initialized -= camera_Initialized;
+        }
+
+        void CleanUpCamera()
+        {
+            CameraButtons.ShutterKeyPressed -= cameraButtons_ShutterKeyPressed;
+            camera.CaptureImageAvailable -= camera_CaptureImageAvailable;
+            camera.CaptureCompleted -= camera_CaptureCompleted;
+            camera.Dispose();
+            camera = null;
+        }
+
+        private void cameraButtons_ShutterKeyPressed(object sender, EventArgs e)
+        {
+            camera.CaptureImage();
+        }
+
+        void camera_CaptureImageAvailable(object sender, ContentReadyEventArgs e)
+        {
+            Dispatcher.BeginInvoke(() =>
+            {
+                currentImage = DecodeImage(e.ImageStream, (int)camera.Orientation);
+                photoContainer.Fill = new ImageBrush { ImageSource = currentImage };
+                imageDetails.Text = "Image captured from PhotoCamera.";
+            });
+        }
+
+        void camera_CaptureCompleted(object sender, CameraOperationCompletedEventArgs e)
+        {
+            if (!e.Succeeded)
+            {
+                photoContainer.Fill = new SolidColorBrush(Colors.Gray);
+                imageDetails.Text = "Camera capture failed.\n" + e.Exception.Message;
+            }
+            CleanUpCamera();
+        }
 
         private void Edit_Click(object sender, EventArgs e)
         {
             if (currentImage != null)
             {
-                var transform = new ScaleTransform
-                {
-                    ScaleX = currentImage.PixelWidth / photoBorder.ActualWidth,
-                    ScaleY = currentImage.PixelHeight / photoBorder.ActualHeight
-                };
-                currentImage.Render(photoBorder, transform);
                 currentImage.Invalidate();
+                var transform = new CompositeTransform
+                {
+                    ScaleX = currentImage.PixelWidth / photoContainer.ActualWidth,
+                    ScaleY = currentImage.PixelHeight / photoContainer.ActualHeight,
+                    Rotation = -35,
+                    TranslateX = 100 * currentImage.PixelWidth / photoContainer.ActualWidth,
+                    TranslateY = 250 * currentImage.PixelHeight / photoContainer.ActualHeight,
+                };
+                currentImage.Render(photoStamp, transform);
+                currentImage.Invalidate();
+                imageDetails.Text = "The picture has been stamped.";
             }
         }
 
@@ -152,21 +207,15 @@ namespace PhotoEditor
         {
             if (currentImage != null)
             {
-                //using (IsolatedStorageFile storage =
-                //IsolatedStorageFile.GetUserStoreForApplication())
-                //{
-                //    using (IsolatedStorageFileStream stream =
-                //        storage.CreateFile(@"customphoto.jpg"))
-                //    {
-                //        currentImage.SaveJpeg(stream, currentImage.PixelWidth, currentImage.PixelHeight, 0, 100);
-                //    }
-                //}
                 var stream = new MemoryStream();
-                currentImage.SaveJpeg(stream, currentImage.PixelWidth, currentImage.PixelHeight, 0, 100);
+                currentImage.SaveJpeg(stream, currentImage.PixelWidth,
+                    currentImage.PixelHeight, 0, 100);
                 stream.Seek(0, 0);
+
                 var library = new MediaLibrary();
-                Picture p = library.SavePicture("customphoto", stream);
-                imageDetails.Text = string.Format("Image saved to media library.\nFilename:\ncustomphoto.jpg");
+                Picture p = library.SavePicture("customphoto.jpg", stream);
+                imageDetails.Text = string.Format(
+                  "Image saved to media library.\r\nFilename:\r\ncustomphoto.jpg");
             }
         }
 
@@ -176,16 +225,86 @@ namespace PhotoEditor
             {
                 if (storage.FileExists(@"customphoto.jpg"))
                 {
-                    // load the data file into the contacts list.
                     using (IsolatedStorageFileStream stream =
                         storage.OpenFile(@"customphoto.jpg", FileMode.Open))
                     {
-                        currentImage = ImageUtil.GetBitmap(stream);
+                        currentImage = PictureDecoder.DecodeJpeg(stream);
                         photoContainer.Fill = new ImageBrush { ImageSource = currentImage };
                     }
+                    imageDetails.Text = string.Format("Image loaded from filename:\ncustomphoto.jpg");
                 }
-                imageDetails.Text = string.Format("Image loaded.\nFilename:\ncustomphoto.jpg");
+                else
+                {
+                    photoContainer.Fill = new SolidColorBrush(Colors.Gray);
+                    imageDetails.Text = "Image not found!";
+                }
             }
+        }
+
+        private WriteableBitmap DecodeImage(Stream imageStream, int angle)
+        {
+            WriteableBitmap source = PictureDecoder.DecodeJpeg(imageStream);
+
+            switch (angle)
+            {
+                case 90:
+                case 270:
+                    return RotateBitmap(source, source.PixelHeight, source.PixelWidth, angle);
+                case 180:
+                    return RotateBitmap(source, source.PixelWidth, source.PixelHeight, angle);
+                default:
+                    return source;
+            }
+        }
+
+        private int GetAngleFromExif(Stream imageStream)
+        {
+            var position = imageStream.Position;
+            imageStream.Position = 0;
+            var orientation = ExifReader.ReadJpeg(imageStream, String.Empty).Orientation;
+            imageStream.Position = position;
+
+            switch (orientation)
+            {
+                case ExifOrientation.TopRight:
+                    return 90;
+                case ExifOrientation.BottomRight:
+                    return 180;
+                case ExifOrientation.BottomLeft:
+                    return 270;
+                case ExifOrientation.TopLeft:
+                case ExifOrientation.Undefined:
+                default:
+                    return 0;
+            }
+        }
+
+        private WriteableBitmap RotateBitmap(WriteableBitmap source, int width, int height, int angle)
+        {
+            var target = new WriteableBitmap(width, height);
+            int sourceIndex = 0;
+            int targetIndex = 0;
+            for (int x = 0; x < source.PixelWidth; x++)
+            {
+                for (int y = 0; y < source.PixelHeight; y++)
+                {
+                    sourceIndex = x + y * source.PixelWidth;
+                    switch (angle)
+                    {
+                        case 90:
+                            targetIndex = (source.PixelHeight - y - 1) + x * target.PixelWidth;
+                            break;
+                        case 180:
+                            targetIndex = (source.PixelWidth - x - 1) + (source.PixelHeight - y - 1) * source.PixelWidth;
+                            break;
+                        case 270:
+                            targetIndex = y + (source.PixelWidth - x - 1) * target.PixelWidth;
+                            break;
+                    }
+                    target.Pixels[targetIndex] = source.Pixels[sourceIndex];
+                }
+            }
+            return target;
         }
 
         private void OpenFromLibrary_Click(object sender, EventArgs e)
@@ -193,16 +312,18 @@ namespace PhotoEditor
             var library = new MediaLibrary();
             var pictures = library.SavedPictures;
 
-            // find customphoto.jpeg
-            var picture = pictures.FirstOrDefault(item => item.Name == "customphoto.jpg");
+            var picture = pictures.FirstOrDefault(
+                item => item.Name == "customphoto.jpg");
             if (picture != null)
             {
                 using (var stream = picture.GetImage())
                 {
-                    currentImage = ImageUtil.GetBitmap(picture.GetImage());
+                    currentImage = PictureDecoder.DecodeJpeg(stream);
                 }
                 photoContainer.Fill = new ImageBrush { ImageSource = currentImage };
-                imageDetails.Text = string.Format("Image from Album: {0}\nPicture name: {1}", picture.Album, picture.Name);
+                imageDetails.Text = string.Format(
+                    "Image from Album: {0}\r\nPicture name: {1}",
+                    picture.Album, picture.Name);
             }
             else
             {
@@ -210,5 +331,7 @@ namespace PhotoEditor
                 imageDetails.Text = "Choose an image source from the menu.";
             }
         }
+
+
     }
 }

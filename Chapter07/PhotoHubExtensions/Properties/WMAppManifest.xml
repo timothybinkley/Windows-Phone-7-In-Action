@@ -3,17 +3,20 @@
   <App xmlns="" ProductID="{8ca0794e-ca49-42ba-a7cf-b6e5f2cde4e7}" Title="Photo Editor" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Camera author" Description="Sample description" Publisher="Camera">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
-      <Capability Name="ID_CAP_GAMERSERVICES" />
-      <Capability Name="ID_CAP_IDENTITY_DEVICE" />
-      <Capability Name="ID_CAP_IDENTITY_USER" />
-      <Capability Name="ID_CAP_LOCATION" />
-      <Capability Name="ID_CAP_MEDIALIB" />
-      <Capability Name="ID_CAP_MICROPHONE" />
-      <Capability Name="ID_CAP_NETWORKING" />
-      <Capability Name="ID_CAP_PHONEDIALER" />
-      <Capability Name="ID_CAP_PUSH_NOTIFICATION" />
-      <Capability Name="ID_CAP_SENSORS" />
-      <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
+      <Capability Name="ID_CAP_GAMERSERVICES"/>
+      <Capability Name="ID_CAP_IDENTITY_DEVICE"/>
+      <Capability Name="ID_CAP_IDENTITY_USER"/>
+      <Capability Name="ID_CAP_LOCATION"/>
+      <Capability Name="ID_CAP_MEDIALIB"/>
+      <Capability Name="ID_CAP_MICROPHONE"/>
+      <Capability Name="ID_CAP_NETWORKING"/>
+      <Capability Name="ID_CAP_PHONEDIALER"/>
+      <Capability Name="ID_CAP_PUSH_NOTIFICATION"/>
+      <Capability Name="ID_CAP_SENSORS"/>
+      <Capability Name="ID_CAP_WEBBROWSERCOMPONENT"/>
+      <Capability Name="ID_CAP_ISV_CAMERA"/>
+      <Capability Name="ID_CAP_CONTACTS"/>
+      <Capability Name="ID_CAP_APPOINTMENTS"/>
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
