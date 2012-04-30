@@ -65,7 +65,7 @@ namespace GraphicsWorld
 
                 // Disable the application idle detection by setting the UserIdleDetectionMode property of the
                 // application's PhoneApplicationService object to Disabled.
-                // Caution:- Use this under debug mode only. Application that disable user idle detection will continue to run
+                // Caution:- Use this under debug mode only. Application that disables user idle detection will continue to run
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010 Express for Windows Phone
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrientationSupport", "OrientationSupport.csproj", "{08EE3A5F-6957-4966-BE41-1BC7E3A0A872}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrientationWithStates", "OrientationWithStates.csproj", "{08EE3A5F-6957-4966-BE41-1BC7E3A0A872}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

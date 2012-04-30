@@ -72,6 +72,12 @@
                     <CheckBox Content="ApplicationBar.IsVisible"
                               IsChecked="True"
                               Click="appBarVisible_Clicked" />
+                    <CheckBox Content="ApplicationBar.Mode = Minimized"
+                              IsChecked="False"
+                              Click="appBarMode_Clicked" />
+                    <CheckBox Content="ApplicationBar.Opacity = 50%"
+                              IsChecked="False"
+                              Click="appBarOpacity_Clicked" /> 
                     <CheckBox Content="ApplicationBar.IsMenuEnabled"
                               IsChecked="True"
                               Click="appBarEnabled_Clicked" />

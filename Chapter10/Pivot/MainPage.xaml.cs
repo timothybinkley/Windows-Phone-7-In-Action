@@ -33,7 +33,7 @@ namespace Pivot
 
         private void pivot_Loaded(object sender, RoutedEventArgs e)
         {
-            if(State.ContainsKey("selection"))
+            if (State.ContainsKey("selection"))
             {
                 pivot.SelectedIndex = (int)State["selection"];
             }

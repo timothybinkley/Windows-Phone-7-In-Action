@@ -23,5 +23,10 @@ namespace UserInterfaceControls.Toolkit
             menuItem2.IsEnabled = checkBox.IsChecked.Value;
         }
 
+        private void ContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("menu opened");
+        }
+
     }
 }

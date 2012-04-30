@@ -49,6 +49,25 @@ namespace ApplicationBar
             ApplicationBar.IsVisible = checkBox.IsChecked.Value;
         }
 
+        private void appBarMode_Clicked(object sender, RoutedEventArgs e)
+        {
+            var checkBox = (CheckBox)sender;
+            if (checkBox.IsChecked.Value)
+                ApplicationBar.Mode = ApplicationBarMode.Minimized;
+            else
+                ApplicationBar.Mode = ApplicationBarMode.Default;
+            LayoutRoot.UpdateLayout();
+        }
+
+        private void appBarOpacity_Clicked(object sender, RoutedEventArgs e)
+        {
+            var checkBox = (CheckBox)sender;
+            if (checkBox.IsChecked.Value)
+                ApplicationBar.Opacity = 0.5;
+            else
+                ApplicationBar.Opacity = 1.0;
+        }
+
         private void appBarEnabled_Clicked(object sender, RoutedEventArgs e)
         {
             var checkBox = (CheckBox)sender;
@@ -103,5 +122,9 @@ namespace ApplicationBar
         {
             System.Diagnostics.Debug.WriteLine("IsMenuVisible: " + e.IsMenuVisible);
         }
+
+        
+
+       
     }
 }
