@@ -54,10 +54,12 @@
                           MediaFailed="mediaElement_MediaFailed"
                           Volume="{Binding ElementName=volumeSlider, Path=Value}" />
 
+            <!--
             <ProgressBar x:Name="mediaProgress"
                          VerticalAlignment="Center"
                          IsIndeterminate="True"
                          Visibility="Collapsed" />
+            -->
 
             <TextBlock x:Name="sourceTextBlock"
                        Text="video from xap"
@@ -80,7 +82,7 @@
                     Maximum="1.0"
                     SmallChange="0.05"
                     LargeChange="0.1"
-                    Value="0.85"/>
+                    Value="0.85" />
 
             <TextBlock x:Name="mutedTextBlock"
                        Grid.Row="3"
@@ -125,5 +127,12 @@
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
+
+    <shell:SystemTray.ProgressIndicator>
+        <shell:ProgressIndicator x:Name="mediaProgress"
+                                 IsIndeterminate="True"
+                                 IsVisible="True"
+                                 Text="Loading..."/>
+    </shell:SystemTray.ProgressIndicator>
 
 </phone:PhoneApplicationPage>

@@ -95,9 +95,12 @@ namespace MediaPlayback
         {
             stateTextBlock.Text = mediaElement.CurrentState.ToString();
             if (mediaElement.CurrentState == MediaElementState.Opening)
-                mediaProgress.Visibility = Visibility.Visible;
+                //mediaProgress.Visibility = Visibility.Visible;
+                mediaProgress.IsVisible = true;
             else
-                mediaProgress.Visibility = Visibility.Collapsed;
+                //mediaProgress.Visibility = Visibility.Collapsed;
+                mediaProgress.IsVisible = false;
+
         }
 
         private void mediaElement_MediaFailed(object sender, ExceptionRoutedEventArgs e)
