@@ -82,9 +82,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GraphicsWorldLibraryContent\GraphicsWorldLibraryContent.contentproj">
-      <Name>GraphicsWorldLibraryContent</Name>
+    <ProjectReference Include="..\GraphicsWorldLibContent\GraphicsWorldLibContent.contentproj">
+      <Name>GraphicsWorldLibContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{C9C2850E-9712-47AD-A661-4A23416216FD}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

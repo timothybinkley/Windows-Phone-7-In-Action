@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010 Express for Windows Phone
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsWorld", "GraphicsWorld\GraphicsWorld.csproj", "{EBA9FC77-CF39-4C3E-B080-F9B032F578C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsWorldLibrary", "GraphicsWorldLibrary\GraphicsWorldLibrary.csproj", "{06277A0B-CA1A-4356-8848-A227F50F2DA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsWorldLib", "GraphicsWorldLib\GraphicsWorldLib.csproj", "{06277A0B-CA1A-4356-8848-A227F50F2DA0}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "GraphicsWorldLibraryContent", "GraphicsWorldLibraryContent\GraphicsWorldLibraryContent.contentproj", "{C9C2850E-9712-47AD-A661-4A23416216FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsWorldLibContent", "GraphicsWorldLibContent\GraphicsWorldLibContent.contentproj", "{C9C2850E-9712-47AD-A661-4A23416216FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

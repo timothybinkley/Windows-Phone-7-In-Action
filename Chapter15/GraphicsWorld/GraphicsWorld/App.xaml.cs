@@ -18,9 +18,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace GraphicsWorld
 {
-    // The App implements IServiceProvider for ContentManagers and other types to
-    // be able to access the graphics device services.
-    public partial class App : Application, IServiceProvider
+    public partial class App : Application
     {
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -32,6 +30,16 @@ namespace GraphicsWorld
         /// Provides access to a ContentManager for the application.
         /// </summary>
         public ContentManager Content { get; private set; }
+
+        /// <summary>
+        /// Provides access to a GameTimer that is set up to pump the FrameworkDispatcher.
+        /// </summary>
+        public GameTimer FrameworkDispatcherTimer { get; private set; }
+
+        /// <summary>
+        /// Provides access to the AppServiceProvider for the application.
+        /// </summary>
+        public AppServiceProvider Services { get; private set; }
 
         /// <summary>
         /// Constructor for the Application object.
@@ -157,13 +165,23 @@ namespace GraphicsWorld
         // Performs initialization of the XNA types required for the application.
         private void InitializeXnaApplication()
         {
+            // Create the service provider
+            Services = new AppServiceProvider();
+
+            // Add the SharedGraphicsDeviceManager to the Services as the IGraphicsDeviceService for the app
+            foreach (object obj in ApplicationLifetimeObjects)
+            {
+                if (obj is IGraphicsDeviceService)
+                    Services.AddService(typeof(IGraphicsDeviceService), obj);
+            }
+
             // Create the ContentManager so the application can load precompiled assets
-            Content = new ContentManager(this, "Content");
+            Content = new ContentManager(Services, "Content");
 
             // Create a GameTimer to pump the XNA FrameworkDispatcher
-            GameTimer frameworkDispatcherTimer = new GameTimer();
-            frameworkDispatcherTimer.FrameAction += FrameworkDispatcherFrameAction;
-            frameworkDispatcherTimer.Start();
+            FrameworkDispatcherTimer = new GameTimer();
+            FrameworkDispatcherTimer.FrameAction += FrameworkDispatcherFrameAction;
+            FrameworkDispatcherTimer.Start();
         }
 
         // An event handler that pumps the FrameworkDispatcher each frame.
@@ -172,28 +190,6 @@ namespace GraphicsWorld
         private void FrameworkDispatcherFrameAction(object sender, EventArgs e)
         {
             FrameworkDispatcher.Update();
-        }
-
-        #endregion
-
-        #region IServiceProvider Members
-
-        /// <summary>
-        /// Gets a service from the ApplicationLifetimeObjects collection.
-        /// </summary>
-        /// <param name="serviceType">The type of service to retrieve.</param>
-        /// <returns>The first item in the ApplicationLifetimeObjects collection of the requested type.</returns>
-        public object GetService(Type serviceType)
-        {
-            // Find the first item that matches the requested type
-            foreach (object item in ApplicationLifetimeObjects)
-            {
-                if (serviceType.IsAssignableFrom(item.GetType()))
-                    return item;
-            }
-
-            // Throw an exception if there was no matching item
-            throw new InvalidOperationException("No object in the ApplicationLifetimeObjects is assignable to " + serviceType);
         }
 
         #endregion

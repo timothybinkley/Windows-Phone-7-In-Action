@@ -14,8 +14,6 @@
                             d:DesignHeight="800"
                             d:DesignWidth="480"
                             shell:SystemTray.IsVisible="False">
-
-    <!--No XAML content as the page is rendered entirely with XNA-->
     <Canvas x:Name="LayoutRoot">
         <Border x:Name="scoreboard"
                 Canvas.Left="12"

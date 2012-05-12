@@ -11,8 +11,8 @@ namespace GraphicsWorld
 {
     public partial class GamePage : PhoneApplicationPage
     {
+        ContentManager contentManager;
         GameTimer timer;
-        ContentManager content;
         SpriteBatch spriteBatch;
         GamePlayComponent gamePlay = new GamePlayComponent();
         IGamePlayInput input;
@@ -35,8 +35,8 @@ namespace GraphicsWorld
         {
             InitializeComponent();
 
-            // Get the application's ContentManager
-            content = (Application.Current as App).Content;
+            // Get the content manager from the application
+            contentManager = (Application.Current as App).Content;
 
             // Create a timer for this page
             timer = new GameTimer();
@@ -54,6 +54,7 @@ namespace GraphicsWorld
             // Set the sharing mode of the graphics device to turn on XNA rendering
             SharedGraphicsDeviceManager.Current.GraphicsDevice.SetSharingMode(true);
 
+            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(SharedGraphicsDeviceManager.Current.GraphicsDevice);
 
             string inputType = this.NavigationContext.QueryString["Input"];
@@ -75,8 +76,9 @@ namespace GraphicsWorld
                     input = new DemoInput();
                     break;
             }
-            input.Initialize(content);             
-            gamePlay.Initialize(content, input);
+            input.Initialize(contentManager);             
+
+            gamePlay.Initialize(contentManager, input);
 
             // Start the timer
             timer.Start();
@@ -141,7 +143,7 @@ namespace GraphicsWorld
             device.DepthStencilState = DepthStencilState.Default;
             device.RasterizerState = RasterizerState.CullCounterClockwise;
             device.BlendState = BlendState.AlphaBlend;
-            device.Clear(Color.SkyBlue); 
+            device.Clear(Color.CornflowerBlue); 
             gamePlay.Draw();
             input.Draw();
     

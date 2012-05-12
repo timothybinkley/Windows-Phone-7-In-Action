@@ -14,7 +14,8 @@ namespace GraphicsWorld
             motionSensor.IsEnabled = Motion.IsSupported;
         }
 
-        private void playGame(object sender, RoutedEventArgs e)
+        // Simple button Click event handler to take us to the second page
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
             int input = 0;
             if (thumbstick.IsChecked.HasValue && thumbstick.IsChecked.Value)

@@ -10,8 +10,8 @@ namespace GraphicsWorld
 {
     public partial class GamePage : PhoneApplicationPage
     {
+        ContentManager contentManager;
         GameTimer timer;
-        ContentManager content;
         SpriteBatch spriteBatch;
         GamePlayComponent gamePlay = new GamePlayComponent();
         IGamePlayInput input;
@@ -20,17 +20,12 @@ namespace GraphicsWorld
         UIElementRenderer scoreboardRenderer;
         Vector2 scoreboardPosition = new Vector2(12, 12);
 
-        public static Uri BuildNavigationUri()
-        {
-            return new Uri("/GamePage.xaml", UriKind.Relative); 
-        }
-
         public GamePage()
         {
             InitializeComponent();
 
-            // Get the application's ContentManager
-            content = (Application.Current as App).Content;
+            // Get the content manager from the application
+            contentManager = (Application.Current as App).Content;
 
             // Create a timer for this page
             timer = new GameTimer();
@@ -43,14 +38,15 @@ namespace GraphicsWorld
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-
             // Set the sharing mode of the graphics device to turn on XNA rendering
             SharedGraphicsDeviceManager.Current.GraphicsDevice.SetSharingMode(true);
 
+            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(SharedGraphicsDeviceManager.Current.GraphicsDevice);
 
+            // TODO: use this.content to load your game content here
             input = new DemoInput();
-            gamePlay.Initialize(content, input);
+            gamePlay.Initialize(contentManager, input);
 
             // Start the timer
             timer.Start();
@@ -75,6 +71,7 @@ namespace GraphicsWorld
         /// </summary>
         private void OnUpdate(object sender, GameTimerEventArgs e)
         {
+            // TODO: Add your update logic here
             input.Update();
             gamePlay.Update();
             score.Text = gamePlay.Score.ToString();
